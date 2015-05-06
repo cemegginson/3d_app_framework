@@ -1,0 +1,9 @@
+build
+temp
+*.o
+*.exe
+<stdin>
+gamebin
+GameHomework
+*.ilk
+*.pdb

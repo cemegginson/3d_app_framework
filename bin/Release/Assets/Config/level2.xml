@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Level>
+    <!-- NPC Layout for Game 	-->
+    <GameAsset name="Carrier" x="100.0f" y="100.0f"angle="0.0f"/>
+    <GameAsset name="Carrier" x="0.0f" y="200.0f"angle="-180.0f"/>
+    <GameAsset name="Infantry" x="100.0f" y="50.0f"angle="0.0f"/>
+    <GameAsset name="Infantry" x="-25.0f" y="0.0f"angle="270.0f"/>
+    <GameAsset name="Infantry" x="-75.0f" y="0.0f"angle="270.0f"/>
+    <GameAsset name="Infantry" x="-35.0f" y="-100.0f"angle="270.0f"/>
+    <GameAsset name="Carrier" x="-125.0f" y="-40.0f"angle="270.0f"/>
+</Level>
