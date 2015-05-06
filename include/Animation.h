@@ -16,16 +16,19 @@ protected:
     float32 frame_time_;
     uint16 current_frame_;
 
-    std::map<ActorEvent, bool> actor_events_;
+    std::map<State, bool> last_state_;
+    std::map<State, bool> state_;
     bool event_state_is_current_;
 
 public:
     Animation(std::shared_ptr<Actor>);
     ~Animation();
     void Update(float32);
+    void UpdateState();
     void Initialize();
     void AddAnimation(std::string, std::vector<SDL_Rect>*);
+    void ChooseAnimation();
     void SetAnimation(std::string);
     bool EventStateIsCurrent();
-    void SyncEventState();
+    void CopyEventState();
 };
