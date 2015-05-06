@@ -9,7 +9,7 @@ Animation::~Animation() {
 
 void Animation::Update(float32 delta_time) {
     frame_time_ += delta_time;
-    if(frame_time_ >= .25) {
+    if(frame_time_ >= .07) {
         frame_time_ = 0;
         current_frame_++;
         if(current_animation_ != nullptr && current_frame_ >= current_animation_->size()) {
@@ -20,31 +20,27 @@ void Animation::Update(float32 delta_time) {
     if(!EventStateIsCurrent()) {
         SyncEventState();
 
-        if(actor_events_.at(MOVE_LEFT)) {
-            ;
+        if(owner_->CheckEvent(MOVE_LEFT)) {
+            SetAnimation("run-left");
         }
-        if(actor_events_.at(MOVE_RIGHT)) {
+        if(owner_->CheckEvent(MOVE_RIGHT)) {
             SetAnimation("run-right");
         }
-        if(actor_events_.at(MOVE_UP)) {
+        if(owner_->CheckEvent(MOVE_UP)) {
             ;
         }
-        if(actor_events_.at(MOVE_DOWN)) {
-            ;
-        }
-        if(actor_events_.at(TURN_LEFT)) {
-            ;
-        }
-        if(actor_events_.at(TURN_RIGHT)) {
+        if(owner_->CheckEvent(MOVE_DOWN)) {
             ;
         }
     }
 }
 
 void Animation::Initialize() {
-    for(auto iter = actor_events_.begin(); iter != actor_events_.end(); ++iter) {
-        iter->second = false;
-    }
+    actor_events_[MOVE_UP] = false;
+    actor_events_[MOVE_DOWN] = false;
+    actor_events_[MOVE_LEFT] = false;
+    actor_events_[MOVE_RIGHT] = false;
+
     SetAnimation("face-screen");
 }
 

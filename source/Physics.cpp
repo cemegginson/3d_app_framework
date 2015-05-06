@@ -120,7 +120,7 @@ void RigidRectangle::Update(float32 delta_time) {
 
     b2Vec2 jump;
     jump.x = 0;
-    jump.y = 5;
+    jump.y = 300;
 
     if(controllable_) {
         if(owner_->CheckEvent(TURN_LEFT)) {

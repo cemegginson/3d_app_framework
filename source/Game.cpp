@@ -51,8 +51,8 @@ bool Game::Initialize(GraphicsDevice* graphics_device, InputDevice* input_device
 	//Set boundaries of world (Render->Physics)
 	const b2Vec2 vTopLeft = b2Vec2(RW2PW(0),RW2PW(0));
 	const b2Vec2 vTopRight = b2Vec2(RW2PW((sint32)screen_width),RW2PW(0));
-	const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0),RW2PW((sint32)screen_height));
-	const b2Vec2 vBottomRight = b2Vec2(RW2PW((sint32)screen_width),RW2PW((sint32)screen_height));
+	const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0),RW2PW((sint32)screen_height - 60));
+	const b2Vec2 vBottomRight = b2Vec2(RW2PW((sint32)screen_width),RW2PW((sint32)screen_height - 60));
 
 	//
 	//Create the world boundaries
