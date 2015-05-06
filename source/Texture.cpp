@@ -37,8 +37,8 @@ void Texture::Render(Vector2 position, float32 angle, SDL_Rect sprite_clip) {
 	SDL_Rect render_destination;
 	render_destination.x = position.x + view_position.x;
 	render_destination.y = position.y + view_position.y;
-	render_destination.w = sprite_clip.w;
-	render_destination.h = sprite_clip.h;
+	render_destination.w = sprite_clip.w * 2;
+	render_destination.h = sprite_clip.h * 2;
 
 	// SDL_QueryTexture(texture_, NULL, NULL, &render_destination.w, &render_destination.h);
 

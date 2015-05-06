@@ -18,7 +18,7 @@ protected:
 
     std::map<State, bool> last_state_;
     std::map<State, bool> state_;
-    bool event_state_is_current_;
+    // bool moving_;
 
 public:
     Animation(std::shared_ptr<Actor>);
@@ -31,4 +31,5 @@ public:
     void SetAnimation(std::string);
     bool EventStateIsCurrent();
     void CopyEventState();
+    void ResetState();
 };

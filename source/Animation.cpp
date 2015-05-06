@@ -18,6 +18,7 @@ void Animation::Update(float32 delta_time) {
         owner_->SetSpriteClip(current_animation_->at(current_frame_));
     }
     CopyEventState();
+    ResetState();
     UpdateState();
     if(!EventStateIsCurrent()) {
         ChooseAnimation();
@@ -30,10 +31,10 @@ void Animation::Initialize() {
     state_[kMoving] = false;
     state_[kJumping] = false;
 
-    last_state_[kFacingLeft] = false;
-    last_state_[kFacingRight] = false;
-    last_state_[kMoving] = false;
-    last_state_[kJumping] = false;
+    // last_state_[kFacingLeft] = false;
+    // last_state_[kFacingRight] = false;
+    // last_state_[kMoving] = false;
+    // last_state_[kJumping] = false;
 
     SetAnimation("face-screen");
 }
@@ -43,11 +44,11 @@ void Animation::AddAnimation(std::string name, std::vector<SDL_Rect>* animation)
 }
 
 void Animation::UpdateState() {
-    if(owner_->CheckEvent(MOVE_LEFT)) {
+    if(owner_->CheckEvent(MOVE_LEFT) && !owner_->CheckEvent(MOVE_RIGHT)) {
         state_.at(kMoving) = true;
         state_.at(kFacingLeft) = true;
     }
-    if(owner_->CheckEvent(MOVE_RIGHT)) {
+    if(!owner_->CheckEvent(MOVE_LEFT) && owner_->CheckEvent(MOVE_RIGHT)) {
         state_.at(kMoving) = true;
         state_.at(kFacingRight) = true;
     }
@@ -59,18 +60,25 @@ void Animation::UpdateState() {
     // }
 }
 
+void Animation::ResetState() {
+    for(auto iter = state_.begin(); iter != state_.end(); ++iter) {
+        iter->second = false;
+    }
+}
+
 void Animation::ChooseAnimation() {
-    if(state_.at(kMoving) && state_.at(kFacingLeft)) {
-        SetAnimation("run-left");
-    }
-    if(state_.at(kMoving) && state_.at(kFacingRight)) {
-        SetAnimation("run-right");
-    }
-    if(!state_.at(kMoving) && state_.at(kFacingLeft)) {
-        SetAnimation("standing-left");
-    }
-    if(!state_.at(kMoving) && state_.at(kFacingRight)) {
-        SetAnimation("standing-right");
+    if(!state_.at(kMoving)) {
+        if(state_.at(kFacingLeft)) {
+            SetAnimation("standing-left");
+        } else if(state_.at(kFacingRight)) {
+            SetAnimation("standing-right");
+        }
+    } else if(state_.at(kMoving)) {
+        if(state_.at(kFacingLeft)) {
+            SetAnimation("run-left");
+        } else if(state_.at(kFacingRight)) {
+            SetAnimation("run-right");
+        }
     }
 }
 
@@ -95,6 +103,6 @@ void Animation::CopyEventState() {
     State temp;
     for(auto iter = state_.begin(); iter != state_.end(); ++iter) {
         temp = iter->first;
-        last_state_.at(temp) = state_.at(temp);
+        last_state_[temp] = state_.at(temp);
     }
 }
