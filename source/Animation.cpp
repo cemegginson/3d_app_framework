@@ -44,18 +44,18 @@ void Animation::AddAnimation(std::string name, std::vector<SDL_Rect>* animation)
 }
 
 void Animation::UpdateState() {
-    if(owner_->CheckEvent(MOVE_LEFT) && !owner_->CheckEvent(MOVE_RIGHT)) {
+    if(owner_->CheckEvent(kMoveLeft) && !owner_->CheckEvent(kMoveRight)) {
         state_.at(kMoving) = true;
         state_.at(kFacingLeft) = true;
     }
-    if(!owner_->CheckEvent(MOVE_LEFT) && owner_->CheckEvent(MOVE_RIGHT)) {
+    if(!owner_->CheckEvent(kMoveLeft) && owner_->CheckEvent(kMoveRight)) {
         state_.at(kMoving) = true;
         state_.at(kFacingRight) = true;
     }
-    if(!owner_->CheckEvent(MOVE_LEFT) && !owner_->CheckEvent(MOVE_RIGHT)) {
+    if(!owner_->CheckEvent(kMoveLeft) && !owner_->CheckEvent(kMoveRight)) {
         state_.at(kMoving) = false;
     }
-    // if(owner_->CheckEvent(MOVE_DOWN)) {
+    // if(owner_->CheckEvent(kMoveDown)) {
     //     ;
     // }
 }

@@ -131,9 +131,9 @@ void* NSGLGetProcAddress (const GLubyte *name)
   if (NULL == image)
   {
 #ifdef GLEW_REGAL
-    image = NSAddImage("libRegal.dylib", NSADDIMAGE_OPTION_RETURN_ON_ERROR);
+    image = NSAddImage("libRegal.dylib", NSADDIMAGE_OPTION_REkTurnON_ERROR);
 #else
-    image = NSAddImage("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", NSADDIMAGE_OPTION_RETURN_ON_ERROR);
+    image = NSAddImage("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", NSADDIMAGE_OPTION_REkTurnON_ERROR);
 #endif
   }
   /* prepend a '_' for the Unix C symbol mangling convention */
@@ -143,7 +143,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
   symbol = NULL;
   /* if (NSIsSymbolNameDefined(symbolName))
 	 symbol = NSLookupAndBindSymbol(symbolName); */
-  symbol = image ? NSLookupSymbolInImage(image, symbolName, NSLOOKUPSYMBOLINIMAGE_OPTION_BIND | NSLOOKUPSYMBOLINIMAGE_OPTION_RETURN_ON_ERROR) : NULL;
+  symbol = image ? NSLookupSymbolInImage(image, symbolName, NSLOOKUPSYMBOLINIMAGE_OPTION_BIND | NSLOOKUPSYMBOLINIMAGE_OPTION_REkTurnON_ERROR) : NULL;
   free(symbolName);
   if( symbol ) return NSAddressOfSymbol(symbol);
 #ifdef GLEW_APPLE_GLX

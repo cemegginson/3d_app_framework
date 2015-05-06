@@ -38,24 +38,24 @@ void RigidCircle::Update(float32 delta_time) {
     new_direction.y = 0;
     if(controllable_) {
 
-        if(owner_->CheckEvent(TURN_LEFT)) {
+        if(owner_->CheckEvent(kTurnLeft)) {
             angular_velocity -= PI;
         }
-        if(owner_->CheckEvent(TURN_RIGHT)) {
+        if(owner_->CheckEvent(kTurnRight)) {
             angular_velocity += PI;
         }
-        if(owner_->CheckEvent(MOVE_UP)) {
+        if(owner_->CheckEvent(kMoveUp)) {
             new_direction.x += velocity * cos(angle - PI/2);
     		new_direction.y += velocity * sin(angle - PI/2);
         }
-        if(owner_->CheckEvent(MOVE_DOWN)) {
+        if(owner_->CheckEvent(kMoveDown)) {
             new_direction.x -= velocity * cos(angle - PI/2);
     		new_direction.y -= velocity * sin(angle - PI/2);
         }
-        if(owner_->CheckEvent(MOVE_LEFT)) {
+        if(owner_->CheckEvent(kMoveLeft)) {
             new_direction.x -= 1;
         }
-        if(owner_->CheckEvent(MOVE_RIGHT)) {
+        if(owner_->CheckEvent(kMoveRight)) {
             new_direction.x += 1;
         }
 
@@ -123,22 +123,22 @@ void RigidRectangle::Update(float32 delta_time) {
     jump.y = 300;
 
     if(controllable_) {
-        if(owner_->CheckEvent(TURN_LEFT)) {
+        if(owner_->CheckEvent(kTurnLeft)) {
             angular_velocity -= PI;
         }
-        if(owner_->CheckEvent(TURN_RIGHT)) {
+        if(owner_->CheckEvent(kTurnRight)) {
             angular_velocity += PI;
         }
-        if(owner_->CheckEvent(MOVE_UP)) {
+        if(owner_->CheckEvent(kMoveUp)) {
             body_->ApplyForceToCenter(jump, 1);
         }
-        if(owner_->CheckEvent(MOVE_DOWN)) {
+        if(owner_->CheckEvent(kMoveDown)) {
             ;
         }
-        if(owner_->CheckEvent(MOVE_LEFT)) {
+        if(owner_->CheckEvent(kMoveLeft)) {
             new_direction.x -= 30;
         }
-        if(owner_->CheckEvent(MOVE_RIGHT)) {
+        if(owner_->CheckEvent(kMoveRight)) {
             new_direction.x += 30;
         }
 

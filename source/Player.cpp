@@ -23,22 +23,22 @@ void Player::Update(float32 delta_time) {
 	float32 tcos = cos(theta);
 	float32 tsin = sin(theta);
 
-	if(input_device_->IsPressed(GAME_A)) {
-		owner_->SetEvent(MOVE_LEFT);
+	if(input_device_->IsPressed(kGameA)) {
+		owner_->SetEvent(kMoveLeft);
 	}
-	if(input_device_->IsPressed(GAME_D)) {
-		owner_->SetEvent(MOVE_RIGHT);
+	if(input_device_->IsPressed(kGameD)) {
+		owner_->SetEvent(kMoveRight);
 	}
-	if(input_device_->IsPressed(GAME_W)) {
-		owner_->SetEvent(MOVE_UP);
+	if(input_device_->IsPressed(kGameW)) {
+		owner_->SetEvent(kMoveUp);
 	}
-	if(input_device_->IsPressed(GAME_S)) {
-		owner_->SetEvent(MOVE_DOWN);
+	if(input_device_->IsPressed(kGameS)) {
+		owner_->SetEvent(kMoveDown);
 	}
 
 	last_fire_time_ += delta_time;
 	// Create bullet if spacebar pressed
-	// if(input_device_->IsPressed(GAME_SPACE) && last_fire_time_ > .075){
+	// if(input_device_->IsPressed(kGameSpace) && last_fire_time_ > .075){
 	// 	last_fire_time_ = 0;
 	// 	Vector2 direction;
 	// 	direction.x = 2 * tcos;

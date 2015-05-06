@@ -17,12 +17,12 @@ void Actor::Initialize(std::string name, Vector2 position, uint32 angle, bool co
     sprite_clip_.w = 35;
     sprite_clip_.h = 60;
 
-    actor_events_[MOVE_UP] = false;
-    actor_events_[MOVE_DOWN] = false;
-    actor_events_[MOVE_LEFT] = false;
-    actor_events_[MOVE_RIGHT] = false;
-    actor_events_[TURN_LEFT] = false;
-    actor_events_[TURN_RIGHT] = false;
+    actor_events_[kMoveUp] = false;
+    actor_events_[kMoveDown] = false;
+    actor_events_[kMoveLeft] = false;
+    actor_events_[kMoveRight] = false;
+    actor_events_[kTurnLeft] = false;
+    actor_events_[kTurnRight] = false;
 }
 
 void Actor::AddComponent(Component* component) {

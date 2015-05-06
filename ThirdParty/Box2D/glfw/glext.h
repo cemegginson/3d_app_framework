@@ -8926,11 +8926,11 @@ GLAPI void APIENTRY glProgramBufferParametersIuivNV (GLenum target, GLuint bindi
 #define GL_PATH_STENCIL_DEPTH_OFFSET_UNITS_NV 0x90BE
 #define GL_PATH_COVER_DEPTH_FUNC_NV       0x90BF
 #define GL_PATH_DASH_OFFSET_RESET_NV      0x90B4
-#define GL_MOVE_TO_RESETS_NV              0x90B5
-#define GL_MOVE_TO_CONTINUES_NV           0x90B6
+#define GL_kMoveTO_RESETS_NV              0x90B5
+#define GL_kMoveTO_CONTINUES_NV           0x90B6
 #define GL_CLOSE_PATH_NV                  0x00
-#define GL_MOVE_TO_NV                     0x02
-#define GL_RELATIVE_MOVE_TO_NV            0x03
+#define GL_kMoveTO_NV                     0x02
+#define GL_RELATIVE_kMoveTO_NV            0x03
 #define GL_LINE_TO_NV                     0x04
 #define GL_RELATIVE_LINE_TO_NV            0x05
 #define GL_HORIZONTAL_LINE_TO_NV          0x06

@@ -15,7 +15,7 @@ void Infantry::Update(float32 delta_time) {
 	// angle += rotation_rate_ * delta_time;
 	// owner_->SetAngle(angle);
 
-	owner_->SetEvent(TURN_RIGHT);
+	owner_->SetEvent(kTurnRight);
 }
 
 void Infantry::Initialize() {

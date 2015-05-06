@@ -1,30 +1,30 @@
 #include <iostream>
 #include "InputDevice.h"
 
-InputDevice::InputDevice() { game_event_ = GAME_NA; }
+InputDevice::InputDevice() { game_event_ = kGameNA; }
 
 InputDevice::~InputDevice() {}
 
 bool InputDevice::Initialize() {
-	translations_[SDLK_UP] = GAME_UP;
-	translations_[SDLK_DOWN] = GAME_DOWN;
-	translations_[SDLK_LEFT] = GAME_LEFT;
-	translations_[SDLK_RIGHT] = GAME_RIGHT;
-	translations_[SDLK_w] = GAME_W;
-	translations_[SDLK_a] = GAME_A;
-	translations_[SDLK_s] = GAME_S;
-	translations_[SDLK_d] = GAME_D;
-	translations_[SDLK_SPACE] = GAME_SPACE;
+	translations_[SDLK_UP] = kGameUp;
+	translations_[SDLK_DOWN] = kGameDown;
+	translations_[SDLK_LEFT] = kGameLeft;
+	translations_[SDLK_RIGHT] = kGameRight;
+	translations_[SDLK_w] = kGameW;
+	translations_[SDLK_a] = kGameA;
+	translations_[SDLK_s] = kGameS;
+	translations_[SDLK_d] = kGameD;
+	translations_[SDLK_SPACE] = kGameSpace;
 
-	keystates_[GAME_UP] = false;
-	keystates_[GAME_DOWN] = false;
-	keystates_[GAME_LEFT] = false;
-	keystates_[GAME_RIGHT] = false;
-	keystates_[GAME_W] = false;
-	keystates_[GAME_A] = false;
-	keystates_[GAME_S] = false;
-	keystates_[GAME_D] = false;
-	keystates_[GAME_SPACE] = false;
+	keystates_[kGameUp] = false;
+	keystates_[kGameDown] = false;
+	keystates_[kGameLeft] = false;
+	keystates_[kGameRight] = false;
+	keystates_[kGameW] = false;
+	keystates_[kGameA] = false;
+	keystates_[kGameS] = false;
+	keystates_[kGameD] = false;
+	keystates_[kGameSpace] = false;
 
 	return true;
 }

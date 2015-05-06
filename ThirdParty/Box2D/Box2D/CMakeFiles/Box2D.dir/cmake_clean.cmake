@@ -1,4 +1,4 @@
-file(REMOVE_RECURSE
+file(REkMoveRECURSE
   "CMakeFiles/Box2D.dir/Dynamics/Joints/b2DistanceJoint.cpp.o"
   "CMakeFiles/Box2D.dir/Dynamics/Joints/b2FrictionJoint.cpp.o"
   "CMakeFiles/Box2D.dir/Dynamics/Joints/b2GearJoint.cpp.o"
