@@ -12,8 +12,10 @@ void Actor::Initialize(std::string name, Vector2 position, uint32 angle, bool co
     name_ = name;
     position_ = position;
     angle_ = angle;
-    movement_.x = 0;
-    movement_.y = 0;
+    sprite_clip_.x = 0;
+    sprite_clip_.y = 0;
+    sprite_clip_.w = 35;
+    sprite_clip_.h = 60;
 
     actor_events_[MOVE_UP] = false;
     actor_events_[MOVE_DOWN] = false;
@@ -28,8 +30,6 @@ void Actor::AddComponent(Component* component) {
 }
 
 void Actor::Update(float32 delta_time) {
-    movement_.x = 0;
-    movement_.y = 0;
     ResetEvents();
 
     for(auto iter = components_.begin(); iter != components_.end(); ++iter) {
@@ -51,12 +51,11 @@ void Actor::SetAngle(float32 new_angle) {
     angle_ = new_angle;
 }
 
-Vector2 Actor::GetMovement() {
-    return movement_;
+SDL_Rect Actor::GetSpriteClip() {
+    return sprite_clip_;
 }
-
-void Actor::SetMovement(Vector2 movement) {
-    movement_ = movement;
+void Actor::SetSpriteClip(SDL_Rect new_sprite_clip) {
+    sprite_clip_ = new_sprite_clip;
 }
 
 void Actor::SetEvent(ActorEvent event) {

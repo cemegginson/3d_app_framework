@@ -31,17 +31,18 @@ bool Texture::Initialize(SDL_Renderer* renderer, View* view, std::string image_p
 	return true;
 }
 
-// void Texture::Render(Vector2 position, float32 angle, SDL_Rect* clip) {
-void Texture::Render(Vector2 position, float32 angle) {
+void Texture::Render(Vector2 position, float32 angle, SDL_Rect sprite_clip) {
 	Vector2 view_position = view_->GetPosition();
 
-	SDL_Rect dst;
-	dst.x = position.x + view_position.x;
-	dst.y = position.y + view_position.y;
+	SDL_Rect render_destination;
+	render_destination.x = position.x + view_position.x;
+	render_destination.y = position.y + view_position.y;
+	render_destination.w = sprite_clip.w;
+	render_destination.h = sprite_clip.h;
 
-	SDL_QueryTexture(texture_, NULL, NULL, &dst.w, &dst.h);
+	// SDL_QueryTexture(texture_, NULL, NULL, &render_destination.w, &render_destination.h);
 
-	SDL_RenderCopyEx(renderer_, texture_, NULL, &dst, angle, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(renderer_, texture_, &sprite_clip, &render_destination, angle, NULL, SDL_FLIP_NONE);
 }
 
 void Texture::GetDimensions(sint32* w, sint32* h) {

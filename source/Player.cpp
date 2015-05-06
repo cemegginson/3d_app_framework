@@ -5,7 +5,6 @@
 
 Player::Player(std::shared_ptr<Actor> owner) : Component(owner) {
 	input_device_ = nullptr;
-	radius_ = 27;
 	travel_ = 200;
 	rotation_ = 360.0;
 	last_fire_time_ = 0;
@@ -42,13 +41,6 @@ void Player::Update(float32 delta_time) {
 		// new_position.y -= travel_ * tsin * delta_time;
 		owner_->SetEvent(MOVE_DOWN);
 	}
-
-	Vector2 movement;
-	movement.x = new_position.x - old_position.x;
-	movement.y = new_position.y - old_position.y;
-
-	owner_->SetAngle(angle);
-	owner_->SetMovement(movement);
 
 	last_fire_time_ += delta_time;
 	// Create bullet if spacebar pressed

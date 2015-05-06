@@ -23,10 +23,10 @@ bool ArtAssetLibrary::LoadAssets(GraphicsDevice* graphics_device, View* view) {
 	std::string infantry_path = "./Assets/Images/t_infantry.png";
 	library_.at("Infantry")->Initialize(graphics_device->GetRenderer(), view, infantry_path);
 
-	// Player
-	library_.insert(std::pair<std::string, Texture*>("Player", new Texture()));
-	std::string player_path = "./Assets/Images/t_player.png";
-	library_.at("Player")->Initialize(graphics_device->GetRenderer(), view, player_path);
+	// Samus
+	library_.insert(std::pair<std::string, Texture*>("Samus", new Texture()));
+	std::string player_path = "./Assets/Images/samus2.gif";
+	library_.at("Samus")->Initialize(graphics_device->GetRenderer(), view, player_path);
 
 	// Rock
 	library_.insert(std::pair<std::string, Texture*>("Rock", new Texture()));

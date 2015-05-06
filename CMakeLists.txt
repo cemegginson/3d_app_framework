@@ -46,4 +46,4 @@ message(STATUS "BOX2D_LIBRARY..... ${BOX2D_LIBRARY}")
 message(STATUS "BOX2D_INCLUDE_DIR. ${BOX2D_INCLUDE_DIR}")
 
 # Include directories with relevant items
-add_subdirectory(Source)
+add_subdirectory(source)
