@@ -13,8 +13,8 @@ Game::Game() {
 	timer_ = nullptr;
 	view_ = nullptr;
 	physics_delta_time_ = 1.0/100.0;
-	velocity_iterations_ = 25;
-	position_iterations_ = 10;
+	velocity_iterations_ = 8;
+	position_iterations_ = 3;
 }
 
 Game::~Game() {

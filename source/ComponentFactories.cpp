@@ -117,6 +117,7 @@ RigidRectangle* RigidRectangleFactory::Create(std::shared_ptr<Actor> owner, pugi
 	body_definition.angle = RW2PWAngle(owner->GetAngle());
 	body_definition.angularDamping = std::stof( node.attribute("angular_damping").value() );
 	body_definition.linearDamping = std::stof( node.attribute("linear_damping").value() );
+	body_definition.fixedRotation = std::stoi( node.attribute("fixed_rotation").value() );
 
 	Vector2 dimensions;
 	dimensions.x = std::stof( node.attribute("width").value() );
@@ -162,7 +163,6 @@ AnimationFactory::~AnimationFactory() {}
 
 Animation* AnimationFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node node) {
 	Animation* new_animation = new Animation(owner);
-	new_animation->Initialize();
 
 	std::string name;
 	SDL_Rect frame;
@@ -181,5 +181,6 @@ Animation* AnimationFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node
 		}
 		new_animation->AddAnimation(name, frame_set);
 	}
+	new_animation->Initialize();
 	return new_animation;
 }

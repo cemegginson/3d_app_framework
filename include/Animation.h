@@ -13,6 +13,7 @@ protected:
     std::map<std::string, std::vector<SDL_Rect>*> animations_;
     std::vector<SDL_Rect>* current_animation_;
     float32 frame_time_;
+    uint16 current_frame_;
 
     std::map<ActorEvent, bool> actor_events_;
     bool event_state_is_current_;
@@ -25,4 +26,5 @@ public:
     void AddAnimation(std::string, std::vector<SDL_Rect>*);
     void SetAnimation(std::string);
     bool EventStateIsCurrent();
+    void SyncEventState();
 };

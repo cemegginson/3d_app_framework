@@ -3,8 +3,11 @@
     <!-- NPC Layout for Game 	-->
     <Actor name="Player" controllable="1" x="400.0f" y="300.0f" angle="0.0f">
         <Component type="Player" />
-        <Component type="RigidRectangle" width="15" height="30" linear_damping=".1f" angular_damping=".1f" dynamic="1" density="80" friction="50" restitution=".1"/>
+        <Component type="RigidRectangle" width="15" height="30" fixed_rotation="1" linear_damping=".1f" angular_damping=".1f" dynamic="1" density="80" friction="50" restitution=".1"/>
         <Component type="Animation">
+            <Animation name="face-screen">
+                <Frame x="0" y="7" w="35" h="46" />
+            </Animation>
             <Animation name="standing-right">
                 <Frame x="43" y="10" w="29" h="46" />
                 <Frame x="78" y="10" w="29" h="46" />
@@ -27,6 +30,18 @@
                 <Frame x="342" y="291" w="39" h="46" />
                 <Frame x="383" y="291" w="39" h="46" />
             </Animation>
+            <!--<Animation name="run-left">
+                <Frame x="" y="" w="" h="" />
+                <Frame x="" y="" w="" h="" />
+                <Frame x="" y="" w="" h="" />
+                <Frame x="" y="" w="" h="" />
+                <Frame x="" y="" w="" h="" />
+                <Frame x="" y="" w="" h="" />
+                <Frame x="" y="" w="" h="" />
+                <Frame x="" y="" w="" h="" />
+                <Frame x="" y="" w="" h="" />
+                <Frame x="" y="" w="" h="" />
+            </Animation>-->
         </Component>
         <Component type="Sprite" texture="Samus" />
     </Actor>

@@ -24,21 +24,15 @@ void Player::Update(float32 delta_time) {
 	float32 tsin = sin(theta);
 
 	if(input_device_->IsPressed(GAME_A)) {
-		// angle = angle - rotation_ * delta_time;
-		owner_->SetEvent(TURN_LEFT);
+		owner_->SetEvent(MOVE_LEFT);
 	}
 	if(input_device_->IsPressed(GAME_D)) {
-		// angle = angle + rotation_ * delta_time;
-		owner_->SetEvent(TURN_RIGHT);
+		owner_->SetEvent(MOVE_RIGHT);
 	}
 	if(input_device_->IsPressed(GAME_W)) {
-		// new_position.x += travel_ * tcos * delta_time;
-		// new_position.y += travel_ * tsin * delta_time;
 		owner_->SetEvent(MOVE_UP);
 	}
 	if(input_device_->IsPressed(GAME_S)) {
-		// new_position.x -= travel_ * tcos * delta_time;
-		// new_position.y -= travel_ * tsin * delta_time;
 		owner_->SetEvent(MOVE_DOWN);
 	}
 

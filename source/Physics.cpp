@@ -45,12 +45,10 @@ void RigidCircle::Update(float32 delta_time) {
             angular_velocity += PI;
         }
         if(owner_->CheckEvent(MOVE_UP)) {
-            // new_direction.y -= 1;
             new_direction.x += velocity * cos(angle - PI/2);
     		new_direction.y += velocity * sin(angle - PI/2);
         }
         if(owner_->CheckEvent(MOVE_DOWN)) {
-            // new_direction.y += 1;
             new_direction.x -= velocity * cos(angle - PI/2);
     		new_direction.y -= velocity * sin(angle - PI/2);
         }
@@ -61,34 +59,11 @@ void RigidCircle::Update(float32 delta_time) {
             new_direction.x += 1;
         }
 
-        // new_direction.x * 2;
-        // new_direction.y * 2;
         body_->SetLinearVelocity(new_direction);
         body_->SetAngularVelocity(angular_velocity);
     }
     ExportPosition();
     ExportAngle();
-    // b2Vec2 new_position;
-    // float32 new_angle;
-    // Vector2 movement = owner_->GetMovement();
-    // if(movement.x != 0 || movement.y != 0) {
-        // b2Vec2 new_force;
-        // new_force.x = movement.x;
-        // new_force.y = movement.y;
-        // body_->ApplyForceToCenter(new_force, 1);
-    // }
-
-    // if(physics_movable_) {
-    //     new_position = ExportPosition();
-    // } else {
-    //     new_position = ImportPosition();
-    // }
-    // if(physics_turnable_) {
-        // new_angle = ExportAngle();
-    // } else {
-        // new_angle = ImportAngle();
-    // }
-    // body_->SetTransform(new_position, new_angle);
 }
 
 b2Vec2 RigidCircle::ExportPosition() {
@@ -142,8 +117,12 @@ void RigidRectangle::Update(float32 delta_time) {
     float32 velocity = 30;
     new_direction.x = 0;
     new_direction.y = 0;
-    if(controllable_) {
 
+    b2Vec2 jump;
+    jump.x = 0;
+    jump.y = 5;
+
+    if(controllable_) {
         if(owner_->CheckEvent(TURN_LEFT)) {
             angular_velocity -= PI;
         }
@@ -151,51 +130,23 @@ void RigidRectangle::Update(float32 delta_time) {
             angular_velocity += PI;
         }
         if(owner_->CheckEvent(MOVE_UP)) {
-            // new_direction.y -= 1;
-            new_direction.x += velocity * cos(angle - PI/2);
-    		new_direction.y += velocity * sin(angle - PI/2);
+            body_->ApplyForceToCenter(jump, 1);
         }
         if(owner_->CheckEvent(MOVE_DOWN)) {
-            // new_direction.y += 1;
-            new_direction.x -= velocity * cos(angle - PI/2);
-    		new_direction.y -= velocity * sin(angle - PI/2);
+            ;
         }
         if(owner_->CheckEvent(MOVE_LEFT)) {
-            new_direction.x -= 1;
+            new_direction.x -= 30;
         }
         if(owner_->CheckEvent(MOVE_RIGHT)) {
-            new_direction.x += 1;
+            new_direction.x += 30;
         }
 
-        // new_direction.x * 2;
-        // new_direction.y * 2;
         body_->SetLinearVelocity(new_direction);
         body_->SetAngularVelocity(angular_velocity);
     }
     ExportPosition();
     ExportAngle();
-    // b2Vec2 new_position;
-    // float32 new_angle;
-    // Vector2 movement = owner_->GetMovement();
-    // if(movement.x != 0 || movement.y != 0) {
-    //     b2Vec2 force_direction = body_GetWorldVector();
-    //     force_direction.x *= 2;
-    //     force_direction.y *= 2;
-    //     body_->ApplyForceToCenter(force_direction, 1);
-    // }
-    //
-    // // if(physics_movable_) {
-    // //     new_position = ExportPosition();
-    // // } else {
-    // //     new_position = ImportPosition();
-    // // }
-    //
-    // if(physics_turnable_) {
-    //     new_angle = ExportAngle();
-    // } else {
-    //     new_angle = ImportAngle();
-    // }
-    // body_->SetTransform(new_position, new_angle);
 }
 
 b2Vec2 RigidRectangle::ExportPosition() {
