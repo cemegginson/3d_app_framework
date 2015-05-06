@@ -25,7 +25,7 @@ bool ArtAssetLibrary::LoadAssets(GraphicsDevice* graphics_device, View* view) {
 
 	// Samus
 	library_.insert(std::pair<std::string, Texture*>("Samus", new Texture()));
-	std::string player_path = "./Assets/Images/samus2.gif";
+	std::string player_path = "./Assets/Images/samus.gif";
 	library_.at("Samus")->Initialize(graphics_device->GetRenderer(), view, player_path);
 
 	// Rock

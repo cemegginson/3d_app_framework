@@ -136,24 +136,44 @@ void RigidRectangle::Initialize(b2World* world, b2BodyDef body_definition, b2Fix
 }
 
 void RigidRectangle::Update(float32 delta_time) {
-    if(owner_->CheckEvent(MOVE_UP)) {
-        ;
+    b2Vec2 new_direction;
+    float32 angle = body_->GetAngle();
+    float32 angular_velocity = 0;
+    float32 velocity = 30;
+    new_direction.x = 0;
+    new_direction.y = 0;
+    if(controllable_) {
+
+        if(owner_->CheckEvent(TURN_LEFT)) {
+            angular_velocity -= PI;
+        }
+        if(owner_->CheckEvent(TURN_RIGHT)) {
+            angular_velocity += PI;
+        }
+        if(owner_->CheckEvent(MOVE_UP)) {
+            // new_direction.y -= 1;
+            new_direction.x += velocity * cos(angle - PI/2);
+    		new_direction.y += velocity * sin(angle - PI/2);
+        }
+        if(owner_->CheckEvent(MOVE_DOWN)) {
+            // new_direction.y += 1;
+            new_direction.x -= velocity * cos(angle - PI/2);
+    		new_direction.y -= velocity * sin(angle - PI/2);
+        }
+        if(owner_->CheckEvent(MOVE_LEFT)) {
+            new_direction.x -= 1;
+        }
+        if(owner_->CheckEvent(MOVE_RIGHT)) {
+            new_direction.x += 1;
+        }
+
+        // new_direction.x * 2;
+        // new_direction.y * 2;
+        body_->SetLinearVelocity(new_direction);
+        body_->SetAngularVelocity(angular_velocity);
     }
-    if(owner_->CheckEvent(MOVE_DOWN)) {
-        ;
-    }
-    if(owner_->CheckEvent(MOVE_LEFT)) {
-        ;
-    }
-    if(owner_->CheckEvent(MOVE_RIGHT)) {
-        ;
-    }
-    if(owner_->CheckEvent(TURN_LEFT)) {
-        ;
-    }
-    if(owner_->CheckEvent(TURN_RIGHT)) {
-        ;
-    }
+    ExportPosition();
+    ExportAngle();
     // b2Vec2 new_position;
     // float32 new_angle;
     // Vector2 movement = owner_->GetMovement();

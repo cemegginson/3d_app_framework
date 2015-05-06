@@ -1,8 +1,9 @@
-#include <iostream>
 #include <stdlib.h>
 #include <string>
+#include <vector>
 
 #include "pugixml.hpp"
+#include "SDL.h"
 
 #include "ComponentFactories.h"
 #include "GameFunctions.h"
@@ -72,14 +73,14 @@ RigidCircle* RigidCircleFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_
 	// body_definition.bullet = true;
 	body_definition.position.Set(RW2PW(position.x), RW2PW(position.y));
 	body_definition.angle = RW2PWAngle(owner->GetAngle());
-	body_definition.angularDamping = std::stof(node.attribute("angular_damping").value());
-	body_definition.linearDamping = std::stof(node.attribute("linear_damping").value());
+	body_definition.angularDamping = std::stof( node.attribute("angular_damping").value() );
+	body_definition.linearDamping = std::stof( node.attribute("linear_damping").value() );
 
-	circle_shape.m_radius = RW2PW(std::stof(node.attribute("radius").value()));
+	circle_shape.m_radius = RW2PW(std::stof( node.attribute("radius").value() ));
 	shape_fixture_definition.shape = &circle_shape;
-	shape_fixture_definition.density = std::stof(node.attribute("density").value());
-	shape_fixture_definition.friction = std::stof(node.attribute("friction").value());
-	shape_fixture_definition.restitution = std::stof(node.attribute("restitution").value());
+	shape_fixture_definition.density = std::stof( node.attribute("density").value() );
+	shape_fixture_definition.friction = std::stof( node.attribute("friction").value() );
+	shape_fixture_definition.restitution = std::stof( node.attribute("restitution").value() );
 
 	bool movable, turnable;
 	// movable = std::stof(node.attribute("movable").value());
@@ -114,17 +115,17 @@ RigidRectangle* RigidRectangleFactory::Create(std::shared_ptr<Actor> owner, pugi
 	// body_definition.bullet = true;
 	body_definition.position.Set(RW2PW(position.x), RW2PW(position.y));
 	body_definition.angle = RW2PWAngle(owner->GetAngle());
-	body_definition.angularDamping = std::stof(node.attribute("angular_damping").value());
-	body_definition.linearDamping = std::stof(node.attribute("linear_damping").value());
+	body_definition.angularDamping = std::stof( node.attribute("angular_damping").value() );
+	body_definition.linearDamping = std::stof( node.attribute("linear_damping").value() );
 
 	Vector2 dimensions;
-	dimensions.x = std::stof(node.attribute("width").value());
-	dimensions.y = std::stof(node.attribute("height").value());
+	dimensions.x = std::stof( node.attribute("width").value() );
+	dimensions.y = std::stof( node.attribute("height").value() );
 	polygon_shape.SetAsBox(RW2PW(dimensions.x), RW2PW(dimensions.y));
 	shape_fixture_definition.shape = &polygon_shape;
-	shape_fixture_definition.density = std::stof(node.attribute("density").value());
-	shape_fixture_definition.friction = std::stof(node.attribute("friction").value());
-	shape_fixture_definition.restitution = std::stof(node.attribute("restitution").value());
+	shape_fixture_definition.density = std::stof( node.attribute("density").value() );
+	shape_fixture_definition.friction = std::stof( node.attribute("friction").value() );
+	shape_fixture_definition.restitution = std::stof( node.attribute("restitution").value() );
 
 	bool movable, turnable;
 	// movable = std::stof(node.attribute("movable").value());
@@ -149,4 +150,36 @@ Sprite* SpriteFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node node)
 	std::string texture = node.attribute("texture").value();
 	new_sprite->Initialize(graphics_device_, art_library_->Search(texture));
 	return new_sprite;
+}
+
+
+// AnimationFactory stuff
+AnimationFactory::AnimationFactory() : ComponentFactory() {
+	;
+}
+
+AnimationFactory::~AnimationFactory() {}
+
+Animation* AnimationFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node node) {
+	Animation* new_animation = new Animation(owner);
+	new_animation->Initialize();
+
+	std::string name;
+	SDL_Rect frame;
+	std::vector<SDL_Rect>* frame_set;
+
+	// Loop through Animation XML nodes
+	for (pugi::xml_node animation_node : node.children("Animation")) {
+		name = animation_node.attribute("name").value();
+		frame_set = new std::vector<SDL_Rect>;
+		for(pugi::xml_node frame_node : animation_node.children("Frame")) {
+			frame.x = std::stoi( frame_node.attribute("x").value() );
+			frame.y = std::stoi( frame_node.attribute("y").value() );
+			frame.w = std::stoi( frame_node.attribute("w").value() );
+			frame.h = std::stoi( frame_node.attribute("h").value() );
+			frame_set->push_back(frame);
+		}
+		new_animation->AddAnimation(name, frame_set);
+	}
+	return new_animation;
 }

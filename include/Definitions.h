@@ -1,17 +1,3 @@
-/*
-* Author:	Keith Bush
-*			UALR
-*
-* Date:		February 24, 2015 (Completed)
-*
-* File:		Definitions.h (Hmwk.1.Solution)
-*
-* Purpose:	This is a standard type redefinitions header that allows
-*           for flexibility in programming should design parameters change.
-*           Ideally, every SDL2 specific type would be renamed allowing
-*           the code to be decoupled from any specific Media Library.
-*/
-
 #pragma once
 
 // Unsigned Integers

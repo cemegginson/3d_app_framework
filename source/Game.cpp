@@ -39,18 +39,56 @@ bool Game::Initialize(GraphicsDevice* graphics_device, InputDevice* input_device
 	timer_ = new Timer();
 	timer_->Start();
 
+	uint32 screen_width = 800;
+	uint32 screen_height = 600;
+
 	// Initialize Physics world
-	const b2Vec2 gravity(0, 0);
+	const b2Vec2 gravity(0, 150);
 	world_ = new b2World(gravity);
+
+
+
+	//Set boundaries of world (Render->Physics)
+	const b2Vec2 vTopLeft = b2Vec2(RW2PW(0),RW2PW(0));
+	const b2Vec2 vTopRight = b2Vec2(RW2PW((sint32)screen_width),RW2PW(0));
+	const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0),RW2PW((sint32)screen_height));
+	const b2Vec2 vBottomRight = b2Vec2(RW2PW((sint32)screen_width),RW2PW((sint32)screen_height));
+
+	//
+	//Create the world boundaries
+	//
+	b2BodyDef bd;
+	b2Body* edge = world_->CreateBody(&bd);
+	b2EdgeShape shape;
+
+	//Create top boundary
+	shape.Set(vTopLeft, vTopRight);
+	edge->CreateFixture(&shape,0);
+
+	//Create bottom boundary
+	shape.Set(vBottomLeft,vBottomRight);
+	edge->CreateFixture(&shape,0);
+
+	//Create left boundary
+	shape.Set(vBottomLeft,vTopLeft);
+	edge->CreateFixture(&shape,0);
+
+	//Create right boundary
+	shape.Set(vBottomRight,vTopRight);
+	edge->CreateFixture(&shape,0);
+
+
 
 	// Create Factories
 	component_factories_ = new ComponentLibrary();
+
+	component_factories_->AddFactory("Animation", (ComponentFactory*)new AnimationFactory());
 	component_factories_->AddFactory("Carrier", (ComponentFactory*)new CarrierFactory());
 	component_factories_->AddFactory("Infantry", (ComponentFactory*)new InfantryFactory());
 	component_factories_->AddFactory("Player", (ComponentFactory*)new PlayerFactory(input_device_));
-	component_factories_->AddFactory("Sprite", (ComponentFactory*)new SpriteFactory(graphics_device_, art_library_));
 	component_factories_->AddFactory("RigidCircle", (ComponentFactory*)new RigidCircleFactory(world_));
 	component_factories_->AddFactory("RigidRectangle", (ComponentFactory*)new RigidRectangleFactory(world_));
+	component_factories_->AddFactory("Sprite", (ComponentFactory*)new SpriteFactory(graphics_device_, art_library_));
 
 	// ContactListener* contact_listener = new ContactListener();
 	// world_->SetContactListener(contact_listener);

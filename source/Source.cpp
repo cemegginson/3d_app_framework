@@ -40,14 +40,14 @@ int main(int argc, char* argv[]) {
 	//========================================
 	// Base Game Constants
 	//========================================
-	uint32 SCREEN_WIDTH = 800;
-	uint32 SCREEN_HEIGHT = 600;
+	uint32 screen_width = 800;
+	uint32 screen_height = 600;
 
 	//========================================
 	// Construct Graphical Device
 	//========================================
 	GraphicsDevice* graphics_device =
-	    new GraphicsDevice(SCREEN_WIDTH, SCREEN_HEIGHT);
+	    new GraphicsDevice(screen_width, screen_height);
 	// if (!gDevice->Initialize(true)) { Not sure what this true is about
 	if (!graphics_device->Initialize()) {
 		printf("Graphics Device could not initialize!");

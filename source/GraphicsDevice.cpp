@@ -41,7 +41,7 @@ bool GraphicsDevice::Initialize() {
 		return false;
 	}
 
-	SDL_SetRenderDrawColor(renderer_, 0, 100, 0, 0);
+	SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0);
 
 	return true;
 }

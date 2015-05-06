@@ -6,6 +6,7 @@
 #include "Box2D/Box2D.h"
 #include "pugixml.hpp"
 
+#include "Animation.h"
 #include "ArtAssetLibrary.h"
 #include "Bullet.h"
 #include "Carrier.h"
@@ -80,4 +81,14 @@ public:
 	SpriteFactory(GraphicsDevice*, ArtAssetLibrary*);
 	~SpriteFactory();
 	Sprite* Create(std::shared_ptr<Actor>, pugi::xml_node);
+};
+
+class AnimationFactory : ComponentFactory {
+protected:
+
+
+public:
+	AnimationFactory();
+	~AnimationFactory();
+	Animation* Create(std::shared_ptr<Actor>, pugi::xml_node);
 };
