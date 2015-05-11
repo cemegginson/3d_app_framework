@@ -31,5 +31,4 @@ public:
     void SetAnimation(std::string);
     bool EventStateIsCurrent();
     void CopyEventState();
-    void ResetState();
 };

@@ -2,6 +2,7 @@
 
 Animation::Animation(std::shared_ptr<Actor> owner) : Component(owner) {
     current_animation_ = nullptr;
+    current_frame_ = 0;
 }
 Animation::~Animation() {
     ;
@@ -9,7 +10,7 @@ Animation::~Animation() {
 
 void Animation::Update(float32 delta_time) {
     frame_time_ += delta_time;
-    if(frame_time_ >= .07) {
+    if(frame_time_ >= .05) {
         frame_time_ = 0;
         current_frame_++;
         if(current_animation_ != nullptr && current_frame_ >= current_animation_->size()) {
@@ -18,7 +19,6 @@ void Animation::Update(float32 delta_time) {
         owner_->SetSpriteClip(current_animation_->at(current_frame_));
     }
     CopyEventState();
-    ResetState();
     UpdateState();
     if(!EventStateIsCurrent()) {
         ChooseAnimation();
@@ -28,12 +28,12 @@ void Animation::Update(float32 delta_time) {
 void Animation::Initialize() {
     state_[kFacingLeft] = false;
     state_[kFacingRight] = false;
-    state_[kMoving] = false;
+    state_[kStationary] = false;
     state_[kJumping] = false;
 
     // last_state_[kFacingLeft] = false;
     // last_state_[kFacingRight] = false;
-    // last_state_[kMoving] = false;
+    // last_state_[kStationary] = false;
     // last_state_[kJumping] = false;
 
     SetAnimation("face-screen");
@@ -45,35 +45,31 @@ void Animation::AddAnimation(std::string name, std::vector<SDL_Rect>* animation)
 
 void Animation::UpdateState() {
     if(owner_->CheckEvent(kMoveLeft) && !owner_->CheckEvent(kMoveRight)) {
-        state_.at(kMoving) = true;
+        state_.at(kStationary) = false;
         state_.at(kFacingLeft) = true;
+        state_.at(kFacingRight) = false;
     }
     if(!owner_->CheckEvent(kMoveLeft) && owner_->CheckEvent(kMoveRight)) {
-        state_.at(kMoving) = true;
+        state_.at(kStationary) = false;
         state_.at(kFacingRight) = true;
+        state_.at(kFacingLeft) = false;
     }
     if(!owner_->CheckEvent(kMoveLeft) && !owner_->CheckEvent(kMoveRight)) {
-        state_.at(kMoving) = false;
+        state_.at(kStationary) = true;
     }
     // if(owner_->CheckEvent(kMoveDown)) {
     //     ;
     // }
 }
 
-void Animation::ResetState() {
-    for(auto iter = state_.begin(); iter != state_.end(); ++iter) {
-        iter->second = false;
-    }
-}
-
 void Animation::ChooseAnimation() {
-    if(!state_.at(kMoving)) {
+    if(state_.at(kStationary)) {
         if(state_.at(kFacingLeft)) {
             SetAnimation("standing-left");
         } else if(state_.at(kFacingRight)) {
             SetAnimation("standing-right");
         }
-    } else if(state_.at(kMoving)) {
+    } else if(!state_.at(kStationary)) {
         if(state_.at(kFacingLeft)) {
             SetAnimation("run-left");
         } else if(state_.at(kFacingRight)) {
