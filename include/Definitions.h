@@ -22,7 +22,7 @@ typedef struct Vector2 {
 // Event Types
 enum GameEvent { kGameNA, kGameUp, kGameDown, kGameLeft, kGameRight, kGameW, kGameA, kGameS, kGameD, kGameSpace };
 enum ActorEvent { kMoveLeft, kMoveRight, kMoveUp, kMoveDown, kTurnLeft, kTurnRight };
-enum State { kFacingLeft, kFacingRight, kMoving, kJumping, kStopped };
+enum State { kFacingLeft, kFacingRight, kStationary, kJumping, kStopped };
 
 // Constants
 const float32 PI = 3.14159f;
