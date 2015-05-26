@@ -17,7 +17,7 @@ BreakBeforeTernaryOperators: true
 BreakConstructorInitializersBeforeComma: false
 BinPackParameters: true
 BinPackArguments: true
-ColumnLimit:     80
+ColumnLimit:     100
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 4
 DerivePointerAlignment: false
@@ -54,7 +54,3 @@ SpaceAfterCStyleCast: false
 SpacesInContainerLiterals: true
 SpaceBeforeAssignmentOperators: true
 ContinuationIndentWidth: 4
-CommentPragmas:  '^ IWYU pragma:'
-ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH ]
-SpaceBeforeParens: ControlStatements
-DisableFormat:   false

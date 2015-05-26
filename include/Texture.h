@@ -20,5 +20,5 @@ public:
 	bool Initialize(SDL_Renderer*, View*, std::string);
 	void Render(Vector2, float32, SDL_Rect);
 	// void Render(Vector2, float32);
-	void GetDimensions(sint32*, sint32*);
+	void GetDimensions(int32*, int32*);
 };

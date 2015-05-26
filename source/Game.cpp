@@ -15,6 +15,7 @@ Game::Game() {
 	physics_delta_time_ = 1.0/100.0;
 	velocity_iterations_ = 8;
 	position_iterations_ = 3;
+	particle_iterations_ = 3;
 }
 
 Game::~Game() {
@@ -50,9 +51,9 @@ bool Game::Initialize(GraphicsDevice* graphics_device, InputDevice* input_device
 
 	//Set boundaries of world (Render->Physics)
 	const b2Vec2 vTopLeft = b2Vec2(RW2PW(0),RW2PW(0));
-	const b2Vec2 vTopRight = b2Vec2(RW2PW((sint32)screen_width),RW2PW(0));
-	const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0),RW2PW((sint32)screen_height - 60));
-	const b2Vec2 vBottomRight = b2Vec2(RW2PW((sint32)screen_width),RW2PW((sint32)screen_height - 60));
+	const b2Vec2 vTopRight = b2Vec2(RW2PW((int32)screen_width),RW2PW(0));
+	const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0),RW2PW((int32)screen_height - 60));
+	const b2Vec2 vBottomRight = b2Vec2(RW2PW((int32)screen_width),RW2PW((int32)screen_height - 60));
 
 	//
 	//Create the world boundaries
@@ -158,6 +159,6 @@ void Game::Update(float32 delta_time) {
 	for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
 		(*iter)->Update(delta_time);
 	}
-
 	world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_);
+	// world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
 }

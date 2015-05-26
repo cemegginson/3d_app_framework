@@ -45,7 +45,7 @@ void Texture::Render(Vector2 position, float32 angle, SDL_Rect sprite_clip) {
 	SDL_RenderCopyEx(renderer_, texture_, &sprite_clip, &render_destination, angle, NULL, SDL_FLIP_NONE);
 }
 
-void Texture::GetDimensions(sint32* w, sint32* h) {
+void Texture::GetDimensions(int32* w, int32* h) {
 	SDL_QueryTexture(texture_, NULL, NULL, w, h);
 	return;
 }

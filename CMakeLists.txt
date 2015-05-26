@@ -27,14 +27,22 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 endif()
 
 if(WIN32)
-	set(SDL2_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/ThirdParty/SDL2-2.0.3/include")
-	set(SDL2_LIBRARY_TEMP "${CMAKE_SOURCE_DIR}/ThirdParty/SDL2-2.0.3/lib/x86/SDL2.lib")
-	set(SDL2MAIN_LIBRARY  "${CMAKE_SOURCE_DIR}/ThirdParty/SDL2-2.0.3/lib/x86/SDL2main.lib")
-	set(SDL2_IMAGE_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/ThirdParty/SDL2_image-2.0.0/include")
-	set(SDL2_IMAGE_LIBRARY "${CMAKE_SOURCE_DIR}/ThirdParty/SDL2_image-2.0.0/lib/x86/SDL2_image.lib")
-	set(BOX2D_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/ThirdParty/Box2D/Box2D")
-	set(BOX2D_LIBRARY "${CMAKE_SOURCE_DIR}/ThirdParty/Box2D/Box2D/") #Fix for Windows :TODO
+	set(SDL2_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/include")
+	set(SDL2_LIBRARY_TEMP "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/lib/x86/SDL2.lib")
+	set(SDL2MAIN_LIBRARY  "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/lib/x86/SDL2main.lib")
+	set(SDL2_IMAGE_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/SDL2_image-2.0.0/include")
+	set(SDL2_IMAGE_LIBRARY "${CMAKE_SOURCE_DIR}/SDL2_image-2.0.0/lib/x86/SDL2_image.lib")
+	set(BOX2D_LIBRARY "${CMAKE_SOURCE_DIR}/liquidfun/liquidfun/Box2D/Box2D/") #Fix for Windows :TODO
 endif()
+
+set(BOX2D_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/liquidfun/liquidfun/Box2D/Box2D")
+set(BOX2D_LIBRARY "${CMAKE_SOURCE_DIR}/build/liquidfun/liquidfun/Box2D/Box2D/Debug/libliquidfun.a")
+
+option(BOX2D_INSTALL_DOC "Install Box2D documentation" OFF)
+option(BOX2D_BUILD_SHARED "Build Box2D shared libraries" OFF)
+option(BOX2D_BUILD_STATIC "Build Box2D static libraries" ON)
+option(BOX2D_BUILD_EXAMPLES "Build Box2D examples" OFF)
+option(BOX2D_BUILD_UNITTESTS "Build Box2D Unit Tests" OFF)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
@@ -46,4 +54,5 @@ message(STATUS "BOX2D_LIBRARY..... ${BOX2D_LIBRARY}")
 message(STATUS "BOX2D_INCLUDE_DIR. ${BOX2D_INCLUDE_DIR}")
 
 # Include directories with relevant items
-add_subdirectory(source)
+add_subdirectory("${CMAKE_SOURCE_DIR}/liquidfun/liquidfun/Box2D")
+add_subdirectory("${CMAKE_SOURCE_DIR}/source")

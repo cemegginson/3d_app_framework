@@ -7,8 +7,8 @@ typedef unsigned short int uint16;
 
 // Signed Integers
 // typedef long long int sint64;
-typedef int sint32;
-typedef short int sint16;
+typedef int int32;
+typedef short int int16;
 
 // Floats
 typedef float float32;
