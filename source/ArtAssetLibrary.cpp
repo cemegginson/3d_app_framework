@@ -1,9 +1,10 @@
 #include <iostream>
+#include <string>
+#include <utility>
+
 #include "ArtAssetLibrary.h"
 
-ArtAssetLibrary::ArtAssetLibrary() {
-    ;
-}
+ArtAssetLibrary::ArtAssetLibrary() {}
 
 ArtAssetLibrary::~ArtAssetLibrary() {}
 

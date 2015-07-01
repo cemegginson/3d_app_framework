@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 // #include "ContactListener.h"
 #include "Game.h"
@@ -26,7 +27,8 @@ Game::~Game() {
     delete view_;
 }
 
-bool Game::Initialize(GraphicsDevice* graphics_device, InputDevice* input_device) {
+bool Game::Initialize(GraphicsDevice* graphics_device,
+                      InputDevice* input_device) {
     graphics_device_ = graphics_device;
     input_device_ = input_device;
 
@@ -49,11 +51,11 @@ bool Game::Initialize(GraphicsDevice* graphics_device, InputDevice* input_device
 
 
 
-    //Set boundaries of world (Render->Physics)
-    const b2Vec2 vTopLeft = b2Vec2(RW2PW(0),RW2PW(0));
-    const b2Vec2 vTopRight = b2Vec2(RW2PW((int32)screen_width),RW2PW(0));
-    const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0),RW2PW((int32)screen_height - 60));
-    const b2Vec2 vBottomRight = b2Vec2(RW2PW((int32)screen_width),RW2PW((int32)screen_height - 60));
+    // Set boundaries of world (Render->Physics)
+    const b2Vec2 vTopLeft = b2Vec2(RW2PW(0), RW2PW(0));
+    const b2Vec2 vTopRight = b2Vec2(RW2PW((int32)screen_width), RW2PW(0));
+    const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0), RW2PW((int32)screen_height - 60));
+    const b2Vec2 vBottomRight = b2Vec2(RW2PW((int32)screen_width), RW2PW((int32)screen_height - 60));
 
     //
     //Create the world boundaries
@@ -62,21 +64,21 @@ bool Game::Initialize(GraphicsDevice* graphics_device, InputDevice* input_device
     b2Body* edge = world_->CreateBody(&bd);
     b2EdgeShape shape;
 
-    //Create top boundary
+    // Create top boundary
     shape.Set(vTopLeft, vTopRight);
-    edge->CreateFixture(&shape,0);
+    edge->CreateFixture(&shape, 0);
 
-    //Create bottom boundary
-    shape.Set(vBottomLeft,vBottomRight);
-    edge->CreateFixture(&shape,0);
+    // Create bottom boundary
+    shape.Set(vBottomLeft, vBottomRight);
+    edge->CreateFixture(&shape, 0);
 
-    //Create left boundary
-    shape.Set(vBottomLeft,vTopLeft);
-    edge->CreateFixture(&shape,0);
+    // Create left boundary
+    shape.Set(vBottomLeft, vTopLeft);
+    edge->CreateFixture(&shape, 0);
 
-    //Create right boundary
-    shape.Set(vBottomRight,vTopRight);
-    edge->CreateFixture(&shape,0);
+    // Create right boundary
+    shape.Set(vBottomRight, vTopRight);
+    edge->CreateFixture(&shape, 0);
 
 
 

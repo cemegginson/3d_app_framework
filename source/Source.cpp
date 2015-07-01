@@ -18,6 +18,7 @@
 // C++ Libraries
 #include <ctime>
 #include <iostream>
+#include <string>
 
 // Media Libraries
 #include "SDL.h"

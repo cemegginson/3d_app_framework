@@ -1,20 +1,22 @@
 #include <iostream>
 #include <SDL_image.h>
 #include "Texture.h"
-//#include "GameUtils.h"
+// #include "GameUtils.h"
 
 Texture::Texture() { texture_ = nullptr; }
 
 Texture::~Texture() { SDL_DestroyTexture(texture_); }
 
-bool Texture::Initialize(SDL_Renderer* renderer, View* view, std::string image_path) {
+bool Texture::Initialize(SDL_Renderer* renderer,
+                         View* view,
+                         std::string image_path) {
     renderer_ = renderer;
     view_ = view;
 
     // Load image
     SDL_Surface* surface = nullptr;
     surface = IMG_Load(image_path.c_str());
-    if(surface == NULL) {
+    if (surface == NULL) {
         std::cerr << "Surface failed: " << IMG_GetError() << std::endl;
         return false;
     }
@@ -24,7 +26,7 @@ bool Texture::Initialize(SDL_Renderer* renderer, View* view, std::string image_p
     SDL_FreeSurface(surface);
 
     if (texture_ == NULL) {
-        //LogSDLError(std::cerr, "LoadTexture");
+        // LogSDLError(std::cerr, "LoadTexture");
         std::cerr << "Texture failed: " << SDL_GetError() << std::endl;
         return false;
     }

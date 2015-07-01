@@ -1,26 +1,28 @@
+#include <string>
+#include <vector>
+
 #include "Animation.h"
 
 Animation::Animation(std::shared_ptr<Actor> owner) : Component(owner) {
     current_animation_ = nullptr;
     current_frame_ = 0;
 }
-Animation::~Animation() {
-    ;
-}
+Animation::~Animation() {}
 
 void Animation::Update(float32 delta_time) {
     frame_time_ += delta_time;
-    if(frame_time_ >= .05) {
+    if (frame_time_ >= .05) {
         frame_time_ = 0;
         current_frame_++;
-        if(current_animation_ != nullptr && current_frame_ >= current_animation_->size()) {
+        if (current_animation_ != nullptr &&
+        current_frame_ >= current_animation_->size()) {
             current_frame_ = 0;
         }
         owner_->SetSpriteClip(current_animation_->at(current_frame_));
     }
     CopyEventState();
     UpdateState();
-    if(!EventStateIsCurrent()) {
+    if (!EventStateIsCurrent()) {
         ChooseAnimation();
     }
 }
@@ -44,17 +46,17 @@ void Animation::AddAnimation(std::string name, std::vector<SDL_Rect>* animation)
 }
 
 void Animation::UpdateState() {
-    if(owner_->CheckEvent(kMoveLeft) && !owner_->CheckEvent(kMoveRight)) {
+    if (owner_->CheckEvent(kMoveLeft) && !owner_->CheckEvent(kMoveRight)) {
         state_.at(kStationary) = false;
         state_.at(kFacingLeft) = true;
         state_.at(kFacingRight) = false;
     }
-    if(!owner_->CheckEvent(kMoveLeft) && owner_->CheckEvent(kMoveRight)) {
+    if (!owner_->CheckEvent(kMoveLeft) && owner_->CheckEvent(kMoveRight)) {
         state_.at(kStationary) = false;
         state_.at(kFacingRight) = true;
         state_.at(kFacingLeft) = false;
     }
-    if(!owner_->CheckEvent(kMoveLeft) && !owner_->CheckEvent(kMoveRight)) {
+    if (!owner_->CheckEvent(kMoveLeft) && !owner_->CheckEvent(kMoveRight)) {
         state_.at(kStationary) = true;
     }
     // if(owner_->CheckEvent(kMoveDown)) {
@@ -63,16 +65,16 @@ void Animation::UpdateState() {
 }
 
 void Animation::ChooseAnimation() {
-    if(state_.at(kStationary)) {
-        if(state_.at(kFacingLeft)) {
+    if (state_.at(kStationary)) {
+        if (state_.at(kFacingLeft)) {
             SetAnimation("standing-left");
-        } else if(state_.at(kFacingRight)) {
+        } else if (state_.at(kFacingRight)) {
             SetAnimation("standing-right");
         }
-    } else if(!state_.at(kStationary)) {
-        if(state_.at(kFacingLeft)) {
+    } else if (!state_.at(kStationary)) {
+        if (state_.at(kFacingLeft)) {
             SetAnimation("run-left");
-        } else if(state_.at(kFacingRight)) {
+        } else if (state_.at(kFacingRight)) {
             SetAnimation("run-right");
         }
     }
@@ -85,9 +87,9 @@ void Animation::SetAnimation(std::string name) {
 
 bool Animation::EventStateIsCurrent() {
     State temp;
-    for(auto iter = state_.begin(); iter != state_.end(); ++iter) {
+    for (auto iter = state_.begin(); iter != state_.end(); ++iter) {
         temp = iter->first;
-        if(state_.at(temp) != last_state_.at(temp)) {
+        if (state_.at(temp) != last_state_.at(temp)) {
             return false;
         }
     }
@@ -97,7 +99,7 @@ bool Animation::EventStateIsCurrent() {
 
 void Animation::CopyEventState() {
     State temp;
-    for(auto iter = state_.begin(); iter != state_.end(); ++iter) {
+    for (auto iter = state_.begin(); iter != state_.end(); ++iter) {
         temp = iter->first;
         last_state_[temp] = state_.at(temp);
     }

@@ -10,9 +10,7 @@ Player::Player(std::shared_ptr<Actor> owner) : Component(owner) {
     last_fire_time_ = 0;
 }
 
-Player::~Player() {
-    ;
-}
+Player::~Player() {}
 
 void Player::Update(float32 delta_time) {
     float32 angle = owner_->GetAngle();
@@ -23,16 +21,16 @@ void Player::Update(float32 delta_time) {
     float32 tcos = cos(theta);
     float32 tsin = sin(theta);
 
-    if(input_device_->IsPressed(kGameA)) {
+    if (input_device_->IsPressed(kGameA)) {
         owner_->SetEvent(kMoveLeft);
     }
-    if(input_device_->IsPressed(kGameD)) {
+    if (input_device_->IsPressed(kGameD)) {
         owner_->SetEvent(kMoveRight);
     }
-    if(input_device_->IsPressed(kGameW)) {
+    if (input_device_->IsPressed(kGameW)) {
         owner_->SetEvent(kMoveUp);
     }
-    if(input_device_->IsPressed(kGameS)) {
+    if (input_device_->IsPressed(kGameS)) {
         owner_->SetEvent(kMoveDown);
     }
 
@@ -54,9 +52,7 @@ void Player::Update(float32 delta_time) {
     // }
 }
 
-void Player::Initialize() {
-    ;
-}
+void Player::Initialize() {}
 
 void Player::SetInput(InputDevice* input_device) {
     input_device_ = input_device;

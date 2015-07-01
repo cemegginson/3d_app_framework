@@ -1,14 +1,15 @@
+#include <string>
+
 #include "Actor.h"
 
-Actor::Actor() {
-    ;
-}
+Actor::Actor() {}
 
-Actor::~Actor() {
-    ;
-}
+Actor::~Actor() {}
 
-void Actor::Initialize(std::string name, Vector2 position, uint32 angle, bool controllable) {
+void Actor::Initialize(std::string name,
+                       Vector2 position,
+                       uint32 angle,
+                       bool controllable) {
     name_ = name;
     position_ = position;
     angle_ = angle;
@@ -32,7 +33,7 @@ void Actor::AddComponent(Component* component) {
 void Actor::Update(float32 delta_time) {
     ResetEvents();
 
-    for(auto iter = components_.begin(); iter != components_.end(); ++iter) {
+    for (auto iter = components_.begin(); iter != components_.end(); ++iter) {
         (*iter)->Update(delta_time);
     }
 }

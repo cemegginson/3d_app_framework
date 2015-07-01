@@ -30,9 +30,9 @@ bool InputDevice::Initialize() {
 }
 
 void InputDevice::Update(SDL_Event* event) {
-    if(event->type == SDL_KEYDOWN){
+    if (event->type == SDL_KEYDOWN) {
         keystates_[translations_[event->key.keysym.sym]] = true;
-    } else if(event->type == SDL_KEYUP) {
+    } else if (event->type == SDL_KEYUP) {
         keystates_[translations_[event->key.keysym.sym]] = false;
     }
 }

@@ -3,9 +3,7 @@
 #include "GameFunctions.h"
 #include "Physics.h"
 
-Rigidbody::Rigidbody() {
-    ;
-}
+Rigidbody::Rigidbody() {}
 
 Rigidbody::~Rigidbody() {
     world_->DestroyBody(body_);
@@ -14,15 +12,15 @@ Rigidbody::~Rigidbody() {
 
 // RigidCircle methods
 
-RigidCircle::RigidCircle(std::shared_ptr<Actor> owner) : Component(owner), Rigidbody() {
-    ;
-}
+RigidCircle::RigidCircle(std::shared_ptr<Actor> owner) :
+                         Component(owner),
+                         Rigidbody() {}
 
-RigidCircle::~RigidCircle() {
-    ;
-}
+RigidCircle::~RigidCircle() {}
 
-void RigidCircle::Initialize(b2World* world, b2BodyDef body_definition, b2FixtureDef shape_fixture_definition) {
+void RigidCircle::Initialize(b2World* world,
+                             b2BodyDef body_definition,
+                              b2FixtureDef shape_fixture_definition) {
     world_ = world;
     body_ = world->CreateBody(&body_definition);
     body_->CreateFixture(&shape_fixture_definition);
@@ -36,26 +34,25 @@ void RigidCircle::Update(float32 delta_time) {
     float32 velocity = 30;
     new_direction.x = 0;
     new_direction.y = 0;
-    if(controllable_) {
-
-        if(owner_->CheckEvent(kTurnLeft)) {
+    if (controllable_) {
+        if (owner_->CheckEvent(kTurnLeft)) {
             angular_velocity -= PI;
         }
-        if(owner_->CheckEvent(kTurnRight)) {
+        if (owner_->CheckEvent(kTurnRight)) {
             angular_velocity += PI;
         }
-        if(owner_->CheckEvent(kMoveUp)) {
+        if (owner_->CheckEvent(kMoveUp)) {
             new_direction.x += velocity * cos(angle - PI/2);
             new_direction.y += velocity * sin(angle - PI/2);
         }
-        if(owner_->CheckEvent(kMoveDown)) {
+        if (owner_->CheckEvent(kMoveDown)) {
             new_direction.x -= velocity * cos(angle - PI/2);
             new_direction.y -= velocity * sin(angle - PI/2);
         }
-        if(owner_->CheckEvent(kMoveLeft)) {
+        if (owner_->CheckEvent(kMoveLeft)) {
             new_direction.x -= 1;
         }
-        if(owner_->CheckEvent(kMoveRight)) {
+        if (owner_->CheckEvent(kMoveRight)) {
             new_direction.x += 1;
         }
 
@@ -95,15 +92,15 @@ float32 RigidCircle::ImportAngle() {
 
 // RigidRectangle methods
 
-RigidRectangle::RigidRectangle(std::shared_ptr<Actor> owner) : Component(owner), Rigidbody() {
-    ;
-}
+RigidRectangle::RigidRectangle(std::shared_ptr<Actor> owner) :
+                               Component(owner),
+                               Rigidbody() {}
 
-RigidRectangle::~RigidRectangle() {
-    ;
-}
+RigidRectangle::~RigidRectangle() {}
 
-void RigidRectangle::Initialize(b2World* world, b2BodyDef body_definition, b2FixtureDef shape_fixture_definition) {
+void RigidRectangle::Initialize(b2World* world,
+                                b2BodyDef body_definition,
+                                b2FixtureDef shape_fixture_definition) {
     world_ = world;
     body_ = world->CreateBody(&body_definition);
     body_->CreateFixture(&shape_fixture_definition);
@@ -122,23 +119,21 @@ void RigidRectangle::Update(float32 delta_time) {
     jump.x = 0;
     jump.y = 300;
 
-    if(controllable_) {
-        if(owner_->CheckEvent(kTurnLeft)) {
+    if (controllable_) {
+        if (owner_->CheckEvent(kTurnLeft)) {
             angular_velocity -= PI;
         }
-        if(owner_->CheckEvent(kTurnRight)) {
+        if (owner_->CheckEvent(kTurnRight)) {
             angular_velocity += PI;
         }
-        if(owner_->CheckEvent(kMoveUp)) {
+        if (owner_->CheckEvent(kMoveUp)) {
             body_->ApplyForceToCenter(jump, 1);
         }
-        if(owner_->CheckEvent(kMoveDown)) {
-            ;
-        }
-        if(owner_->CheckEvent(kMoveLeft)) {
+        if (owner_->CheckEvent(kMoveDown)) {}
+        if (owner_->CheckEvent(kMoveLeft)) {
             new_direction.x -= 30;
         }
-        if(owner_->CheckEvent(kMoveRight)) {
+        if (owner_->CheckEvent(kMoveRight)) {
             new_direction.x += 30;
         }
 
