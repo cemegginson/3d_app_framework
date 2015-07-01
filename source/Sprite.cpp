@@ -9,12 +9,12 @@ Sprite::~Sprite() {
 }
 
 void Sprite::Initialize(GraphicsDevice* graphics_device, Texture* texture) {
-	graphics_device_ = graphics_device;
+    graphics_device_ = graphics_device;
     graphics_device_->AddSprite(this);
     texture_ = texture;
 
-	//Add Sprite to graphics_device_
-	// graphics_device_->AddSprite(shared_from_this());
+    //Add Sprite to graphics_device_
+    // graphics_device_->AddSprite(shared_from_this());
 
 }
 

@@ -10,11 +10,11 @@
 
 class ArtAssetLibrary {
 protected:
-	std::map<std::string, Texture*> library_;
+    std::map<std::string, Texture*> library_;
 
 public:
-	ArtAssetLibrary();
-	~ArtAssetLibrary();
-	bool LoadAssets(GraphicsDevice*, View*);
-	Texture* Search(std::string);
+    ArtAssetLibrary();
+    ~ArtAssetLibrary();
+    bool LoadAssets(GraphicsDevice*, View*);
+    Texture* Search(std::string);
 };

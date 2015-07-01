@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Level>
-    <!-- NPC Layout for Game 	-->
+    <!-- NPC Layout for Game     -->
     <Actor name="Carrier" controllable="1" x="30.0f" y="140.0f" angle="0.0f">
         <Component type="Carrier" />
         <!--<Component type="RigidRectangle" />-->

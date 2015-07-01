@@ -6,159 +6,159 @@
 #include "pugixml.hpp"
 
 Game::Game() {
-	component_factories_ = nullptr;
-	art_library_ = nullptr;
-	graphics_device_ = nullptr;
-	input_device_ = nullptr;
-	timer_ = nullptr;
-	view_ = nullptr;
-	physics_delta_time_ = 1.0/100.0;
-	velocity_iterations_ = 8;
-	position_iterations_ = 3;
-	particle_iterations_ = 3;
+    component_factories_ = nullptr;
+    art_library_ = nullptr;
+    graphics_device_ = nullptr;
+    input_device_ = nullptr;
+    timer_ = nullptr;
+    view_ = nullptr;
+    physics_delta_time_ = 1.0/100.0;
+    velocity_iterations_ = 8;
+    position_iterations_ = 3;
+    particle_iterations_ = 3;
 }
 
 Game::~Game() {
-	delete component_factories_;
-	delete art_library_;
-	delete graphics_device_;
-	delete input_device_;
-	delete view_;
+    delete component_factories_;
+    delete art_library_;
+    delete graphics_device_;
+    delete input_device_;
+    delete view_;
 }
 
 bool Game::Initialize(GraphicsDevice* graphics_device, InputDevice* input_device) {
-	graphics_device_ = graphics_device;
-	input_device_ = input_device;
+    graphics_device_ = graphics_device;
+    input_device_ = input_device;
 
-	view_ = new View();
-	view_->Initialize(input_device_, 0, 0);
+    view_ = new View();
+    view_->Initialize(input_device_, 0, 0);
 
-	// Load sprites
-	art_library_ = new ArtAssetLibrary();
-	art_library_->LoadAssets(graphics_device_, view_);
+    // Load sprites
+    art_library_ = new ArtAssetLibrary();
+    art_library_->LoadAssets(graphics_device_, view_);
 
-	timer_ = new Timer();
-	timer_->Start();
+    timer_ = new Timer();
+    timer_->Start();
 
-	uint32 screen_width = 800;
-	uint32 screen_height = 600;
+    uint32 screen_width = 800;
+    uint32 screen_height = 600;
 
-	// Initialize Physics world
-	const b2Vec2 gravity(0, 150);
-	world_ = new b2World(gravity);
-
-
-
-	//Set boundaries of world (Render->Physics)
-	const b2Vec2 vTopLeft = b2Vec2(RW2PW(0),RW2PW(0));
-	const b2Vec2 vTopRight = b2Vec2(RW2PW((int32)screen_width),RW2PW(0));
-	const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0),RW2PW((int32)screen_height - 60));
-	const b2Vec2 vBottomRight = b2Vec2(RW2PW((int32)screen_width),RW2PW((int32)screen_height - 60));
-
-	//
-	//Create the world boundaries
-	//
-	b2BodyDef bd;
-	b2Body* edge = world_->CreateBody(&bd);
-	b2EdgeShape shape;
-
-	//Create top boundary
-	shape.Set(vTopLeft, vTopRight);
-	edge->CreateFixture(&shape,0);
-
-	//Create bottom boundary
-	shape.Set(vBottomLeft,vBottomRight);
-	edge->CreateFixture(&shape,0);
-
-	//Create left boundary
-	shape.Set(vBottomLeft,vTopLeft);
-	edge->CreateFixture(&shape,0);
-
-	//Create right boundary
-	shape.Set(vBottomRight,vTopRight);
-	edge->CreateFixture(&shape,0);
+    // Initialize Physics world
+    const b2Vec2 gravity(0, 150);
+    world_ = new b2World(gravity);
 
 
 
-	// Create Factories
-	component_factories_ = new ComponentLibrary();
+    //Set boundaries of world (Render->Physics)
+    const b2Vec2 vTopLeft = b2Vec2(RW2PW(0),RW2PW(0));
+    const b2Vec2 vTopRight = b2Vec2(RW2PW((int32)screen_width),RW2PW(0));
+    const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0),RW2PW((int32)screen_height - 60));
+    const b2Vec2 vBottomRight = b2Vec2(RW2PW((int32)screen_width),RW2PW((int32)screen_height - 60));
 
-	component_factories_->AddFactory("Animation", (ComponentFactory*)new AnimationFactory());
-	component_factories_->AddFactory("Carrier", (ComponentFactory*)new CarrierFactory());
-	component_factories_->AddFactory("Infantry", (ComponentFactory*)new InfantryFactory());
-	component_factories_->AddFactory("Player", (ComponentFactory*)new PlayerFactory(input_device_));
-	component_factories_->AddFactory("RigidCircle", (ComponentFactory*)new RigidCircleFactory(world_));
-	component_factories_->AddFactory("RigidRectangle", (ComponentFactory*)new RigidRectangleFactory(world_));
-	component_factories_->AddFactory("Sprite", (ComponentFactory*)new SpriteFactory(graphics_device_, art_library_));
+    //
+    //Create the world boundaries
+    //
+    b2BodyDef bd;
+    b2Body* edge = world_->CreateBody(&bd);
+    b2EdgeShape shape;
 
-	// ContactListener* contact_listener = new ContactListener();
-	// world_->SetContactListener(contact_listener);
+    //Create top boundary
+    shape.Set(vTopLeft, vTopRight);
+    edge->CreateFixture(&shape,0);
 
-	return true;
+    //Create bottom boundary
+    shape.Set(vBottomLeft,vBottomRight);
+    edge->CreateFixture(&shape,0);
+
+    //Create left boundary
+    shape.Set(vBottomLeft,vTopLeft);
+    edge->CreateFixture(&shape,0);
+
+    //Create right boundary
+    shape.Set(vBottomRight,vTopRight);
+    edge->CreateFixture(&shape,0);
+
+
+
+    // Create Factories
+    component_factories_ = new ComponentLibrary();
+
+    component_factories_->AddFactory("Animation", (ComponentFactory*)new AnimationFactory());
+    component_factories_->AddFactory("Carrier", (ComponentFactory*)new CarrierFactory());
+    component_factories_->AddFactory("Infantry", (ComponentFactory*)new InfantryFactory());
+    component_factories_->AddFactory("Player", (ComponentFactory*)new PlayerFactory(input_device_));
+    component_factories_->AddFactory("RigidCircle", (ComponentFactory*)new RigidCircleFactory(world_));
+    component_factories_->AddFactory("RigidRectangle", (ComponentFactory*)new RigidRectangleFactory(world_));
+    component_factories_->AddFactory("Sprite", (ComponentFactory*)new SpriteFactory(graphics_device_, art_library_));
+
+    // ContactListener* contact_listener = new ContactListener();
+    // world_->SetContactListener(contact_listener);
+
+    return true;
 }
 
 void Game::Reset() {
-	// if(!actors_.empty()){
-	// 	for (auto iter = actors_.begin(); iter != actors_.end(); iter++) {
-	// 		delete *iter;
-	// 	}
-	// }
+    // if(!actors_.empty()){
+    //     for (auto iter = actors_.begin(); iter != actors_.end(); iter++) {
+    //         delete *iter;
+    //     }
+    // }
 }
 
 bool Game::LoadLevel(std::string file) {
-	std::shared_ptr<Actor> new_actor;
-	pugi::xml_document doc;
-	pugi::xml_parse_result result = doc.load_file(file.c_str());
-	if (result) {
-		pugi::xml_node Level = doc.child("Level");
+    std::shared_ptr<Actor> new_actor;
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(file.c_str());
+    if (result) {
+        pugi::xml_node Level = doc.child("Level");
 
-		// Temporary variables for Actor creation
-		std::string name;
-		std::shared_ptr<Actor> new_actor;
-		Vector2 position;
-		float32 angle;
-		bool controllable;
+        // Temporary variables for Actor creation
+        std::string name;
+        std::shared_ptr<Actor> new_actor;
+        Vector2 position;
+        float32 angle;
+        bool controllable;
 
-		// Temporary variables for Component creation
-		Component* new_component;
-		std::string type;
+        // Temporary variables for Component creation
+        Component* new_component;
+        std::string type;
 
-		// Loop through Actor XML nodes
-		for (pugi::xml_node actor_node : Level.children("Actor")) {
-			new_actor.reset(new Actor());
-			name = actor_node.attribute("name").value();
-			controllable = std::stoi(actor_node.attribute("controllable").value());
-			position.x = std::stof(actor_node.attribute("x").value());
-			position.y = std::stof(actor_node.attribute("y").value());
-			angle = std::stof(actor_node.attribute("angle").value());
-			new_actor->Initialize(name, position, angle, controllable);
+        // Loop through Actor XML nodes
+        for (pugi::xml_node actor_node : Level.children("Actor")) {
+            new_actor.reset(new Actor());
+            name = actor_node.attribute("name").value();
+            controllable = std::stoi(actor_node.attribute("controllable").value());
+            position.x = std::stof(actor_node.attribute("x").value());
+            position.y = std::stof(actor_node.attribute("y").value());
+            angle = std::stof(actor_node.attribute("angle").value());
+            new_actor->Initialize(name, position, angle, controllable);
 
-			// Loop through Component XML nodes
-			for (pugi::xml_node component_node : actor_node.children("Component")) {
-				type = component_node.attribute("type").value();
-				new_component = component_factories_->Search(type)->Create(new_actor, component_node);
-				new_actor->AddComponent(new_component);
-			}
-			actors_.push_back(new_actor);
-		}
-	}
-	return true;
+            // Loop through Component XML nodes
+            for (pugi::xml_node component_node : actor_node.children("Component")) {
+                type = component_node.attribute("type").value();
+                new_component = component_factories_->Search(type)->Create(new_actor, component_node);
+                new_actor->AddComponent(new_component);
+            }
+            actors_.push_back(new_actor);
+        }
+    }
+    return true;
 }
 
 void Game::Run() {
-	timer_->Update();
-	Update(timer_->DeltaTime());
-	graphics_device_->Render();
+    timer_->Update();
+    Update(timer_->DeltaTime());
+    graphics_device_->Render();
 }
 
 void Game::Update(float32 delta_time) {
-	// Update View position
-	view_->Update(delta_time);
+    // Update View position
+    view_->Update(delta_time);
 
-	// Cycle through every objects' Update method
-	for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
-		(*iter)->Update(delta_time);
-	}
-	world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_);
-	// world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
+    // Cycle through every objects' Update method
+    for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
+        (*iter)->Update(delta_time);
+    }
+    world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_);
+    // world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
 }

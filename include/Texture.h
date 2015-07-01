@@ -10,15 +10,15 @@
 
 class Texture {
 protected:
-	SDL_Texture* texture_;
-	SDL_Renderer* renderer_;
-	View* view_;
+    SDL_Texture* texture_;
+    SDL_Renderer* renderer_;
+    View* view_;
 
 public:
-	Texture();
-	~Texture();
-	bool Initialize(SDL_Renderer*, View*, std::string);
-	void Render(Vector2, float32, SDL_Rect);
-	// void Render(Vector2, float32);
-	void GetDimensions(int32*, int32*);
+    Texture();
+    ~Texture();
+    bool Initialize(SDL_Renderer*, View*, std::string);
+    void Render(Vector2, float32, SDL_Rect);
+    // void Render(Vector2, float32);
+    void GetDimensions(int32*, int32*);
 };

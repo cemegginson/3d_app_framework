@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Level>
-    <!-- NPC Layout for Game 	-->
+    <!-- NPC Layout for Game     -->
     <Actor name="Player" controllable="1" x="400.0f" y="500.0f" angle="0.0f">
         <Component type="Player" />
         <Component type="RigidRectangle" width="15" height="30" fixed_rotation="1" linear_damping=".1f" angular_damping=".1f" dynamic="1" density="80" friction="50" restitution=".1"/>

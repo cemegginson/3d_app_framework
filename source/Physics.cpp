@@ -46,11 +46,11 @@ void RigidCircle::Update(float32 delta_time) {
         }
         if(owner_->CheckEvent(kMoveUp)) {
             new_direction.x += velocity * cos(angle - PI/2);
-    		new_direction.y += velocity * sin(angle - PI/2);
+            new_direction.y += velocity * sin(angle - PI/2);
         }
         if(owner_->CheckEvent(kMoveDown)) {
             new_direction.x -= velocity * cos(angle - PI/2);
-    		new_direction.y -= velocity * sin(angle - PI/2);
+            new_direction.y -= velocity * sin(angle - PI/2);
         }
         if(owner_->CheckEvent(kMoveLeft)) {
             new_direction.x -= 1;
