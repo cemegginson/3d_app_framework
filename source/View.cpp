@@ -4,8 +4,8 @@ View::View() {}
 
 View::~View() {}
 
-bool View::Initialize(InputDevice* input, float32 x, float32 y) {
-    input_device = input;
+bool View::Initialize(InputDevice* input_device, float32 x, float32 y) {
+    input_device_ = input_device;
     velocity_ = 400;
     transform_.x = x;
     transform_.y = y;
@@ -13,16 +13,16 @@ bool View::Initialize(InputDevice* input, float32 x, float32 y) {
 }
 
 void View::Update(float32 delta_time) {
-    if (input_device->IsPressed(kGameUp)) {
+    if (input_device_->IsPressed(kGameUp)) {
         transform_.y += velocity_ * delta_time;
     }
-    if (input_device->IsPressed(kGameDown)) {
+    if (input_device_->IsPressed(kGameDown)) {
         transform_.y -= velocity_ * delta_time;
     }
-    if (input_device->IsPressed(kGameLeft)) {
+    if (input_device_->IsPressed(kGameLeft)) {
         transform_.x += velocity_ * delta_time;
     }
-    if (input_device->IsPressed(kGameRight)) {
+    if (input_device_->IsPressed(kGameRight)) {
         transform_.x -= velocity_ * delta_time;
     }
     return;

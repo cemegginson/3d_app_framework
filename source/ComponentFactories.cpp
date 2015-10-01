@@ -76,7 +76,7 @@ RigidCircle* RigidCircleFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_
     body_definition.angularDamping = std::stof(node.attribute("angular_damping").value());
     body_definition.linearDamping = std::stof(node.attribute("linear_damping").value());
 
-    circle_shape.m_radius = RW2PW(std::stof(node.attribute("radius").value());
+    circle_shape.m_radius = RW2PW(std::stof(node.attribute("radius").value()));
     shape_fixture_definition.shape = &circle_shape;
     shape_fixture_definition.density = std::stof(node.attribute("density").value());
     shape_fixture_definition.friction = std::stof(node.attribute("friction").value());
