@@ -34,7 +34,7 @@ bool Texture::Initialize(SDL_Renderer* renderer,
 }
 
 void Texture::Render(Vector2 position, float32 angle, SDL_Rect sprite_clip) {
-    Vector2 view_position = view_->GetPosition();
+    Vector2 view_position = view_->transform();
 
     SDL_Rect render_destination;
     render_destination.x = position.x + view_position.x;

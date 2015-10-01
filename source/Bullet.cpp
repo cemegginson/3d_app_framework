@@ -14,17 +14,17 @@
 //     life += delta_time;
 //
 //     b2Vec2 physPosition;
-//     physPosition = body->GetPosition();
+//     physPosition = body->transform();
 //
-//     body->SetTransform(physPosition, body->GetAngle());
+//     body->SetTransform(physPosition, body->angle());
 //
 //     position.x = (int)PW2RW(physPosition.x) - w/2.0;
 //     position.y = (int)PW2RW(physPosition.y) - h/2.0;
-//     angle = PW2RWAngle(body->GetAngle());
+//     angle = PW2RWAngle(body->angle());
 // }
 //
 // void Bullet::Render(float32 gameTime, View* view) {
-//     texture->Render(gDevice->GetRenderer(), view, position, NULL, nullptr);
+//     texture->Render(gDevice->renderer(), view, position, NULL, nullptr);
 // }
 //
 // void Bullet::Initialize(GraphicsDevice* gDev, Texture* tex, b2World* wor, Vector2 origin, Vector2 ivelocity) {

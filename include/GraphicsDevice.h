@@ -23,9 +23,10 @@ public:
     GraphicsDevice(uint32, uint32);
     ~GraphicsDevice();
     bool Initialize();
-    int GetWidth();
-    int GetHeight();
-    SDL_Renderer* GetRenderer();
     void AddSprite(Sprite*);
     void Render();
+
+    int width();
+    int height();
+    SDL_Renderer* renderer();
 };

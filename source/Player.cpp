@@ -13,8 +13,8 @@ Player::Player(std::shared_ptr<Actor> owner) : Component(owner) {
 Player::~Player() {}
 
 void Player::Update(float32 delta_time) {
-    float32 angle = owner_->GetAngle();
-    Vector2 old_position = owner_->GetPosition();
+    float32 angle = owner_->angle();
+    Vector2 old_position = owner_->transform();
     Vector2 new_position = old_position;
 
     float32 theta = RW2PWAngle(angle - 90);
@@ -54,6 +54,6 @@ void Player::Update(float32 delta_time) {
 
 void Player::Initialize() {}
 
-void Player::SetInput(InputDevice* input_device) {
+void Player::set_input_device(InputDevice* input_device) {
     input_device_ = input_device;
 }

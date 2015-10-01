@@ -17,7 +17,7 @@ class GraphicsDevice;
 class Actor : public std::enable_shared_from_this<Actor> {
 protected:
     std::string name_;
-    Vector2 position_;
+    Vector2 transform_;
     Vector2 dimensions_;
     float32 angle_;
     std::vector<Component*> components_;
@@ -35,18 +35,18 @@ public:
 
     void Update(float32);
 
-    Vector2 GetPosition();
-    void SetPosition(Vector2);
-
-    float32 GetAngle();
-    void SetAngle(float32);
-
-    SDL_Rect GetSpriteClip();
-    void SetSpriteClip(SDL_Rect);
-
     void SetEvent(ActorEvent);
     bool CheckEvent(ActorEvent);
     void ResetEvents();
 
     bool IsControllable();
+
+    Vector2 transform();
+    void set_transform(Vector2);
+
+    float32 angle();
+    void set_angle(float32);
+
+    SDL_Rect sprite_clip();
+    void set_sprite_clip(SDL_Rect);
 };

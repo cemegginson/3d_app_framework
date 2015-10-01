@@ -25,5 +25,6 @@ public:
     ~Player();
     void Update(float32);
     void Initialize();
-    void SetInput(InputDevice*);
+    
+    void set_input_device(InputDevice*);
 };

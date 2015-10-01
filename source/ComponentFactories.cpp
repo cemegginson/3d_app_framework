@@ -45,7 +45,7 @@ PlayerFactory::~PlayerFactory() {}
 
 Player* PlayerFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node node) {
     Player* player = new Player(owner);
-    player->SetInput(input_device_);
+    player->set_input_device(input_device_);
     return player;
 }
 
@@ -59,7 +59,7 @@ RigidCircleFactory::~RigidCircleFactory() {}
 
 RigidCircle* RigidCircleFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node node) {
     RigidCircle* rigid_circle = new RigidCircle(owner);
-    Vector2 position = owner->GetPosition();
+    Vector2 position = owner->transform();
     b2BodyDef body_definition;
     b2CircleShape circle_shape;
     b2FixtureDef shape_fixture_definition;
@@ -72,7 +72,7 @@ RigidCircle* RigidCircleFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_
 
     // body_definition.bullet = true;
     body_definition.position.Set(RW2PW(position.x), RW2PW(position.y));
-    body_definition.angle = RW2PWAngle(owner->GetAngle());
+    body_definition.angle = RW2PWAngle(owner->angle());
     body_definition.angularDamping = std::stof(node.attribute("angular_damping").value());
     body_definition.linearDamping = std::stof(node.attribute("linear_damping").value());
 
@@ -102,7 +102,7 @@ RigidRectangleFactory::~RigidRectangleFactory() {}
 RigidRectangle* RigidRectangleFactory::Create(std::shared_ptr<Actor> owner,
                                               pugi::xml_node node) {
     RigidRectangle* rigid_rectangle = new RigidRectangle(owner);
-    Vector2 position = owner->GetPosition();
+    Vector2 position = owner->transform();
     b2BodyDef body_definition;
     b2PolygonShape polygon_shape;
     b2FixtureDef shape_fixture_definition;
@@ -115,7 +115,7 @@ RigidRectangle* RigidRectangleFactory::Create(std::shared_ptr<Actor> owner,
 
     // body_definition.bullet = true;
     body_definition.position.Set(RW2PW(position.x), RW2PW(position.y));
-    body_definition.angle = RW2PWAngle(owner->GetAngle());
+    body_definition.angle = RW2PWAngle(owner->angle());
     body_definition.angularDamping = std::stof(node.attribute("angular_damping").value());
     body_definition.linearDamping = std::stof(node.attribute("linear_damping").value());
     body_definition.fixedRotation = std::stoi(node.attribute("fixed_rotation").value());

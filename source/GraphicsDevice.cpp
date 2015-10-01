@@ -46,11 +46,11 @@ bool GraphicsDevice::Initialize() {
     return true;
 }
 
-int GraphicsDevice::GetWidth() { return width_; }
+int GraphicsDevice::width() { return width_; }
 
-int GraphicsDevice::GetHeight() { return height_; }
+int GraphicsDevice::height() { return height_; }
 
-SDL_Renderer* GraphicsDevice::GetRenderer() {
+SDL_Renderer* GraphicsDevice::renderer() {
     return renderer_;
 }
 

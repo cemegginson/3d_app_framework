@@ -180,7 +180,7 @@ extern DECLSPEC int SDLCALL
  *  \return A valid rendering context or NULL if there was an error.
  *
  *  \sa SDL_CreateSoftwareRenderer()
- *  \sa SDL_GetRendererInfo()
+ *  \sa SDL_rendererInfo()
  *  \sa SDL_DestroyRenderer()
  */
 extern DECLSPEC SDL_Renderer* SDLCALL
@@ -202,19 +202,19 @@ extern DECLSPEC SDL_Renderer* SDLCALL
 /**
  *  \brief Get the renderer associated with a window.
  */
-extern DECLSPEC SDL_Renderer* SDLCALL SDL_GetRenderer(SDL_Window* window);
+extern DECLSPEC SDL_Renderer* SDLCALL SDL_renderer(SDL_Window* window);
 
 /**
  *  \brief Get information about a rendering context.
  */
 extern DECLSPEC int SDLCALL
-    SDL_GetRendererInfo(SDL_Renderer* renderer, SDL_RendererInfo* info);
+    SDL_rendererInfo(SDL_Renderer* renderer, SDL_RendererInfo* info);
 
 /**
  *  \brief Get the output size of a rendering context.
  */
 extern DECLSPEC int SDLCALL
-    SDL_GetRendererOutputSize(SDL_Renderer* renderer, int* w, int* h);
+    SDL_rendererOutputSize(SDL_Renderer* renderer, int* w, int* h);
 
 /**
  *  \brief Create a texture for a rendering context.

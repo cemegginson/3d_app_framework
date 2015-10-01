@@ -9,9 +9,9 @@ Infantry::Infantry(std::shared_ptr<Actor> owner) : Component(owner) {
 Infantry::~Infantry() {}
 
 void Infantry::Update(float32 delta_time) {
-    // float32 angle = owner_->GetAngle();
+    // float32 angle = owner_->angle();
     // angle += rotation_rate_ * delta_time;
-    // owner_->SetAngle(angle);
+    // owner_->set_angle(angle);
 
     owner_->SetEvent(kTurnRight);
 }

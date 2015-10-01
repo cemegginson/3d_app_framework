@@ -18,7 +18,7 @@ void Animation::Update(float32 delta_time) {
         current_frame_ >= current_animation_->size()) {
             current_frame_ = 0;
         }
-        owner_->SetSpriteClip(current_animation_->at(current_frame_));
+        owner_->set_sprite_clip(current_animation_->at(current_frame_));
     }
     CopyEventState();
     UpdateState();

@@ -24,13 +24,13 @@ void Carrier::Update(float32 delta_time) {
     position.x = PW2RW(temp_position.x);
     position.y = PW2RW(temp_position.y);
 
-    owner_->SetPosition(position);
-    owner_->SetAngle(angle);
+    owner_->set_transform(position);
+    owner_->set_angle(angle);
 }
 
 void Carrier::Initialize() {
-    position = owner_->GetPosition();
-    angle = owner_->GetAngle();
+    position = owner_->transform();
+    angle = owner_->angle();
     rotation = 120;
     center = position;
     radius = rand() % 100;

@@ -26,17 +26,14 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
     endif()
 endif()
 
-if(WIN32)
-    set(SDL2_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/include")
-    set(SDL2_LIBRARY_TEMP "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/lib/x86/SDL2.lib")
-    set(SDL2MAIN_LIBRARY  "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/lib/x86/SDL2main.lib")
-    set(SDL2_IMAGE_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/SDL2_image-2.0.0/include")
-    set(SDL2_IMAGE_LIBRARY "${CMAKE_SOURCE_DIR}/SDL2_image-2.0.0/lib/x86/SDL2_image.lib")
-    set(BOX2D_LIBRARY "${CMAKE_SOURCE_DIR}/liquidfun/liquidfun/Box2D/Box2D/") #Fix for Windows :TODO
-endif()
-
-set(BOX2D_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/liquidfun/liquidfun/Box2D/Box2D")
-set(BOX2D_LIBRARY "${CMAKE_SOURCE_DIR}/build/liquidfun/liquidfun/Box2D/Box2D/Debug/libliquidfun.a")
+# if(WIN32)
+#     set(SDL2_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/include")
+#     set(SDL2_LIBRARY_TEMP "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/lib/x86/SDL2.lib")
+#     set(SDL2MAIN_LIBRARY  "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/lib/x86/SDL2main.lib")
+#     set(SDL2_IMAGE_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/SDL2_image-2.0.0/include")
+#     set(SDL2_IMAGE_LIBRARY "${CMAKE_SOURCE_DIR}/SDL2_image-2.0.0/lib/x86/SDL2_image.lib")
+#     set(BOX2D_LIBRARY "${CMAKE_SOURCE_DIR}/liquidfun/liquidfun/Box2D/Box2D/") #Fix for Windows :TODO
+# endif()
 
 option(BOX2D_INSTALL_DOC "Install Box2D documentation" OFF)
 option(BOX2D_BUILD_SHARED "Build Box2D shared libraries" OFF)
@@ -54,5 +51,4 @@ message(STATUS "BOX2D_LIBRARY..... ${BOX2D_LIBRARY}")
 message(STATUS "BOX2D_INCLUDE_DIR. ${BOX2D_INCLUDE_DIR}")
 
 # Include directories with relevant items
-add_subdirectory("${CMAKE_SOURCE_DIR}/liquidfun/liquidfun/Box2D")
 add_subdirectory("${CMAKE_SOURCE_DIR}/source")

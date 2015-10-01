@@ -7,11 +7,11 @@ Actor::Actor() {}
 Actor::~Actor() {}
 
 void Actor::Initialize(std::string name,
-                       Vector2 position,
+                       Vector2 transform,
                        uint32 angle,
                        bool controllable) {
     name_ = name;
-    position_ = position;
+    transform_ = transform;
     angle_ = angle;
     sprite_clip_.x = 0;
     sprite_clip_.y = 0;
@@ -38,24 +38,24 @@ void Actor::Update(float32 delta_time) {
     }
 }
 
-Vector2 Actor::GetPosition() {
-    return position_;
+Vector2 Actor::transform() {
+    return transform_;
 }
-void Actor::SetPosition(Vector2 new_position) {
-    position_ = new_position;
+void Actor::set_transform(Vector2 new_transform) {
+    transform_ = new_transform;
 }
 
-float32 Actor::GetAngle() {
+float32 Actor::angle() {
     return angle_;
 }
-void Actor::SetAngle(float32 new_angle) {
+void Actor::set_angle(float32 new_angle) {
     angle_ = new_angle;
 }
 
-SDL_Rect Actor::GetSpriteClip() {
+SDL_Rect Actor::sprite_clip() {
     return sprite_clip_;
 }
-void Actor::SetSpriteClip(SDL_Rect new_sprite_clip) {
+void Actor::set_sprite_clip(SDL_Rect new_sprite_clip) {
     sprite_clip_ = new_sprite_clip;
 }
 

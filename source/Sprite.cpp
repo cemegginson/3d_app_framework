@@ -19,12 +19,12 @@ void Sprite::Initialize(GraphicsDevice* graphics_device, Texture* texture) {
 }
 
 void Sprite::Update(float32 delta_time) {
-    sprite_clip_ = owner_->GetSpriteClip();
+    sprite_clip_ = owner_->sprite_clip();
 }
 
 void Sprite::Render() {
-    Vector2 position = owner_->GetPosition();
-    float32 angle = owner_->GetAngle();
+    Vector2 position = owner_->transform();
+    float32 angle = owner_->angle();
     // Not finished here
     texture_->Render(position, angle, sprite_clip_);
     // texture_->Render(position, angle);
