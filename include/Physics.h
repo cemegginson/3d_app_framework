@@ -35,7 +35,7 @@ protected:
 
 public:
     RigidCircle(Actor*);
-    ~RigidCircle();
+    // ~RigidCircle();
     void Initialize(b2World*, b2BodyDef, b2FixtureDef);
     void Update(float32);
     b2Vec2 ExportPosition();
@@ -50,7 +50,7 @@ protected:
 
 public:
     RigidRectangle(Actor*);
-    ~RigidRectangle();
+    // ~RigidRectangle();
     void Initialize(b2World*, b2BodyDef, b2FixtureDef);
     void Update(float32);
     b2Vec2 ExportPosition();

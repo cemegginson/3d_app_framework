@@ -6,7 +6,12 @@
 
 ArtAssetLibrary::ArtAssetLibrary() {}
 
-ArtAssetLibrary::~ArtAssetLibrary() {}
+ArtAssetLibrary::~ArtAssetLibrary() {
+    for(auto iter = library_.begin(); iter!=library_.end();) {
+        delete iter->second;
+        iter = library_.erase(iter);
+    }
+}
 
 bool ArtAssetLibrary::LoadAssets(GraphicsDevice* graphics_device, View* view) {
     // Bullet

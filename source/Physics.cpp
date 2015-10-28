@@ -16,11 +16,11 @@ RigidCircle::RigidCircle(Actor* owner) :
                          Component(owner),
                          Rigidbody() {}
 
-RigidCircle::~RigidCircle() {}
+// RigidCircle::~RigidCircle() {}
 
 void RigidCircle::Initialize(b2World* world,
                              b2BodyDef body_definition,
-                              b2FixtureDef shape_fixture_definition) {
+                             b2FixtureDef shape_fixture_definition) {
     world_ = world;
     body_ = world->CreateBody(&body_definition);
     body_->CreateFixture(&shape_fixture_definition);
@@ -96,7 +96,7 @@ RigidRectangle::RigidRectangle(Actor* owner) :
                                Component(owner),
                                Rigidbody() {}
 
-RigidRectangle::~RigidRectangle() {}
+// RigidRectangle::~RigidRectangle() {}
 
 void RigidRectangle::Initialize(b2World* world,
                                 b2BodyDef body_definition,

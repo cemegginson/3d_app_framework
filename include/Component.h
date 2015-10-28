@@ -13,6 +13,6 @@ protected:
 
 public:
     Component(Actor*);
-    ~Component();
+    virtual ~Component();
     virtual void Update(float32) = 0;
 };

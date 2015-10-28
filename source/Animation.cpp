@@ -34,15 +34,15 @@ void Animation::Update(float32 delta_time) {
 }
 
 void Animation::Initialize() {
-    state_[kFacingLeft] = false;
-    state_[kFacingRight] = false;
-    state_[kStationary] = false;
-    state_[kJumping] = false;
+    state_.insert(std::pair<State,bool>(kFacingLeft, false));
+    state_.insert(std::pair<State,bool>(kFacingRight, false));
+    state_.insert(std::pair<State,bool>(kStationary, false));
+    state_.insert(std::pair<State,bool>(kJumping, false));
 
-    // last_state_[kFacingLeft] = false;
-    // last_state_[kFacingRight] = false;
-    // last_state_[kStationary] = false;
-    // last_state_[kJumping] = false;
+    last_state_.insert(std::pair<State,bool>(kFacingLeft, false));
+    last_state_.insert(std::pair<State,bool>(kFacingRight, false));
+    last_state_.insert(std::pair<State,bool>(kStationary, false));
+    last_state_.insert(std::pair<State,bool>(kJumping, false));
 
     SetAnimation("face-screen");
 }
@@ -110,6 +110,6 @@ void Animation::CopyEventState() {
     State temp;
     for (auto iter = state_.begin(); iter != state_.end(); ++iter) {
         temp = iter->first;
-        last_state_[temp] = state_.at(temp);
+        last_state_.at(temp) = state_.at(temp);
     }
 }

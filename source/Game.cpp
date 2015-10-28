@@ -20,6 +20,10 @@ Game::Game() {
 }
 
 Game::~Game() {
+    while(actors_.size() > 0) {
+        delete actors_.back();
+        actors_.pop_back();
+    }
     if(component_factories_ != nullptr) {
         delete component_factories_;
         component_factories_ = nullptr;
@@ -39,11 +43,6 @@ Game::~Game() {
     if(world_ != nullptr) {
         delete world_;
         world_ = nullptr;
-    }
-
-    while(actors_.size() > 0) {
-        delete actors_.back();
-        actors_.pop_back();
     }
 }
 
@@ -138,7 +137,7 @@ bool Game::LoadLevel(std::string file) {
         for (pugi::xml_node actor_node : Level.children("Actor")) {
             std::string name = actor_node.attribute("name").value();
             bool controllable = std::stoi(actor_node.attribute("controllable").value());
-            
+
             Vector2 position;
             position.x = std::stof(actor_node.attribute("x").value());
             position.y = std::stof(actor_node.attribute("y").value());
