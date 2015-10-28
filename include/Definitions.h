@@ -26,3 +26,39 @@ enum State { kFacingLeft, kFacingRight, kStationary, kJumping, kStopped };
 
 // Constants
 const float32 PI = 3.14159f;
+
+
+
+// Includes for EventSystem (should restructure to not need these globally.
+#include <string>
+#include <iostream>
+#include <vector>
+#include <map>
+#include <list>
+
+//include chrono before thread because some versions of the standard lib are bugged (erhm... stdlibc++ 4.6)
+//libstd++ is fine though
+#include <chrono>
+#include <thread>
+
+#include "EventSystem/Subscriber.h"
+
+//Some Event ID's
+enum Events {
+	EVENT_UPDATE,
+	EVENT_RENDER,
+	EVENT_MOUSEUP,
+	EVENT_MOUSEDOWN,
+	EVENT_MOUSEMOVE,
+	EVENT_MOUSEDRAGED,
+	EVENT_KEYDOWN,
+	EVENT_KEYUP
+};
+
+/**
+ * Shorthand method to access cross-platform "sleep" functionality.
+ * Will cause compile error without explicit inline or if inline is not respected.
+*/
+inline void sleep(int time_millis) {
+	std::this_thread::sleep_for(std::chrono::milliseconds(time_millis));
+}

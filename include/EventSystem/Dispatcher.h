@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Globals.h"
+#include "Definitions.h"
 //Begin Dispatcher Class Section
 
 

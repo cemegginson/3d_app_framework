@@ -127,7 +127,7 @@ void RigidRectangle::Update(float32 delta_time) {
             angular_velocity += PI;
         }
         if (owner_->CheckEvent(kMoveUp)) {
-            body_->ApplyForceToCenter(jump, 1);
+            body_->ApplyForceToCenter(jump);
         }
         if (owner_->CheckEvent(kMoveDown)) {}
         if (owner_->CheckEvent(kMoveLeft)) {
