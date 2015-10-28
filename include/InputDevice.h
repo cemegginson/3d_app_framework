@@ -16,7 +16,7 @@ protected:
 
 public:
     InputDevice();
-    ~InputDevice();
+    
     bool Initialize();
     void Update(SDL_Event*);
     bool IsPressed(GameEvent);

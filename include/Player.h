@@ -21,7 +21,7 @@ protected:
     float32 last_fire_time_;
 
 public:
-    Player(std::shared_ptr<Actor>);
+    Player(Actor*);
     ~Player();
     void Update(float32);
     void Initialize();

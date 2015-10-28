@@ -34,7 +34,7 @@ protected:
     float32 radius;
 
 public:
-    RigidCircle(std::shared_ptr<Actor>);
+    RigidCircle(Actor*);
     ~RigidCircle();
     void Initialize(b2World*, b2BodyDef, b2FixtureDef);
     void Update(float32);
@@ -49,7 +49,7 @@ class RigidRectangle : public Rigidbody, public Component {
 protected:
 
 public:
-    RigidRectangle(std::shared_ptr<Actor>);
+    RigidRectangle(Actor*);
     ~RigidRectangle();
     void Initialize(b2World*, b2BodyDef, b2FixtureDef);
     void Update(float32);

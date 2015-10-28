@@ -3,7 +3,7 @@
 #include "GameFunctions.h"
 #include "Player.h"
 
-Player::Player(std::shared_ptr<Actor> owner) : Component(owner) {
+Player::Player(Actor* owner) : Component(owner) {
     input_device_ = nullptr;
     travel_ = 200;
     rotation_ = 360.0;

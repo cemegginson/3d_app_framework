@@ -3,8 +3,6 @@
 
 InputDevice::InputDevice() { game_event_ = kGameNA; }
 
-InputDevice::~InputDevice() {}
-
 bool InputDevice::Initialize() {
     translations_[SDLK_UP] = kGameUp;
     translations_[SDLK_DOWN] = kGameDown;

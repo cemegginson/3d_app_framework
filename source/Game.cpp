@@ -20,11 +20,31 @@ Game::Game() {
 }
 
 Game::~Game() {
-    delete component_factories_;
-    delete art_library_;
-    delete graphics_device_;
-    delete input_device_;
-    delete view_;
+    if(component_factories_ != nullptr) {
+        delete component_factories_;
+        component_factories_ = nullptr;
+    }
+    if(art_library_ != nullptr) {
+        delete art_library_;
+        art_library_ = nullptr;
+    }
+    if(view_ != nullptr) {
+        delete view_;
+        view_ = nullptr;
+    }
+    if(timer_ != nullptr) {
+        delete timer_;
+        timer_ = nullptr;
+    }
+    if(world_ != nullptr) {
+        delete world_;
+        world_ = nullptr;
+    }
+
+    while(actors_.size() > 0) {
+        delete actors_.back();
+        actors_.pop_back();
+    }
 }
 
 bool Game::Initialize(GraphicsDevice* graphics_device,
@@ -108,37 +128,29 @@ void Game::Reset() {
 }
 
 bool Game::LoadLevel(std::string file) {
-    std::shared_ptr<Actor> new_actor;
+    Actor* new_actor;
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(file.c_str());
     if (result) {
         pugi::xml_node Level = doc.child("Level");
 
-        // Temporary variables for Actor creation
-        std::string name;
-        std::shared_ptr<Actor> new_actor;
-        Vector2 position;
-        float32 angle;
-        bool controllable;
-
-        // Temporary variables for Component creation
-        Component* new_component;
-        std::string type;
-
         // Loop through Actor XML nodes
         for (pugi::xml_node actor_node : Level.children("Actor")) {
-            new_actor.reset(new Actor());
-            name = actor_node.attribute("name").value();
-            controllable = std::stoi(actor_node.attribute("controllable").value());
+            std::string name = actor_node.attribute("name").value();
+            bool controllable = std::stoi(actor_node.attribute("controllable").value());
+            
+            Vector2 position;
             position.x = std::stof(actor_node.attribute("x").value());
             position.y = std::stof(actor_node.attribute("y").value());
-            angle = std::stof(actor_node.attribute("angle").value());
+            float32 angle = std::stof(actor_node.attribute("angle").value());
+
+            Actor* new_actor = new Actor();
             new_actor->Initialize(name, position, angle, controllable);
 
             // Loop through Component XML nodes
             for (pugi::xml_node component_node : actor_node.children("Component")) {
-                type = component_node.attribute("type").value();
-                new_component = component_factories_->Search(type)->Create(new_actor, component_node);
+                std::string type = component_node.attribute("type").value();
+                Component* new_component = (Component*)(component_factories_->Search(type)->Create(new_actor, component_node));
                 new_actor->AddComponent(new_component);
             }
             actors_.push_back(new_actor);

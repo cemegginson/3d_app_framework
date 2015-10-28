@@ -11,7 +11,7 @@ protected:
     float32 rotation_rate_;
 
 public:
-    Infantry(std::shared_ptr<Actor>);
+    Infantry(Actor*);
     ~Infantry();
     void Update(float32);
     void Initialize();

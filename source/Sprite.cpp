@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite(std::shared_ptr<Actor> owner) : Component(owner) {
+Sprite::Sprite(Actor* owner) : Component(owner) {
     texture_ = nullptr;
 }
 

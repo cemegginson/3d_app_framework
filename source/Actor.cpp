@@ -4,7 +4,12 @@
 
 Actor::Actor() {}
 
-Actor::~Actor() {}
+Actor::~Actor() {
+    while(components_.size() > 0) {
+        delete components_.back();
+        components_.pop_back();
+    }
+}
 
 void Actor::Initialize(std::string name,
                        Vector2 transform,
@@ -24,6 +29,8 @@ void Actor::Initialize(std::string name,
     actor_events_[kMoveRight] = false;
     actor_events_[kTurnLeft] = false;
     actor_events_[kTurnRight] = false;
+
+    controllable_ = controllable;
 }
 
 void Actor::AddComponent(Component* component) {

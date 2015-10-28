@@ -3,11 +3,17 @@
 
 #include "Animation.h"
 
-Animation::Animation(std::shared_ptr<Actor> owner) : Component(owner) {
+Animation::Animation(Actor* owner) : Component(owner) {
+    animations_ = std::map<std::string, std::vector<SDL_Rect>*>();
     current_animation_ = nullptr;
     current_frame_ = 0;
 }
-Animation::~Animation() {}
+Animation::~Animation() {
+    //delete animations
+    for (auto iter = animations_.begin(); iter != animations_.end(); ++iter) {
+        delete iter->second;
+    }
+}
 
 void Animation::Update(float32 delta_time) {
     frame_time_ += delta_time;
@@ -42,6 +48,9 @@ void Animation::Initialize() {
 }
 
 void Animation::AddAnimation(std::string name, std::vector<SDL_Rect>* animation) {
+    //cleanup if animation was already defined (valgrind)
+    if(animations_[name] != nullptr) delete animations_[name];
+
     animations_[name] = animation;
 }
 

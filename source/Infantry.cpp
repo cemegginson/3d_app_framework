@@ -2,7 +2,7 @@
 
 #include "GameFunctions.h"
 
-Infantry::Infantry(std::shared_ptr<Actor> owner) : Component(owner) {
+Infantry::Infantry(Actor* owner) : Component(owner) {
     rotation_rate_ = 90;
 }
 

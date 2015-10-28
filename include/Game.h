@@ -19,7 +19,7 @@ protected:
     InputDevice* input_device_;
     Timer* timer_;
     View* view_;
-    std::list<std::shared_ptr<Actor>> actors_;
+    std::list<Actor*> actors_;
     b2World* world_;
     float32 physics_delta_time_;
     int32 velocity_iterations_;

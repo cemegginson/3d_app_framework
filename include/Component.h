@@ -9,10 +9,10 @@ class Actor;
 
 class Component {
 protected:
-    std::shared_ptr<Actor> owner_;
+    Actor* owner_;
 
 public:
-    Component(std::shared_ptr<Actor>);
+    Component(Actor*);
     ~Component();
     virtual void Update(float32) = 0;
 };

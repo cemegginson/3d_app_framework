@@ -56,15 +56,6 @@ int main(int argc, char* argv[]) {
     }
 
     //========================================
-    // Construct Event System
-    //========================================
-    SDL_Event* event = new SDL_Event();
-    if (!event) {
-        printf("SDL Event could not initialize!");
-        exit(1);
-    }
-
-    //========================================
     // Construct Input Device
     //========================================
     InputDevice* input_device = new InputDevice();
@@ -79,7 +70,8 @@ int main(int argc, char* argv[]) {
     Game* game = new Game();
     if (!game->Initialize(graphics_device, input_device)) {
         printf("Game could not Initialize!");
-        exit(1);
+        exit(1); //this case will leak a lot of memory...
+                 //should properly do destructor calls and proper shutdown
     }
 
     //========================================
@@ -90,18 +82,20 @@ int main(int argc, char* argv[]) {
     if (!game->LoadLevel(levelConfigFile)) {
         printf("Game could not load level %s: ",
                levelConfigFile.c_str());
-        exit(1);
+        exit(1); //this case will leak a lot of memory...
+                 //should properly do destructor calls and proper shutdown
     }
 
     // Start the game
+    SDL_Event event;
     bool quit = false;
     while (!quit) {
-        while (SDL_PollEvent(event)) {
-            if (event->type == SDL_QUIT) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
                 quit = true;
             }
             // Update the Input Device with the Event
-            input_device->Update(event);
+            input_device->Update(&event);
         }
         game->Run();
     }
@@ -109,17 +103,17 @@ int main(int argc, char* argv[]) {
     //========================================
     // Clean-up
     //========================================
-    if (game) {
+    if (game != nullptr) {
         delete game;
         game = nullptr;
     }
 
-    if (input_device) {
+    if (input_device != nullptr) {
         delete input_device;
         input_device = nullptr;
     }
 
-    if (graphics_device) {
+    if (graphics_device != nullptr) {
         delete graphics_device;
         graphics_device = nullptr;
     }

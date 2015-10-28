@@ -19,7 +19,7 @@ CarrierFactory::CarrierFactory() : ComponentFactory() {}
 
 CarrierFactory::~CarrierFactory() {}
 
-Carrier* CarrierFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node node) {
+Carrier* CarrierFactory::Create(Actor* owner, pugi::xml_node node) {
     Carrier* carrier = new Carrier(owner);
     return carrier;
 }
@@ -30,7 +30,7 @@ InfantryFactory::InfantryFactory() : ComponentFactory() {}
 
 InfantryFactory::~InfantryFactory() {}
 
-Infantry* InfantryFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node node) {
+Infantry* InfantryFactory::Create(Actor* owner, pugi::xml_node node) {
     Infantry* infantry = new Infantry(owner);
     return infantry;
 }
@@ -43,7 +43,7 @@ PlayerFactory::PlayerFactory(InputDevice* input_device) : ComponentFactory() {
 
 PlayerFactory::~PlayerFactory() {}
 
-Player* PlayerFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node node) {
+Player* PlayerFactory::Create(Actor* owner, pugi::xml_node node) {
     Player* player = new Player(owner);
     player->set_input_device(input_device_);
     return player;
@@ -57,7 +57,7 @@ RigidCircleFactory::RigidCircleFactory(b2World* world) : ComponentFactory() {
 
 RigidCircleFactory::~RigidCircleFactory() {}
 
-RigidCircle* RigidCircleFactory::Create(std::shared_ptr<Actor> owner, pugi::xml_node node) {
+RigidCircle* RigidCircleFactory::Create(Actor* owner, pugi::xml_node node) {
     RigidCircle* rigid_circle = new RigidCircle(owner);
     Vector2 position = owner->transform();
     b2BodyDef body_definition;
@@ -99,7 +99,7 @@ RigidRectangleFactory::RigidRectangleFactory(b2World* world) : ComponentFactory(
 
 RigidRectangleFactory::~RigidRectangleFactory() {}
 
-RigidRectangle* RigidRectangleFactory::Create(std::shared_ptr<Actor> owner,
+RigidRectangle* RigidRectangleFactory::Create(Actor* owner,
                                               pugi::xml_node node) {
     RigidRectangle* rigid_rectangle = new RigidRectangle(owner);
     Vector2 position = owner->transform();
@@ -149,7 +149,7 @@ SpriteFactory::SpriteFactory(GraphicsDevice* graphics_device,
 
 SpriteFactory::~SpriteFactory() {}
 
-Sprite* SpriteFactory::Create(std::shared_ptr<Actor> owner,
+Sprite* SpriteFactory::Create(Actor* owner,
                               pugi::xml_node node) {
     Sprite* new_sprite = new Sprite(owner);
     std::string texture = node.attribute("texture").value();
@@ -163,7 +163,7 @@ AnimationFactory::AnimationFactory() : ComponentFactory() {}
 
 AnimationFactory::~AnimationFactory() {}
 
-Animation* AnimationFactory::Create(std::shared_ptr<Actor> owner,
+Animation* AnimationFactory::Create(Actor* owner,
                                     pugi::xml_node node) {
     Animation* new_animation = new Animation(owner);
 

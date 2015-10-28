@@ -1,6 +1,6 @@
 #include "Component.h"
 
-Component::Component(std::shared_ptr<Actor> owner) {
+Component::Component(Actor* owner) {
     owner_ = owner;
 }
 

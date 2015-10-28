@@ -21,7 +21,7 @@ protected:
     // bool moving_;
 
 public:
-    Animation(std::shared_ptr<Actor>);
+    Animation(Actor*);
     ~Animation();
     void Update(float32);
     void UpdateState();

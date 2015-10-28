@@ -22,8 +22,8 @@ protected:
 
 public:
     ComponentFactory();
-    ~ComponentFactory();
-    virtual Component* Create(std::shared_ptr<Actor>, pugi::xml_node) = 0;
+    virtual ~ComponentFactory() = 0;
+    virtual Component* Create(Actor*, pugi::xml_node) = 0;
 };
 
 class CarrierFactory : ComponentFactory {
@@ -31,7 +31,7 @@ protected:
 public:
     CarrierFactory();
     ~CarrierFactory();
-    Carrier* Create(std::shared_ptr<Actor>, pugi::xml_node);
+    Carrier* Create(Actor*, pugi::xml_node);
 };
 
 class InfantryFactory : ComponentFactory {
@@ -39,7 +39,7 @@ protected:
 public:
     InfantryFactory();
     ~InfantryFactory();
-    Infantry* Create(std::shared_ptr<Actor>, pugi::xml_node);
+    Infantry* Create(Actor*, pugi::xml_node);
 };
 
 class PlayerFactory : ComponentFactory {
@@ -49,7 +49,7 @@ protected:
 public:
     PlayerFactory(InputDevice*);
     ~PlayerFactory();
-    Player* Create(std::shared_ptr<Actor>, pugi::xml_node);
+    Player* Create(Actor*, pugi::xml_node);
 };
 
 class RigidCircleFactory : ComponentFactory {
@@ -59,7 +59,7 @@ protected:
 public:
     RigidCircleFactory(b2World*);
     ~RigidCircleFactory();
-    RigidCircle* Create(std::shared_ptr<Actor>, pugi::xml_node);
+    RigidCircle* Create(Actor*, pugi::xml_node);
 };
 
 class RigidRectangleFactory : ComponentFactory {
@@ -69,7 +69,7 @@ protected:
 public:
     RigidRectangleFactory(b2World*);
     ~RigidRectangleFactory();
-    RigidRectangle* Create(std::shared_ptr<Actor>, pugi::xml_node);
+    RigidRectangle* Create(Actor*, pugi::xml_node);
 };
 
 class SpriteFactory : ComponentFactory {
@@ -80,7 +80,7 @@ protected:
 public:
     SpriteFactory(GraphicsDevice*, ArtAssetLibrary*);
     ~SpriteFactory();
-    Sprite* Create(std::shared_ptr<Actor>, pugi::xml_node);
+    Sprite* Create(Actor*, pugi::xml_node);
 };
 
 class AnimationFactory : ComponentFactory {
@@ -90,5 +90,5 @@ protected:
 public:
     AnimationFactory();
     ~AnimationFactory();
-    Animation* Create(std::shared_ptr<Actor>, pugi::xml_node);
+    Animation* Create(Actor*, pugi::xml_node);
 };

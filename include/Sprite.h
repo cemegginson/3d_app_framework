@@ -13,7 +13,7 @@ protected:
     SDL_Rect sprite_clip_;
 
 public:
-    Sprite(std::shared_ptr<Actor>);
+    Sprite(Actor*);
     ~Sprite();
     void Initialize(GraphicsDevice*, Texture*);
     void Update(float32);

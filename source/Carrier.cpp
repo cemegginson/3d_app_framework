@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-Carrier::Carrier(std::shared_ptr<Actor> owner) : Component(owner) {}
+Carrier::Carrier(Actor* owner) : Component(owner) {}
 
 Carrier::~Carrier() {}
 

@@ -12,7 +12,7 @@ Rigidbody::~Rigidbody() {
 
 // RigidCircle methods
 
-RigidCircle::RigidCircle(std::shared_ptr<Actor> owner) :
+RigidCircle::RigidCircle(Actor* owner) :
                          Component(owner),
                          Rigidbody() {}
 
@@ -92,7 +92,7 @@ float32 RigidCircle::ImportAngle() {
 
 // RigidRectangle methods
 
-RigidRectangle::RigidRectangle(std::shared_ptr<Actor> owner) :
+RigidRectangle::RigidRectangle(Actor* owner) :
                                Component(owner),
                                Rigidbody() {}
 

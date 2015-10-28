@@ -14,7 +14,7 @@ protected:
     float32 angle;
 
 public:
-    Carrier(std::shared_ptr<Actor>);
+    Carrier(Actor*);
     ~Carrier();
     void Update(float32);
     void Initialize();
