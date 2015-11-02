@@ -1,5 +1,7 @@
 #include "EventSystem/Dispatcher.h"
 
+#include "Util/Definitions.h"
+
 //Begin Dispatcher static variables
 bool Dispatcher::inited;
 bool Dispatcher::running;
@@ -37,6 +39,11 @@ void Dispatcher::Initialize() {
 
         dispatchEvents  = new std::deque<std::pair<double,std::shared_ptr<void>>>();
         mappedEvents    = new std::map<int,std::list<Subscriber*>*>();
+
+        //Preallocate known events (should help avoid a map reorganize at runtime)
+        for(auto event : Events) {
+            mappedEvents->emplace(event, new std::list<Subscriber*>());
+        }
 
         running = true;
         processing = true;
