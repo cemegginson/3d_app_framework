@@ -35,7 +35,6 @@ void Player::Update(std::shared_ptr<void> delta_time) {
     float32 tsin = sin(theta);
 
     if (input_device_->IsPressed(kGameA)) {
-        std::cout << "PRESSED LEFT" << std::endl;
         owner_->SetEvent(kMoveLeft);
     }
     if (input_device_->IsPressed(kGameD)) {

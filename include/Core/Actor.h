@@ -3,6 +3,7 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include <mutex>
 
 #include "SDL.h"
 
@@ -28,6 +29,8 @@ protected:
     SDL_Rect sprite_clip_;
 
 public:
+    std::mutex actorLock;
+
     Actor();
     ~Actor();
     void Initialize(std::string, Vector2, uint32, bool);

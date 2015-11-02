@@ -23,6 +23,7 @@ private:
 	static std::deque<std::pair<double,std::shared_ptr<void>>>*  dispatchEvents;
 	static std::map<int,std::list<Subscriber*>*>* mappedEvents;
 
+	static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  threadQueue;
 	static std::deque<std::thread*> processingThreads; //using std::deque for constant time size() and O(1) random access
 
 public:
@@ -48,6 +49,9 @@ public:
 
 	static void DispatchEvent(double eventID, std::shared_ptr<void> eventData);
 
+	static void Pump();
+	static int QueueSize() { if(threadQueue != nullptr) return threadQueue->size();  else return 0;}
+
 private:
-	static void Process();
+	static void ThreadProcess();
 };
