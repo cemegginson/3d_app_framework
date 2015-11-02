@@ -3,7 +3,8 @@
 #include "GameFunctions.h"
 #include "Physics.h"
 
-Rigidbody::Rigidbody() {}
+Rigidbody::Rigidbody()
+    {}
 
 Rigidbody::~Rigidbody() {
     world_->DestroyBody(body_);
@@ -13,10 +14,15 @@ Rigidbody::~Rigidbody() {
 // RigidCircle methods
 
 RigidCircle::RigidCircle(Actor* owner) :
-                         Component(owner),
-                         Rigidbody() {}
+                         Rigidbody(),
+                         Component(owner) {}
 
-// RigidCircle::~RigidCircle() {}
+RigidCircle::~RigidCircle() {
+    while(subscribers.size() > 0) {
+        delete subscribers.back();
+        subscribers.pop_back();
+    }
+}
 
 void RigidCircle::Initialize(b2World* world,
                              b2BodyDef body_definition,
@@ -27,13 +33,14 @@ void RigidCircle::Initialize(b2World* world,
     controllable_ = owner_->IsControllable();
 }
 
-void RigidCircle::Update(float32 delta_time) {
+void RigidCircle::Update(std::shared_ptr<void> delta_time) {
     b2Vec2 new_direction;
     float32 angle = body_->GetAngle();
     float32 angular_velocity = 0;
     float32 velocity = 30;
     new_direction.x = 0;
     new_direction.y = 0;
+
     if (controllable_) {
         if (owner_->CheckEvent(kTurnLeft)) {
             angular_velocity -= PI;
@@ -90,13 +97,20 @@ float32 RigidCircle::ImportAngle() {
     return RW2PWAngle(owner_->angle());
 }
 
+
+
 // RigidRectangle methods
 
 RigidRectangle::RigidRectangle(Actor* owner) :
-                               Component(owner),
-                               Rigidbody() {}
+                               Rigidbody(),
+                               Component(owner) {}
 
-// RigidRectangle::~RigidRectangle() {}
+RigidRectangle::~RigidRectangle() {
+    while(subscribers.size() > 0) {
+        delete subscribers.back();
+        subscribers.pop_back();
+    }
+}
 
 void RigidRectangle::Initialize(b2World* world,
                                 b2BodyDef body_definition,
@@ -105,9 +119,14 @@ void RigidRectangle::Initialize(b2World* world,
     body_ = world->CreateBody(&body_definition);
     body_->CreateFixture(&shape_fixture_definition);
     controllable_ = owner_->IsControllable();
+
+    Subscriber* s = new Subscriber(this);
+    s->method = std::bind(&RigidRectangle::Update, this, std::placeholders::_1);
+    Dispatcher::AddEventSubscriber(s, Events::EVENT_PHYSICS_UPDATE);
+    subscribers.push_back(s);
 }
 
-void RigidRectangle::Update(float32 delta_time) {
+void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
     b2Vec2 new_direction;
     float32 angle = body_->GetAngle();
     float32 angular_velocity = 0;

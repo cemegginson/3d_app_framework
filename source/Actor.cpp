@@ -39,10 +39,6 @@ void Actor::AddComponent(Component* component) {
 
 void Actor::Update(float32 delta_time) {
     ResetEvents();
-
-    for (auto iter = components_.begin(); iter != components_.end(); ++iter) {
-        (*iter)->Update(delta_time);
-    }
 }
 
 Vector2 Actor::transform() {

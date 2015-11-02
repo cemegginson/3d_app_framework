@@ -5,5 +5,5 @@ Component::Component(Actor* owner) {
 }
 
 Component::~Component() {
-    // delete owner_;
+    //needed for virtual overrides
 }

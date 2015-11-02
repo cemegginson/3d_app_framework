@@ -13,6 +13,6 @@ protected:
 public:
     Infantry(Actor*);
     ~Infantry();
-    void Update(float32);
+    void Update(std::shared_ptr<void> delta_time);
     void Initialize();
 };

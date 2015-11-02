@@ -7,16 +7,26 @@ Animation::Animation(Actor* owner) : Component(owner) {
     animations_ = std::map<std::string, std::vector<SDL_Rect>*>();
     current_animation_ = nullptr;
     current_frame_ = 0;
+
+    Subscriber* s = new Subscriber(this);
+    s->method = std::bind(&Animation::Update, this, std::placeholders::_1);
+    Dispatcher::AddEventSubscriber(s, EVENT_COMPONENT_UPDATE);
+    subscribers.push_back(s);
 }
 Animation::~Animation() {
     //delete animations
     for (auto iter = animations_.begin(); iter != animations_.end(); ++iter) {
         delete iter->second;
     }
+
+    while(subscribers.size() > 0) {
+        delete subscribers.back();
+        subscribers.pop_back();
+    }
 }
 
-void Animation::Update(float32 delta_time) {
-    frame_time_ += delta_time;
+void Animation::Update(std::shared_ptr<void> delta_time) {
+    frame_time_ += *(float32*)delta_time.get();
     if (frame_time_ >= .05) {
         frame_time_ = 0;
         current_frame_++;

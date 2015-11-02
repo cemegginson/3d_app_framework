@@ -8,11 +8,24 @@ Player::Player(Actor* owner) : Component(owner) {
     travel_ = 200;
     rotation_ = 360.0;
     last_fire_time_ = 0;
+
+    Subscriber* s = new Subscriber(this);
+    s->method = std::bind(&Player::Update, this, std::placeholders::_1);
+    Dispatcher::AddEventSubscriber(s, Events::EVENT_COMPONENT_UPDATE);
+    subscribers.push_back(s);
 }
 
-Player::~Player() {}
+Player::~Player() {
+    while(subscribers.size() > 0) {
+        delete subscribers.back();
+        subscribers.pop_back();
+    }
+}
 
-void Player::Update(float32 delta_time) {
+void Player::Update(std::shared_ptr<void> delta_time) {
+    float time = *(float*)delta_time.get();
+    std::cout << "Player updated " << time << std::endl;
+
     float32 angle = owner_->angle();
     Vector2 old_position = owner_->transform();
     Vector2 new_position = old_position;
@@ -22,6 +35,7 @@ void Player::Update(float32 delta_time) {
     float32 tsin = sin(theta);
 
     if (input_device_->IsPressed(kGameA)) {
+        std::cout << "PRESSED LEFT" << std::endl;
         owner_->SetEvent(kMoveLeft);
     }
     if (input_device_->IsPressed(kGameD)) {
@@ -34,7 +48,7 @@ void Player::Update(float32 delta_time) {
         owner_->SetEvent(kMoveDown);
     }
 
-    last_fire_time_ += delta_time;
+    last_fire_time_ += time;
     // Create bullet if spacebar pressed
     // if(input_device_->IsPressed(kGameSpace) && last_fire_time_ > .075){
     //     last_fire_time_ = 0;

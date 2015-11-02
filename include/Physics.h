@@ -35,9 +35,9 @@ protected:
 
 public:
     RigidCircle(Actor*);
-    // ~RigidCircle();
+    ~RigidCircle();
     void Initialize(b2World*, b2BodyDef, b2FixtureDef);
-    void Update(float32);
+    void Update(std::shared_ptr<void> delta_time);
     b2Vec2 ExportPosition();
     float32 ExportAngle();
     b2Vec2 ImportPosition();
@@ -50,9 +50,9 @@ protected:
 
 public:
     RigidRectangle(Actor*);
-    // ~RigidRectangle();
+    ~RigidRectangle();
     void Initialize(b2World*, b2BodyDef, b2FixtureDef);
-    void Update(float32);
+    void Update(std::shared_ptr<void> delta_time);
     b2Vec2 ExportPosition();
     float32 ExportAngle();
     b2Vec2 ImportPosition();

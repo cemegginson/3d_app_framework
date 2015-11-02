@@ -16,6 +16,6 @@ public:
     Sprite(Actor*);
     ~Sprite();
     void Initialize(GraphicsDevice*, Texture*);
-    void Update(float32);
+    void Update(std::shared_ptr<void> delta_time);
     void Render();
 };

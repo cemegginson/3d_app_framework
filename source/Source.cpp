@@ -33,6 +33,8 @@
 #include "InputDevice.h"
 
 int main(int argc, char* argv[]) {
+    Dispatcher::Initialize();
+
     //========================================
     // Initialize the random number generator
     //========================================

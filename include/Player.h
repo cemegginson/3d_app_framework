@@ -23,8 +23,8 @@ protected:
 public:
     Player(Actor*);
     ~Player();
-    void Update(float32);
+    void Update(std::shared_ptr<void> delta_time);
     void Initialize();
-    
+
     void set_input_device(InputDevice*);
 };

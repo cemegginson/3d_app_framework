@@ -45,14 +45,8 @@ const float32 PI = 3.14159f;
 
 //Some Event ID's
 enum Events {
-	EVENT_UPDATE,
-	EVENT_RENDER,
-	EVENT_MOUSEUP,
-	EVENT_MOUSEDOWN,
-	EVENT_MOUSEMOVE,
-	EVENT_MOUSEDRAGED,
-	EVENT_KEYDOWN,
-	EVENT_KEYUP
+	EVENT_COMPONENT_UPDATE, //returns void converts to float
+    EVENT_PHYSICS_UPDATE    //returns void converts to float
 };
 
 /**

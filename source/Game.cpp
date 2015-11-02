@@ -168,6 +168,9 @@ void Game::Update(float32 delta_time) {
     // Update View position
     view_->Update(delta_time);
 
+    Dispatcher::DispatchEvent(Events::EVENT_COMPONENT_UPDATE, std::make_shared<float32>(delta_time));
+    Dispatcher::DispatchEvent(Events::EVENT_PHYSICS_UPDATE, std::make_shared<float32>(delta_time));
+
     // Cycle through every objects' Update method
     for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
         (*iter)->Update(delta_time);

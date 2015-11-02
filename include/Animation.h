@@ -23,7 +23,7 @@ protected:
 public:
     Animation(Actor*);
     ~Animation();
-    void Update(float32);
+    void Update(std::shared_ptr<void> delta_time);
     void UpdateState();
     void Initialize();
     void AddAnimation(std::string, std::vector<SDL_Rect>*);

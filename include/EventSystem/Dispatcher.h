@@ -1,8 +1,12 @@
 #pragma once
 
 #include "Definitions.h"
+
+#include <deque>
+
 //Begin Dispatcher Class Section
 
+class Subscriber;
 
 class Dispatcher {
 
@@ -16,7 +20,7 @@ private:
 
 	static Dispatcher* theInstance;
 
-	static std::vector<std::pair<double,void*>>*  dispatchEvents;
+	static std::deque<std::pair<double,std::shared_ptr<void>>>*  dispatchEvents;
 	static std::map<int,std::list<Subscriber*>*>* mappedEvents;
 
 	static std::thread processingThread;
@@ -44,7 +48,7 @@ public:
 	static Subscriber* RemoveEventSubscriber(Subscriber *requestor, double event_id);
 	static std::list<Subscriber*> GetAllSubscribers(void* owner);
 
-	static void DispatchEvent(double eventID, void* eventData = nullptr);
+	static void DispatchEvent(double eventID, std::shared_ptr<void> eventData);
 
 private:
 	static void Process(double* deltaTime);

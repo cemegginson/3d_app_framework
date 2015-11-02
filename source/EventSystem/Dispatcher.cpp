@@ -10,7 +10,7 @@ bool Dispatcher::mappedLock;
 
 Dispatcher* Dispatcher::theInstance;
 
-std::vector<std::pair<double,void*>>*  Dispatcher::dispatchEvents;
+std::deque<std::pair<double,std::shared_ptr<void>>>*  Dispatcher::dispatchEvents;
 std::map<int,std::list<Subscriber*>*>* Dispatcher::mappedEvents;
 
 std::thread Dispatcher::processingThread;
@@ -20,10 +20,10 @@ double* Dispatcher::localDeltaTime;
 
 
 //Begin Class Methods
-
 Dispatcher::Dispatcher() { }
 
 Dispatcher* Dispatcher::GetInstance() {
+    if(theInstance == nullptr) Initialize();
     return theInstance;
 }
 
@@ -35,7 +35,7 @@ void Dispatcher::Initialize() {
         theInstance = &d;
         ////////
 
-        dispatchEvents  = new std::vector<std::pair<double,void*>>();
+        dispatchEvents  = new std::deque<std::pair<double,std::shared_ptr<void>>>();
         mappedEvents    = new std::map<int,std::list<Subscriber*>*>();
 
         running = true;
@@ -66,8 +66,8 @@ void Dispatcher::Process(double* deltaTime) {
                 dispatchLock = true;
 
                 //get the first event pair
-                std::pair<double, void*> eventPair = std::pair<double, void*>(dispatchEvents->at(0).first, dispatchEvents->at(0).second);
-                dispatchEvents->pop_back();
+                std::pair<double, std::shared_ptr<void>> eventPair = std::pair<double, std::shared_ptr<void>>(dispatchEvents->at(0).first, dispatchEvents->at(0).second);
+                dispatchEvents->pop_front();
                                             //copy consturctor for thread safety
                 dispatchLock = false;        //and so we can unlock the list so more can be dispatched
 
@@ -109,9 +109,9 @@ void Dispatcher::Process(double* deltaTime) {
     std::cerr << "Processing thread terminated?" << std::endl;
 }
 
-void Dispatcher::DispatchEvent(double eventID, void* eventData) {
+void Dispatcher::DispatchEvent(double eventID, std::shared_ptr<void> eventData) {
     //std::cout << "Dispatcher --->  Received event " << eventID << "." << std::endl;
-    dispatchEvents->push_back(std::pair<double,void*>(eventID, eventData));
+    dispatchEvents->push_back(std::pair<double,std::shared_ptr<void>>(eventID, eventData));
 }
 
 void Dispatcher::AddEventSubscriber(Subscriber *requestor, double event_id) {

@@ -2,10 +2,18 @@
 
 Sprite::Sprite(Actor* owner) : Component(owner) {
     texture_ = nullptr;
+
+    Subscriber* s = new Subscriber(this);
+    s->method = std::bind(&Sprite::Update, this, std::placeholders::_1);
+    Dispatcher::AddEventSubscriber(s, Events::EVENT_COMPONENT_UPDATE);
+    subscribers.push_back(s);
 }
 
 Sprite::~Sprite() {
-    // delete texture_;
+    while(subscribers.size() > 0) {
+        delete subscribers.back();
+        subscribers.pop_back();
+    }
 }
 
 void Sprite::Initialize(GraphicsDevice* graphics_device, Texture* texture) {
@@ -18,7 +26,7 @@ void Sprite::Initialize(GraphicsDevice* graphics_device, Texture* texture) {
 
 }
 
-void Sprite::Update(float32 delta_time) {
+void Sprite::Update(std::shared_ptr<void> delta_time) {
     sprite_clip_ = owner_->sprite_clip();
 }
 
