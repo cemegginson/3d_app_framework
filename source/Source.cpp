@@ -27,10 +27,10 @@
 #include "Box2D/Box2D.h"
 
 // Project Libraries
-#include "Definitions.h"
-#include "Game.h"
-#include "GraphicsDevice.h"
-#include "InputDevice.h"
+#include "Util/Definitions.h"
+#include "Core/Game.h"
+#include "Core/GraphicsDevice.h"
+#include "Core/InputDevice.h"
 
 int main(int argc, char* argv[]) {
     Dispatcher::Initialize();

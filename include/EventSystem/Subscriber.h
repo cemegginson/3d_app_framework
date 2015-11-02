@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Definitions.h"
+#include "Util/Definitions.h"
 #include <functional>
 #include "EventSystem/Dispatcher.h"
 
