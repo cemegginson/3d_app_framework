@@ -1,20 +1,3 @@
-/*
-* Author:    Keith Bush
-*            UALR
-*
-* Date:        February 23, 2015
-*
-* File:        Source.cpp
-*
-* Purpose:    This programming task examines the following concepts
-*                - Abstraction of game devices (Graphics, Input)
-*from SDL Library
-*               - AssetManagement using Libraries
-*               - Component Factory Design Pattern
-*               - XML Construction of 2-D game system
-*               - Main Game Loop
-*/
-
 // C++ Libraries
 #include <ctime>
 #include <iostream>
