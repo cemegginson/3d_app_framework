@@ -23,9 +23,7 @@ private:
 	static std::deque<std::pair<double,std::shared_ptr<void>>>*  dispatchEvents;
 	static std::map<int,std::list<Subscriber*>*>* mappedEvents;
 
-	static std::thread processingThread;
-	static double* localDeltaTime;
-
+	static std::deque<std::thread*> processingThreads; //using std::deque for constant time size() and O(1) random access
 
 public:
 	Dispatcher();
@@ -51,5 +49,5 @@ public:
 	static void DispatchEvent(double eventID, std::shared_ptr<void> eventData);
 
 private:
-	static void Process(double* deltaTime);
+	static void Process();
 };

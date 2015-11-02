@@ -15,8 +15,7 @@ Dispatcher* Dispatcher::theInstance;
 std::deque<std::pair<double,std::shared_ptr<void>>>*  Dispatcher::dispatchEvents;
 std::map<int,std::list<Subscriber*>*>* Dispatcher::mappedEvents;
 
-std::thread Dispatcher::processingThread;
-double* Dispatcher::localDeltaTime;
+std::deque<std::thread*> Dispatcher::processingThreads;
 //End Dispatcher Static Variables
 
 
@@ -41,9 +40,9 @@ void Dispatcher::Initialize() {
         mappedEvents    = new std::map<int,std::list<Subscriber*>*>();
 
         //Preallocate known events (should help avoid a map reorganize at runtime)
-        for(auto event : Events) {
-            mappedEvents->emplace(event, new std::list<Subscriber*>());
-        }
+        //for(auto event : Events) { //can't iterate over enums.  should fix this
+        //    mappedEvents->emplace(event, new std::list<Subscriber*>());
+        //}
 
         running = true;
         processing = true;
@@ -51,15 +50,17 @@ void Dispatcher::Initialize() {
         mappedLock = false;
         subscriberLock = false;
 
-        localDeltaTime = (double*)0;
-        processingThread = std::thread(Process, localDeltaTime); //starts the processing thread
-        processingThread.detach(); //it probably won't terminate before the end of this program so we want to ignore errors
+        for(int i=0; i<2; i++) {
+            std::thread* processingThread = new std::thread(Process);
+            processingThread->detach(); //it probably won't terminate before the end of this program so we want to ignore errors
+            processingThreads.push_back(processingThread);
+        }
     } else {
         std::cerr << "Attempting to reinitialize a dispatcher...  Ignoring." << std::endl;
     }
 }
 
-void Dispatcher::Process(double* deltaTime) {
+void Dispatcher::Process() {
     while(running) {
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
@@ -103,12 +104,11 @@ void Dispatcher::Process(double* deltaTime) {
                             else subscriber->method(nullptr);
                         }
                     }
+                    //done with subscribers now
+                    subscriberLock = false;
                 }
                 //we're done with the map so unlock it
                 mappedLock = false;
-
-                //done with subscribers now
-                subscriberLock = false;
             }
         }
     }
