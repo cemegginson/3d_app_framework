@@ -40,7 +40,9 @@ bool GraphicsDevice::Initialize() {
         return false;
     }
 
-    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED
+                                                //| SDL_RENDERER_PRESENTVSYNC //test performance increase
+                                  );
     if (renderer_ == nullptr) {
         LogSDLError(std::cerr, "SDL_CreateRenderer");
         return false;

@@ -57,7 +57,7 @@ void Dispatcher::Initialize() {
         mappedLock = false;
         subscriberLock = false;
 
-        for(int i=0; i<3; i++) {
+        for(int i=0; i<8; i++) {
             std::thread* processingThread = new std::thread(ThreadProcess);
             processingThread->detach(); //it probably won't terminate before the end of this program so we want to ignore errors
             processingThreads.push_back(processingThread);
@@ -78,7 +78,7 @@ void Dispatcher::Pump() {
         }
     }
     dispatchEvents->clear(); //we queued them all for processing so clear the cache
-    std::cout << threadQueue->size() << std::endl;
+    //std::cout << threadQueue->size() << std::endl;
 }
 
 void Dispatcher::ThreadProcess() {
@@ -87,6 +87,7 @@ void Dispatcher::ThreadProcess() {
         {
             while(threadQueue->size() == 0) sleep(1);
             std::lock_guard<std::mutex> lock(threadQueueLock); //unlocked on out-of-scope
+            if(threadQueue->size() == 0) continue;
             work = threadQueue->front();
             threadQueue->pop_front();
         }

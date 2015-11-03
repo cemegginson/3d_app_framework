@@ -24,7 +24,7 @@ Player::~Player() {
 
 void Player::Update(std::shared_ptr<void> delta_time) {
     float time = *(float*)delta_time.get();
-    std::cout << "Player updated " << time << std::endl;
+    //std::cout << "Player updated " << time << std::endl;
 
     float32 angle = owner_->angle();
     Vector2 old_position = owner_->transform();
