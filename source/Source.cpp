@@ -16,7 +16,7 @@
 #include "Core/InputDevice.h"
 
 int main(int argc, char* argv[]) {
-    Dispatcher::Initialize();
+    Dispatcher::GetInstance();
 
     //========================================
     // Initialize the random number generator

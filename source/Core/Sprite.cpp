@@ -5,7 +5,7 @@ Sprite::Sprite(Actor* owner) : Component(owner) {
 
     Subscriber* s = new Subscriber(this);
     s->method = std::bind(&Sprite::Update, this, std::placeholders::_1);
-    Dispatcher::AddEventSubscriber(s, Events::EVENT_COMPONENT_UPDATE);
+    Dispatcher::GetInstance()->AddEventSubscriber(s, Events::EVENT_COMPONENT_UPDATE);
     subscribers.push_back(s);
 }
 

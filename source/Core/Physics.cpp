@@ -122,7 +122,7 @@ void RigidRectangle::Initialize(b2World* world,
 
     Subscriber* s = new Subscriber(this);
     s->method = std::bind(&RigidRectangle::Update, this, std::placeholders::_1);
-    Dispatcher::AddEventSubscriber(s, Events::EVENT_PHYSICS_UPDATE);
+    Dispatcher::GetInstance()->AddEventSubscriber(s, Events::EVENT_PHYSICS_UPDATE);
     subscribers.push_back(s);
 }
 
