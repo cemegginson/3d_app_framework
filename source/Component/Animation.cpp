@@ -1,5 +1,8 @@
+// Copyright 2015 Casey Megginson and Blaise Koch
 #include <string>
 #include <vector>
+#include <map>
+#include <utility>
 
 #include "Component/Animation.h"
 
@@ -7,6 +10,7 @@ Animation::Animation(Actor* owner) : Component(owner) {
     animations_ = std::map<std::string, std::vector<SDL_Rect>*>();
     current_animation_ = nullptr;
     current_frame_ = 0;
+    frame_time_ = 0;
 
     Subscriber* s = new Subscriber(this);
     s->method = std::bind(&Animation::Update, this, std::placeholders::_1);
@@ -14,23 +18,22 @@ Animation::Animation(Actor* owner) : Component(owner) {
     subscribers.push_back(s);
 }
 Animation::~Animation() {
-    //delete animations
+    // delete animations
     for (auto iter = animations_.begin(); iter != animations_.end(); ++iter) {
         delete iter->second;
     }
 
-    while(subscribers.size() > 0) {
+    while (subscribers.size() > 0) {
         delete subscribers.back();
         subscribers.pop_back();
     }
 }
 
 void Animation::Update(std::shared_ptr<void> delta_time) {
-    frame_time_ += *(float32*)delta_time.get();
-    //std::cout << frame_time_ << std::endl;
+    frame_time_ += *reinterpret_cast<float32*>(delta_time.get());
+    std::cout << frame_time_ << std::endl;
 
     if (frame_time_ >= .05) {
-
         frame_time_ = 0;
         current_frame_++;
         if (current_animation_ != nullptr &&
@@ -49,22 +52,22 @@ void Animation::Update(std::shared_ptr<void> delta_time) {
 }
 
 void Animation::Initialize() {
-    state_.insert(std::pair<State,bool>(kFacingLeft, false));
-    state_.insert(std::pair<State,bool>(kFacingRight, false));
-    state_.insert(std::pair<State,bool>(kStationary, false));
-    state_.insert(std::pair<State,bool>(kJumping, false));
+    state_.insert(std::pair<State, bool>(kFacingLeft, false));
+    state_.insert(std::pair<State, bool>(kFacingRight, false));
+    state_.insert(std::pair<State, bool>(kStationary, false));
+    state_.insert(std::pair<State, bool>(kJumping, false));
 
-    last_state_.insert(std::pair<State,bool>(kFacingLeft, false));
-    last_state_.insert(std::pair<State,bool>(kFacingRight, false));
-    last_state_.insert(std::pair<State,bool>(kStationary, false));
-    last_state_.insert(std::pair<State,bool>(kJumping, false));
+    last_state_.insert(std::pair<State, bool>(kFacingLeft, false));
+    last_state_.insert(std::pair<State, bool>(kFacingRight, false));
+    last_state_.insert(std::pair<State, bool>(kStationary, false));
+    last_state_.insert(std::pair<State, bool>(kJumping, false));
 
     SetAnimation("face-screen");
 }
 
 void Animation::AddAnimation(std::string name, std::vector<SDL_Rect>* animation) {
-    //cleanup if animation was already defined (valgrind)
-    if(animations_[name] != nullptr) delete animations_[name];
+    // cleanup if animation was already defined (valgrind)
+    if (animations_[name] != nullptr) delete animations_[name];
 
     animations_[name] = animation;
 }

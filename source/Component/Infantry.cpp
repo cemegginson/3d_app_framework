@@ -1,3 +1,4 @@
+// Copyright 2015 Casey Megginson and Blaise Koch
 #include "Component/Infantry.h"
 
 #include "Util/GameFunctions.h"
@@ -12,7 +13,7 @@ Infantry::Infantry(Actor* owner) : Component(owner) {
 }
 
 Infantry::~Infantry() {
-    while(subscribers.size() > 0) {
+    while (subscribers.size() > 0) {
         delete subscribers.back();
         subscribers.pop_back();
     }

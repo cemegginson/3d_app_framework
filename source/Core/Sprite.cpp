@@ -1,3 +1,4 @@
+// Copyright 2015 Casey Megginson and Blaise Koch
 #include "Core/Sprite.h"
 
 Sprite::Sprite(Actor* owner) : Component(owner) {
@@ -10,7 +11,7 @@ Sprite::Sprite(Actor* owner) : Component(owner) {
 }
 
 Sprite::~Sprite() {
-    while(subscribers.size() > 0) {
+    while (subscribers.size() > 0) {
         delete subscribers.back();
         subscribers.pop_back();
     }
@@ -23,7 +24,6 @@ void Sprite::Initialize(GraphicsDevice* graphics_device, Texture* texture) {
 
     // Add Sprite to graphics_device_
     // graphics_device_->AddSprite(shared_from_this());
-
 }
 
 void Sprite::Update(std::shared_ptr<void> delta_time) {

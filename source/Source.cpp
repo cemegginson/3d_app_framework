@@ -1,4 +1,4 @@
-// C++ Libraries
+// Copyright 2015 Casey Megginson and Blaise Koch
 #include <ctime>
 #include <iostream>
 #include <string>
@@ -57,8 +57,8 @@ int main(int argc, char* argv[]) {
     Game* game = new Game();
     if (!game->Initialize(graphics_device, input_device)) {
         printf("Game could not Initialize!");
-        exit(1); //this case will leak a lot of memory...
-                 //should properly do destructor calls and proper shutdown
+        exit(1);  // this case will leak a lot of memory...
+                  // should properly do destructor calls and proper shutdown
     }
 
     //========================================
@@ -69,8 +69,8 @@ int main(int argc, char* argv[]) {
     if (!game->LoadLevel(levelConfigFile)) {
         printf("Game could not load level %s: ",
                levelConfigFile.c_str());
-        exit(1); //this case will leak a lot of memory...
-                 //should properly do destructor calls and proper shutdown
+        exit(1);  // this case will leak a lot of memory...
+                  // should properly do destructor calls and proper shutdown
     }
 
     // Start the game

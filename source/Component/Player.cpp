@@ -1,3 +1,4 @@
+// Copyright 2015 Casey Megginson and Blaise Koch
 #include <math.h>
 #include <memory>
 #include "Util/GameFunctions.h"
@@ -16,14 +17,14 @@ Player::Player(Actor* owner) : Component(owner) {
 }
 
 Player::~Player() {
-    while(subscribers.size() > 0) {
+    while (subscribers.size() > 0) {
         delete subscribers.back();
         subscribers.pop_back();
     }
 }
 
 void Player::Update(std::shared_ptr<void> delta_time) {
-    float32 time = *(float*)delta_time.get();
+    float32 time = *reinterpret_cast<float32*>(delta_time.get());
     // float32 angle = owner_->angle();
 
     // float32 theta = RW2PWAngle(angle - 90);

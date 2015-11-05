@@ -1,3 +1,5 @@
+// Copyright 2015 Casey Megginson and Blaise Koch
+
 #include <math.h>
 
 #include "Util/GameFunctions.h"
@@ -106,7 +108,7 @@ RigidRectangle::RigidRectangle(Actor* owner) :
                                Component(owner) {}
 
 RigidRectangle::~RigidRectangle() {
-    while(subscribers.size() > 0) {
+    while (subscribers.size() > 0) {
         delete subscribers.back();
         subscribers.pop_back();
     }
@@ -127,8 +129,8 @@ void RigidRectangle::Initialize(b2World* world,
 }
 
 void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
-    float32 time = *(float32*)delta_time.get();
-    b2Vec2 new_direction{0,0};
+    float32 time = *reinterpret_cast<float32*>(delta_time.get());
+    b2Vec2 new_direction{0, 0};
     // float32 angle = body_->GetAngle();
     float32 angular_velocity = 0;
 

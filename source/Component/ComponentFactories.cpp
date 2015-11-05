@@ -1,3 +1,4 @@
+// Copyright 2015 Casey Megginson and Blaise Koch
 #include <stdlib.h>
 #include <string>
 #include <vector>
