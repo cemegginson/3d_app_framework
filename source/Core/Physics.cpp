@@ -127,33 +127,31 @@ void RigidRectangle::Initialize(b2World* world,
 }
 
 void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
-    b2Vec2 new_direction;
+    float32 time = *(float32*)delta_time.get();
+    b2Vec2 new_direction{0,0};
     float32 angle = body_->GetAngle();
     float32 angular_velocity = 0;
-    float32 velocity = 30;
-    new_direction.x = 0;
-    new_direction.y = 0;
 
     b2Vec2 jump;
     jump.x = 0;
-    jump.y = 300;
+    jump.y = 300 * time;
 
     if (controllable_) {
         if (owner_->CheckEvent(kTurnLeft)) {
-            angular_velocity -= PI;
+            angular_velocity -= PI*time;
         }
         if (owner_->CheckEvent(kTurnRight)) {
-            angular_velocity += PI;
+            angular_velocity += PI*time;
         }
         if (owner_->CheckEvent(kMoveUp)) {
             body_->ApplyForceToCenter(jump);
         }
         if (owner_->CheckEvent(kMoveDown)) {}
         if (owner_->CheckEvent(kMoveLeft)) {
-            new_direction.x -= 30;
+            new_direction.x -= 30 * time;
         }
         if (owner_->CheckEvent(kMoveRight)) {
-            new_direction.x += 30;
+            new_direction.x += 30 * time;
         }
 
         body_->SetLinearVelocity(new_direction);

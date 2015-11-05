@@ -77,7 +77,7 @@ void Dispatcher::ThreadProcess() {
         }
 
         try {
-            if(work.first->method == NULL) continue;
+            if(work.first->method == NULL || work.first->owner == nullptr) continue;
             work.first->method(work.second);
         } catch (std::string e) {
             std::cerr << "Exception thrown by function called by Event Threads." << std::endl;
