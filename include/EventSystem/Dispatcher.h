@@ -12,6 +12,9 @@ class Subscriber;
 class Dispatcher {
 
 	private:
+		Dispatcher();
+		void Initialize();
+
 		static bool inited;
 		static bool running;
 
@@ -20,14 +23,14 @@ class Dispatcher {
 		std::deque<std::pair<double,std::shared_ptr<void>>>*  dispatchEvents;
 		std::map<int,std::list<Subscriber*>*>* mappedEvents;
 
-		static std::deque<std::pair<Subscriber*, std::shared_ptr<std::thread>>>*  threadQueue;
+		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  threadQueue;
 		std::deque<std::thread*>* processingThreads; //using std::deque for constant time size() and O(1) random access
 
 		static std::mutex dispatchQueueLock;
 		static std::mutex threadQueueLock;
 
 	public:
-		Dispatcher();
+
 		~Dispatcher();
 
 		static Dispatcher* GetInstance();
@@ -35,7 +38,7 @@ class Dispatcher {
 		Dispatcher(const Dispatcher&); //disallow copying
 	    Dispatcher& operator= (const Dispatcher&); //disallow copying
 
-		void Initialize();
+
 
 		void Terminate();
 

@@ -25,7 +25,8 @@ Dispatcher::~Dispatcher() {
 
 Dispatcher* Dispatcher::GetInstance() {
     if(theInstance == nullptr) {
-        return nullptr;
+        theInstance = new Dispatcher();
+        theInstance->Initialize();
     }
     return theInstance;
 }
@@ -33,14 +34,11 @@ Dispatcher* Dispatcher::GetInstance() {
 void Dispatcher::Initialize() {
     if(!inited) {
         inited = true;
-        //can't put these 2 lines on one because clang is retarded (but has nice errors)
-        Dispatcher d;
-        theInstance = &d;
-        ////////
 
         dispatchEvents  = new std::deque<std::pair<double,std::shared_ptr<void>>>();
         mappedEvents    = new std::map<int,std::list<Subscriber*>*>();
-        threadQueue     = new std::deque<std::pair<Subscriber*, std::shared_ptr<std::thread>>>();
+        threadQueue     = new std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>();
+        processingThreads = new std::deque<std::thread*>();
 
         running = true;
 
