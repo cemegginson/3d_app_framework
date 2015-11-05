@@ -19,6 +19,7 @@ Infantry::~Infantry() {
 }
 
 void Infantry::Update(std::shared_ptr<void> delta_time) {
+    UNUSED(delta_time);
 
     // float32 angle = owner_->angle();
     // angle += rotation_rate_ * delta_time;

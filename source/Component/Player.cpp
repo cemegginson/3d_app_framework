@@ -23,16 +23,12 @@ Player::~Player() {
 }
 
 void Player::Update(std::shared_ptr<void> delta_time) {
-    float time = *(float*)delta_time.get();
-    //std::cout << "Player updated " << time << std::endl;
+    float32 time = *(float*)delta_time.get();
+    // float32 angle = owner_->angle();
 
-    float32 angle = owner_->angle();
-    Vector2 old_position = owner_->transform();
-    Vector2 new_position = old_position;
-
-    float32 theta = RW2PWAngle(angle - 90);
-    float32 tcos = cos(theta);
-    float32 tsin = sin(theta);
+    // float32 theta = RW2PWAngle(angle - 90);
+    // float32 tcos = cos(theta);
+    // float32 tsin = sin(theta);
 
     if (input_device_->IsPressed(kGameA)) {
         owner_->SetEvent(kMoveLeft);

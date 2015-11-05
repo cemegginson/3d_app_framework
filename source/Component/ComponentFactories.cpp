@@ -20,6 +20,7 @@ CarrierFactory::CarrierFactory() : ComponentFactory() {}
 CarrierFactory::~CarrierFactory() {}
 
 Carrier* CarrierFactory::Create(Actor* owner, pugi::xml_node node) {
+    UNUSED(node);
     Carrier* carrier = new Carrier(owner);
     return carrier;
 }
@@ -31,6 +32,7 @@ InfantryFactory::InfantryFactory() : ComponentFactory() {}
 InfantryFactory::~InfantryFactory() {}
 
 Infantry* InfantryFactory::Create(Actor* owner, pugi::xml_node node) {
+    UNUSED(node);
     Infantry* infantry = new Infantry(owner);
     return infantry;
 }
@@ -44,6 +46,7 @@ PlayerFactory::PlayerFactory(InputDevice* input_device) : ComponentFactory() {
 PlayerFactory::~PlayerFactory() {}
 
 Player* PlayerFactory::Create(Actor* owner, pugi::xml_node node) {
+    UNUSED(node);
     Player* player = new Player(owner);
     player->set_input_device(input_device_);
     return player;
@@ -129,7 +132,7 @@ RigidRectangle* RigidRectangleFactory::Create(Actor* owner,
     shape_fixture_definition.friction = std::stof(node.attribute("friction").value());
     shape_fixture_definition.restitution = std::stof(node.attribute("restitution").value());
 
-    bool movable, turnable;
+    // bool movable, turnable;
     // movable = std::stof(node.attribute("movable").value());
     // turnable = std::stof(node.attribute("turnable").value());
 

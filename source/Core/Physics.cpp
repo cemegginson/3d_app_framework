@@ -129,7 +129,7 @@ void RigidRectangle::Initialize(b2World* world,
 void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
     float32 time = *(float32*)delta_time.get();
     b2Vec2 new_direction{0,0};
-    float32 angle = body_->GetAngle();
+    // float32 angle = body_->GetAngle();
     float32 angular_velocity = 0;
 
     b2Vec2 jump;

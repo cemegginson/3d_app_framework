@@ -124,7 +124,7 @@ Subscriber* Dispatcher::RemoveEventSubscriber(Subscriber *requestor, const Event
 //TODO reimplement using map traversal
 std::list<Subscriber*> Dispatcher::GetAllSubscribers(const void* owner) {
     std::list<Subscriber*> tmp;
-
+    UNUSED(owner);
     return tmp;
 }
 

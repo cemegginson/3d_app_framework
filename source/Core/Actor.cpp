@@ -3,7 +3,7 @@
 Actor::Actor() {}
 
 Actor::~Actor() {
-    while(components_.size() > 0) {
+    while (components_.size() > 0) {
         delete components_.back();
         components_.pop_back();
     }
@@ -13,7 +13,6 @@ void Actor::Initialize(std::string name,
                        Vector2 transform,
                        uint32 angle,
                        bool controllable) {
-    std::lock_guard<std::mutex> lock(actorLock);
 
     name_ = name;
     transform_ = transform;
@@ -38,7 +37,7 @@ void Actor::AddComponent(Component* component) {
 }
 
 void Actor::Update(float32 delta_time) {
-
+    UNUSED(delta_time); //make linter shutup
 }
 
 Vector2 Actor::transform() {

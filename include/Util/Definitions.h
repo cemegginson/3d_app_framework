@@ -1,5 +1,7 @@
 #pragma once
 
+#define UNUSED(x) (void)x;
+
 // Unsigned Integers
 // typedef unsigned long long int uint64;
 typedef unsigned int uint32;
@@ -35,6 +37,7 @@ const float32 PI = 3.14159f;
 #include <vector>
 #include <map>
 #include <list>
+#include <utility>
 
 //include chrono before thread because some versions of the standard lib are bugged (erhm... stdlibc++ 4.6)
 //libstd++ is fine though

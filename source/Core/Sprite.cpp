@@ -27,6 +27,7 @@ void Sprite::Initialize(GraphicsDevice* graphics_device, Texture* texture) {
 }
 
 void Sprite::Update(std::shared_ptr<void> delta_time) {
+    UNUSED(delta_time);
     sprite_clip_ = owner_->sprite_clip();
 }
 
