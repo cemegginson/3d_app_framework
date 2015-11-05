@@ -28,6 +28,7 @@ public:
     // void ImportAngle();
 };
 
+/*
 // Physics Circles
 class RigidCircle : public Rigidbody, public Component{
 protected:
@@ -43,6 +44,7 @@ public:
     b2Vec2 ImportPosition();
     float32 ImportAngle();
 };
+*/
 
 // Physics Rectangles
 class RigidRectangle : public Rigidbody, public Component {

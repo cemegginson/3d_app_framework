@@ -6,18 +6,10 @@
 class Timer {
 private:
     // The clock time when the timer started
-    uint32 start_ticks_;
+    std::chrono::high_resolution_clock::time_point start_ticks_;
 
     // Time Delta!
-    uint32 delta_time_;
-    uint32 last_time_;
-
-    // The ticks stored when the timer was paused
-    uint32 paused_ticks_;
-
-    // The timer status
-    bool paused_;
-    bool active_;
+    float32 delta_time_;
 
 public:
     // Initializes variables
@@ -25,18 +17,14 @@ public:
 
     // The various clock actions
     void Start();
-    void Stop();
-    void Pause();
-    void Resume();
-
-    // Gets the timer's time
-    uint32 GetTicks();
+    void Reset();
 
     // Checks the status of the timer
     bool IsRunning();
-    bool IsPaused();
 
-    // Time Delta!
+    // Update DeltaTime
     void Update();
+
+    // Returns the time in ms from the last call
     float32 DeltaTime();
 };

@@ -49,7 +49,7 @@ Player* PlayerFactory::Create(Actor* owner, pugi::xml_node node) {
     return player;
 }
 
-
+/*
 // RigidbodyFactory stuff
 RigidCircleFactory::RigidCircleFactory(b2World* world) : ComponentFactory() {
     world_ = world;
@@ -90,7 +90,7 @@ RigidCircle* RigidCircleFactory::Create(Actor* owner, pugi::xml_node node) {
 
     return rigid_circle;
 }
-
+*/
 
 // RigidbodyFactory stuff
 RigidRectangleFactory::RigidRectangleFactory(b2World* world) : ComponentFactory() {

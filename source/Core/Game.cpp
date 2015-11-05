@@ -106,7 +106,7 @@ bool Game::Initialize(GraphicsDevice* graphics_device,
     component_factories_->AddFactory("Carrier", (ComponentFactory*)new CarrierFactory());
     component_factories_->AddFactory("Infantry", (ComponentFactory*)new InfantryFactory());
     component_factories_->AddFactory("Player", (ComponentFactory*)new PlayerFactory(input_device_));
-    component_factories_->AddFactory("RigidCircle", (ComponentFactory*)new RigidCircleFactory(world_));
+    //component_factories_->AddFactory("RigidCircle", (ComponentFactory*)new RigidCircleFactory(world_));
     component_factories_->AddFactory("RigidRectangle", (ComponentFactory*)new RigidRectangleFactory(world_));
     component_factories_->AddFactory("Sprite", (ComponentFactory*)new SpriteFactory(graphics_device_, art_library_));
 
@@ -156,8 +156,8 @@ bool Game::LoadLevel(std::string file) {
 }
 
 void Game::Run() {
-    timer_->Update();
     Update(timer_->DeltaTime());
+    timer_->Update();
     graphics_device_->Render();
 }
 

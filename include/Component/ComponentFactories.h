@@ -56,6 +56,7 @@ public:
     Player* Create(Actor*, pugi::xml_node);
 };
 
+/*
 class RigidCircleFactory : ComponentFactory {
 protected:
     b2World* world_;
@@ -65,6 +66,7 @@ public:
     ~RigidCircleFactory();
     RigidCircle* Create(Actor*, pugi::xml_node);
 };
+*/
 
 class RigidRectangleFactory : ComponentFactory {
 protected:

@@ -10,7 +10,7 @@ Rigidbody::~Rigidbody() {
     world_->DestroyBody(body_);
 }
 
-
+/*
 // RigidCircle methods
 
 RigidCircle::RigidCircle(Actor* owner) :
@@ -96,7 +96,7 @@ b2Vec2 RigidCircle::ImportPosition() {
 float32 RigidCircle::ImportAngle() {
     return RW2PWAngle(owner_->angle());
 }
-
+*/
 
 
 // RigidRectangle methods
@@ -134,7 +134,7 @@ void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
 
     b2Vec2 jump;
     jump.x = 0;
-    jump.y = 18000 * time;
+    jump.y = 300;
 
     if (controllable_) {
         if (owner_->CheckEvent(kTurnLeft)) {
@@ -148,10 +148,10 @@ void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
         }
         if (owner_->CheckEvent(kMoveDown)) {}
         if (owner_->CheckEvent(kMoveLeft)) {
-            new_direction.x -= 1800 * time;
+            new_direction.x -= 30;
         }
         if (owner_->CheckEvent(kMoveRight)) {
-            new_direction.x += 1800 * time;
+            new_direction.x += 30;
         }
 
         body_->SetLinearVelocity(new_direction);
