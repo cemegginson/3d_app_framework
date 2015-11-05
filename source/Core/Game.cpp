@@ -99,8 +99,6 @@ bool Game::Initialize(GraphicsDevice* graphics_device,
     shape.Set(vBottomRight, vTopRight);
     edge->CreateFixture(&shape, 0);
 
-
-
     // Create Factories
     component_factories_ = new ComponentLibrary();
 
@@ -127,7 +125,6 @@ void Game::Reset() {
 }
 
 bool Game::LoadLevel(std::string file) {
-    Actor* new_actor;
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(file.c_str());
     if (result) {
@@ -168,16 +165,18 @@ void Game::Update(float32 delta_time) {
     // Update View position
     view_->Update(delta_time);
 
-    Dispatcher::GetInstance()->DispatchEvent(Events::EVENT_COMPONENT_UPDATE, std::make_shared<float32>(delta_time));
-    Dispatcher::GetInstance()->DispatchEvent(Events::EVENT_PHYSICS_UPDATE, std::make_shared<float32>(delta_time));
+    Dispatcher::GetInstance()->DispatchEvent("EVENT_COMPONENT_UPDATE",    std::make_shared<float32>(delta_time));
+    Dispatcher::GetInstance()->DispatchEvent("EVENT_PHYSICS_UPDATE",      std::make_shared<float32>(delta_time));
 
     Dispatcher::GetInstance()->Pump();
-    while(Dispatcher::GetInstance()->QueueSize() > 128) sleep(1); //keep this condition low enough to keep the game feeling non-laggy but high enough to keep threads busy
+
+    //keep this condition low enough to keep the game feeling non-laggy but high enough to keep threads busy
+    while(Dispatcher::GetInstance()->QueueSize() > 128) sleep(1);
 
     // Cycle through every objects' Update method
     for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
         (*iter)->Update(delta_time);
     }
-    world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_);
+    world_->Step(physics_delta_time_ * delta_time, velocity_iterations_, position_iterations_);
     // world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
 }

@@ -43,12 +43,6 @@ const float32 PI = 3.14159f;
 
 #include "EventSystem/Subscriber.h"
 
-//Some Event ID's
-enum Events {
-	EVENT_COMPONENT_UPDATE, //returns void converts to float
-    EVENT_PHYSICS_UPDATE    //returns void converts to float
-};
-
 /**
  * Shorthand method to access cross-platform "sleep" functionality.
  * Will cause compile error without explicit inline or if inline is not respected.

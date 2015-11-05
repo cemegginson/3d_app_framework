@@ -4,8 +4,11 @@
 
 #include <deque>
 #include <mutex>
+#include <string>
 
 //Begin Dispatcher Class Section
+
+using EventType = std::string;
 
 class Subscriber;
 
@@ -20,8 +23,8 @@ class Dispatcher {
 
 		static Dispatcher* theInstance;
 
-		std::deque<std::pair<double,std::shared_ptr<void>>>*  dispatchEvents;
-		std::map<int,std::list<Subscriber*>*>* mappedEvents;
+		std::deque<std::pair<EventType,std::shared_ptr<void>>>*  dispatchEvents;
+		std::map<EventType,std::list<Subscriber*>*>* mappedEvents;
 
 		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  threadQueue;
 		std::deque<std::thread*>* processingThreads; //using std::deque for constant time size() and O(1) random access
@@ -42,11 +45,11 @@ class Dispatcher {
 
 		void Terminate();
 
-		void AddEventSubscriber(Subscriber *requestor, const double event_id);
-		Subscriber* RemoveEventSubscriber(Subscriber *requestor, const double event_id);
+		void AddEventSubscriber(Subscriber *requestor, const EventType);
+		Subscriber* RemoveEventSubscriber(Subscriber *requestor, const EventType);
 		std::list<Subscriber*> GetAllSubscribers(const void* owner);
 
-		void DispatchEvent(const double eventID, const std::shared_ptr<void> eventData);
+		void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
 
 		void Pump();
 		int QueueSize() const { return threadQueue->size(); }

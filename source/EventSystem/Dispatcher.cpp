@@ -35,8 +35,8 @@ void Dispatcher::Initialize() {
     if(!inited) {
         inited = true;
 
-        dispatchEvents  = new std::deque<std::pair<double,std::shared_ptr<void>>>();
-        mappedEvents    = new std::map<int,std::list<Subscriber*>*>();
+        dispatchEvents  = new std::deque<std::pair<EventType,std::shared_ptr<void>>>();
+        mappedEvents    = new std::map<EventType,std::list<Subscriber*>*>();
         threadQueue     = new std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>();
         processingThreads = new std::deque<std::thread*>();
 
@@ -69,7 +69,7 @@ void Dispatcher::ThreadProcess() {
     while(running) {
         std::pair<Subscriber*, std::shared_ptr<void>> work; //compiler might whine here
         {
-            while(threadQueue->size() == 0) sleep(1);
+            while(threadQueue->size() == 0) std::this_thread::yield();
             std::lock_guard<std::mutex> lock(threadQueueLock); //unlocked on out-of-scope
             if(threadQueue->size() == 0) continue;
             work = threadQueue->front();
@@ -86,13 +86,13 @@ void Dispatcher::ThreadProcess() {
     }
 }
 
-void Dispatcher::DispatchEvent(const double eventID, const std::shared_ptr<void> eventData) {
+void Dispatcher::DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData) {
     //std::cout << "Dispatcher --->  Received event " << eventID << "." << std::endl;
     std::lock_guard<std::mutex> dispatchLock(dispatchQueueLock);
-    dispatchEvents->push_back(std::pair<double,std::shared_ptr<void>>(eventID, eventData));
+    dispatchEvents->push_back(std::pair<EventType,std::shared_ptr<void>>(eventID, eventData));
 }
 
-void Dispatcher::AddEventSubscriber(Subscriber *requestor, const double event_id) {
+void Dispatcher::AddEventSubscriber(Subscriber *requestor, const EventType event_id) {
     if(mappedEvents->count(event_id) < 1) {
         std::cerr << "Dispatcher --->  Dynamically allocating list for Specific EventID " << event_id << "." << std::endl << "Dispatcher --->  This should be avoided for performance reasons." << std::endl;
         mappedEvents->emplace(event_id, new std::list<Subscriber*>());
@@ -100,7 +100,7 @@ void Dispatcher::AddEventSubscriber(Subscriber *requestor, const double event_id
     mappedEvents->at(event_id)->push_back(requestor);
 }
 
-Subscriber* Dispatcher::RemoveEventSubscriber(Subscriber *requestor, const double event_id) {
+Subscriber* Dispatcher::RemoveEventSubscriber(Subscriber *requestor, const EventType event_id) {
 
     if(mappedEvents->find(event_id) != mappedEvents->end()) {
 

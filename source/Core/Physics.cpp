@@ -122,7 +122,7 @@ void RigidRectangle::Initialize(b2World* world,
 
     Subscriber* s = new Subscriber(this);
     s->method = std::bind(&RigidRectangle::Update, this, std::placeholders::_1);
-    Dispatcher::GetInstance()->AddEventSubscriber(s, Events::EVENT_PHYSICS_UPDATE);
+    Dispatcher::GetInstance()->AddEventSubscriber(s, "EVENT_PHYSICS_UPDATE");
     subscribers.push_back(s);
 }
 
@@ -134,7 +134,7 @@ void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
 
     b2Vec2 jump;
     jump.x = 0;
-    jump.y = 300 * time;
+    jump.y = 18000 * time;
 
     if (controllable_) {
         if (owner_->CheckEvent(kTurnLeft)) {
@@ -148,10 +148,10 @@ void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
         }
         if (owner_->CheckEvent(kMoveDown)) {}
         if (owner_->CheckEvent(kMoveLeft)) {
-            new_direction.x -= 30 * time;
+            new_direction.x -= 1800 * time;
         }
         if (owner_->CheckEvent(kMoveRight)) {
-            new_direction.x += 30 * time;
+            new_direction.x += 1800 * time;
         }
 
         body_->SetLinearVelocity(new_direction);

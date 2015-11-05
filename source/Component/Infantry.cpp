@@ -7,7 +7,7 @@ Infantry::Infantry(Actor* owner) : Component(owner) {
 
     Subscriber* s = new Subscriber(this);
     s->method = std::bind(&Infantry::Update, this, std::placeholders::_1);
-    Dispatcher::GetInstance()->AddEventSubscriber(s, EVENT_COMPONENT_UPDATE);
+    Dispatcher::GetInstance()->AddEventSubscriber(s, "EVENT_COMPONENT_UPDATE");
     subscribers.push_back(s);
 }
 
