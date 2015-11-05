@@ -27,17 +27,22 @@ Animation::~Animation() {
 
 void Animation::Update(std::shared_ptr<void> delta_time) {
     frame_time_ += *(float32*)delta_time.get();
+    //std::cout << frame_time_ << std::endl;
+
     if (frame_time_ >= .05) {
+
         frame_time_ = 0;
         current_frame_++;
         if (current_animation_ != nullptr &&
-        current_frame_ >= current_animation_->size()) {
+            current_frame_ >= current_animation_->size()) {
             current_frame_ = 0;
         }
         owner_->set_sprite_clip(current_animation_->at(current_frame_));
     }
+
     CopyEventState();
     UpdateState();
+
     if (!EventStateIsCurrent()) {
         ChooseAnimation();
     }

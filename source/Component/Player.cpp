@@ -36,15 +36,23 @@ void Player::Update(std::shared_ptr<void> delta_time) {
 
     if (input_device_->IsPressed(kGameA)) {
         owner_->SetEvent(kMoveLeft);
+    } else {
+        owner_->SetEvent(kMoveLeft, false);
     }
     if (input_device_->IsPressed(kGameD)) {
         owner_->SetEvent(kMoveRight);
+    } else {
+        owner_->SetEvent(kMoveRight, false);
     }
     if (input_device_->IsPressed(kGameW)) {
         owner_->SetEvent(kMoveUp);
+    } else {
+        owner_->SetEvent(kMoveUp, false);
     }
     if (input_device_->IsPressed(kGameS)) {
         owner_->SetEvent(kMoveDown);
+    } else {
+        owner_->SetEvent(kMoveDown, false);
     }
 
     last_fire_time_ += time;

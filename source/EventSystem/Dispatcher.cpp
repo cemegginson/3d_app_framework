@@ -42,7 +42,7 @@ void Dispatcher::Initialize() {
 
         running = true;
 
-        for(int i=0; i<8; i++) {
+        for(int i=0; i<7; i++) {
             std::thread* processingThread = new std::thread(ThreadProcess);
             processingThread->detach(); //it probably won't terminate before the end of this program so we want to ignore errors
             processingThreads->push_back(processingThread);

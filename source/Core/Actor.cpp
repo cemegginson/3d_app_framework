@@ -34,20 +34,17 @@ void Actor::Initialize(std::string name,
 }
 
 void Actor::AddComponent(Component* component) {
-    std::lock_guard<std::mutex> lock(actorLock);
     components_.push_back(component);
 }
 
 void Actor::Update(float32 delta_time) {
-    ResetEvents();
+
 }
 
 Vector2 Actor::transform() {
-    std::lock_guard<std::mutex> lock(actorLock);
     return transform_;
 }
 void Actor::set_transform(Vector2 new_transform) {
-    std::lock_guard<std::mutex> lock(actorLock);
     transform_ = new_transform;
 }
 
@@ -55,35 +52,28 @@ float32 Actor::angle() {
     return angle_;
 }
 void Actor::set_angle(float32 new_angle) {
-    std::lock_guard<std::mutex> lock(actorLock);
     angle_ = new_angle;
 }
 
 SDL_Rect Actor::sprite_clip() {
-    std::lock_guard<std::mutex> lock(actorLock);
     return sprite_clip_;
 }
 void Actor::set_sprite_clip(SDL_Rect new_sprite_clip) {
-    std::lock_guard<std::mutex> lock(actorLock);
     sprite_clip_ = new_sprite_clip;
 }
 
-void Actor::SetEvent(ActorEvent event) {
-    std::lock_guard<std::mutex> lock(actorLock);
-    actor_events_.at(event) = true;
+void Actor::SetEvent(ActorEvent event, bool value) {
+    actor_events_.at(event) = value;
 }
 bool Actor::CheckEvent(ActorEvent event) {
-    std::lock_guard<std::mutex> lock(actorLock);
     return actor_events_.at(event);
 }
 void Actor::ResetEvents() {
-    std::lock_guard<std::mutex> lock(actorLock);
     for (auto iter = actor_events_.begin(); iter != actor_events_.end(); ++iter) {
         iter->second = false;
     }
 }
 
 bool Actor::IsControllable() {
-    std::lock_guard<std::mutex> lock(actorLock);
     return controllable_;
 }

@@ -17,6 +17,5 @@ void Timer::Update() {
 }
 
 float32 Timer::DeltaTime() {
-    //std::cout << delta_time_ << std::endl;
     return delta_time_;
 }

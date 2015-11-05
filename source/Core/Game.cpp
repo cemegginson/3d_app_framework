@@ -13,10 +13,10 @@ Game::Game() {
     input_device_ = nullptr;
     timer_ = nullptr;
     view_ = nullptr;
-    physics_delta_time_ = 1.0/100.0;
+    //physics_delta_time_ = 1.0/100.0;
     velocity_iterations_ = 8;
     position_iterations_ = 3;
-    particle_iterations_ = 3;
+    //particle_iterations_ = 3;
 }
 
 Game::~Game() {
@@ -177,6 +177,6 @@ void Game::Update(float32 delta_time) {
     for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
         (*iter)->Update(delta_time);
     }
-    world_->Step(physics_delta_time_ * delta_time, velocity_iterations_, position_iterations_);
+    world_->Step(delta_time, velocity_iterations_, position_iterations_);
     // world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
 }

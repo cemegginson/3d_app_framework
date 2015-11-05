@@ -23,10 +23,10 @@ protected:
     View* view_;
     std::list<Actor*> actors_;
     b2World* world_;
-    float32 physics_delta_time_;
+    //float32 physics_delta_time_;
     int32 velocity_iterations_;
     int32 position_iterations_;
-    int32 particle_iterations_;
+    //int32 particle_iterations_;
 
 public:
     Game();

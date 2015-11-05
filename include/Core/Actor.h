@@ -29,8 +29,6 @@ protected:
     SDL_Rect sprite_clip_;
 
 public:
-    std::mutex actorLock;
-
     Actor();
     ~Actor();
     void Initialize(std::string, Vector2, uint32, bool);
@@ -38,7 +36,7 @@ public:
 
     void Update(float32);
 
-    void SetEvent(ActorEvent);
+    void SetEvent(ActorEvent, bool value = true);
     bool CheckEvent(ActorEvent);
     void ResetEvents();
 
