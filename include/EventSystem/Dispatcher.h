@@ -2,9 +2,10 @@
 
 #include "Util/Definitions.h"
 
-#include <deque>
+#include <condition_variable>
 #include <mutex>
-#include <string>
+#include <deque>
+#include <map>
 
 //Begin Dispatcher Class Section
 
@@ -31,6 +32,7 @@ class Dispatcher {
 
 		static std::mutex dispatchQueueLock;
 		static std::mutex threadQueueLock;
+		static std::condition_variable threadSignal;
 
 	public:
 
