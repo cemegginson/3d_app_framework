@@ -20,6 +20,13 @@ Game::Game() {
 }
 
 Game::~Game() {
+    #ifdef NDEBUG
+        if(debugSubscriber != nullptr) {
+            delete debugSubscriber;
+            debugSubscriber = nullptr;
+        }
+    #endif
+
     while (actors_.size() > 0) {
         delete actors_.back();
         actors_.pop_back();
@@ -68,7 +75,11 @@ bool Game::Initialize(GraphicsDevice* graphics_device,
     const b2Vec2 gravity(0, 150);
     world_ = new b2World(gravity);
 
-
+    #ifdef NDEBUG
+        debugSubscriber = new Subscriber(this);
+        debugSubscriber->method = std::bind(&Game::printFrameRate, this, std::placeholders::_1);
+        Dispatcher::GetInstance()->AddEventSubscriber(debugSubscriber, "EVENT_COMPONENT_UPDATE");
+    #endif
 
     // Set boundaries of world (Render->Physics)
     const b2Vec2 vTopLeft = b2Vec2(RW2PW(0), RW2PW(0));
