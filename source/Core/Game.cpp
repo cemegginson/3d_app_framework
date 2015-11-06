@@ -183,7 +183,7 @@ void Game::Update(float32 delta_time) {
 
     // keep this condition low enough to keep the game feeling non-laggy but high enough to keep threads busy
     while (Dispatcher::GetInstance()->QueueSize() > 128) {
-        std::cout << "Thread queue is too full...  waiting a it" << std::endl;
+        std::cout << "Thread queue is too full...  waiting a bit" << std::endl;
         sleep(1);
     }
 
