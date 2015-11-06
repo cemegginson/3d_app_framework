@@ -75,7 +75,7 @@ bool Game::Initialize(GraphicsDevice* graphics_device,
     const b2Vec2 gravity(0, 150);
     world_ = new b2World(gravity);
 
-    #ifdef NDEBUG
+    #ifndef NDEBUG
         debugSubscriber = new Subscriber(this);
         debugSubscriber->method = std::bind(&Game::printFrameRate, this, std::placeholders::_1);
         Dispatcher::GetInstance()->AddEventSubscriber(debugSubscriber, "EVENT_COMPONENT_UPDATE");
@@ -181,8 +181,11 @@ void Game::Update(float32 delta_time) {
 
     Dispatcher::GetInstance()->Pump();
 
-    //keep this condition low enough to keep the game feeling non-laggy but high enough to keep threads busy
-    while (Dispatcher::GetInstance()->QueueSize() > 128) sleep(1);
+    // keep this condition low enough to keep the game feeling non-laggy but high enough to keep threads busy
+    while (Dispatcher::GetInstance()->QueueSize() > 128) {
+        std::cout << "Thread queue is too full...  waiting a it" << std::endl;
+        sleep(1);
+    }
 
     // Cycle through every objects' Update method
     for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
@@ -192,9 +195,9 @@ void Game::Update(float32 delta_time) {
     // world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
 }
 
-#ifdef NDEBUG
+#ifndef NDEBUG
     void Game::printFrameRate(std::shared_ptr<void> delta_time) {
-        float32 time = *(float32*)delta_time->get();
+        float32 time = *(float32*)delta_time.get();
         std::cout << "FPS:\t" << 1.0/time << std::endl;
     }
 #endif

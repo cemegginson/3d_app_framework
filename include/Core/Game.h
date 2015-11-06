@@ -38,9 +38,9 @@ public:
     void Update(float32);
 
     // cmake adds NDEBUG by default for debug builds
-    #ifdef NDEBUG
+    #ifndef NDEBUG
     Subscriber* debugSubscriber;
-    void printFrameRate();
+    void printFrameRate(std::shared_ptr<void> delta_time);
     #endif
 
 };

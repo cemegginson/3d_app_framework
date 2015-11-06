@@ -81,9 +81,8 @@ void Dispatcher::ThreadProcess() {
         std::pair<Subscriber*, std::shared_ptr<void>> work;  // compiler might whine here
         {
             std::unique_lock<std::mutex> lock(threadQueueMutex);
-            threadSignal.wait(lock);
+            while (threadQueue->size() == 0) threadSignal.wait(lock);
 
-            if (threadQueue->size() == 0) continue;
             work = threadQueue->front();
             threadQueue->pop_front();
         }

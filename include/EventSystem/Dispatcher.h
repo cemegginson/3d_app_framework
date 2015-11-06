@@ -54,7 +54,7 @@ class Dispatcher {
 		void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
 
 		void Pump();
-		int QueueSize() const { return threadQueue->size(); }
+		int QueueSize() { return threadQueue->size(); }
 
 	private:
 		static void ThreadProcess();
