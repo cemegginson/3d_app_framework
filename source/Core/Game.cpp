@@ -188,9 +188,9 @@ void Game::Update(float32 delta_time) {
     }
 
     // Cycle through every objects' Update method
-    for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
-        (*iter)->Update(delta_time);
-    }
+    //for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
+    //    (*iter)->Update(delta_time);
+    //}
     world_->Step(delta_time, velocity_iterations_, position_iterations_);
     // world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
 }
