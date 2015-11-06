@@ -30,8 +30,8 @@ class Dispatcher {
 		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  threadQueue;
 		std::deque<std::thread*>* processingThreads; //using std::deque for constant time size() and O(1) random access
 
-		static std::mutex dispatchQueueLock;
-		static std::mutex threadQueueLock;
+		static std::mutex dispatchQueueMutex;
+		static std::mutex threadQueueMutex;
 		static std::condition_variable threadSignal;
 
 	public:

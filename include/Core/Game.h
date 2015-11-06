@@ -23,10 +23,10 @@ protected:
     View* view_;
     std::list<Actor*> actors_;
     b2World* world_;
-    //float32 physics_delta_time_;
+    // float32 physics_delta_time_;
     int32 velocity_iterations_;
     int32 position_iterations_;
-    //int32 particle_iterations_;
+    // int32 particle_iterations_;
 
 public:
     Game();
@@ -36,4 +36,11 @@ public:
     bool LoadLevel(std::string);
     void Run();
     void Update(float32);
+
+    // cmake adds NDEBUG by default for debug builds
+    #ifdef NDEBUG
+    Subscriber* debugSubscriber;
+    void printFrameRate();
+    #endif
+
 };

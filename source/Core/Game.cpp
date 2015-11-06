@@ -13,34 +13,34 @@ Game::Game() {
     input_device_ = nullptr;
     timer_ = nullptr;
     view_ = nullptr;
-    //physics_delta_time_ = 1.0/100.0;
+    // physics_delta_time_ = 1.0/100.0;
     velocity_iterations_ = 8;
     position_iterations_ = 3;
-    //particle_iterations_ = 3;
+    // particle_iterations_ = 3;
 }
 
 Game::~Game() {
-    while(actors_.size() > 0) {
+    while (actors_.size() > 0) {
         delete actors_.back();
         actors_.pop_back();
     }
-    if(component_factories_ != nullptr) {
+    if (component_factories_ != nullptr) {
         delete component_factories_;
         component_factories_ = nullptr;
     }
-    if(art_library_ != nullptr) {
+    if (art_library_ != nullptr) {
         delete art_library_;
         art_library_ = nullptr;
     }
-    if(view_ != nullptr) {
+    if (view_ != nullptr) {
         delete view_;
         view_ = nullptr;
     }
-    if(timer_ != nullptr) {
+    if (timer_ != nullptr) {
         delete timer_;
         timer_ = nullptr;
     }
-    if(world_ != nullptr) {
+    if (world_ != nullptr) {
         delete world_;
         world_ = nullptr;
     }
@@ -77,7 +77,7 @@ bool Game::Initialize(GraphicsDevice* graphics_device,
     const b2Vec2 vBottomRight = b2Vec2(RW2PW((int32)screen_width), RW2PW((int32)screen_height - 60));
 
     //
-    //Create the world boundaries
+    // Create the world boundaries
     //
     b2BodyDef bd;
     b2Body* edge = world_->CreateBody(&bd);
@@ -102,13 +102,13 @@ bool Game::Initialize(GraphicsDevice* graphics_device,
     // Create Factories
     component_factories_ = new ComponentLibrary();
 
-    component_factories_->AddFactory("Animation", (ComponentFactory*)new AnimationFactory());
-    component_factories_->AddFactory("Carrier", (ComponentFactory*)new CarrierFactory());
-    component_factories_->AddFactory("Infantry", (ComponentFactory*)new InfantryFactory());
-    component_factories_->AddFactory("Player", (ComponentFactory*)new PlayerFactory(input_device_));
-    //component_factories_->AddFactory("RigidCircle", (ComponentFactory*)new RigidCircleFactory(world_));
-    component_factories_->AddFactory("RigidRectangle", (ComponentFactory*)new RigidRectangleFactory(world_));
-    component_factories_->AddFactory("Sprite", (ComponentFactory*)new SpriteFactory(graphics_device_, art_library_));
+    component_factories_->AddFactory("Animation", reinterpret_cast<ComponentFactory*>(new AnimationFactory()));
+    component_factories_->AddFactory("Carrier", reinterpret_cast<ComponentFactory*>(new CarrierFactory()));
+    component_factories_->AddFactory("Infantry", reinterpret_cast<ComponentFactory*>(new InfantryFactory()));
+    component_factories_->AddFactory("Player", reinterpret_cast<ComponentFactory*>(new PlayerFactory(input_device_)));
+    // component_factories_->AddFactory("RigidCircle", reinterpret_cast<ComponentFactory*>new RigidCircleFactory(world_));
+    component_factories_->AddFactory("RigidRectangle", reinterpret_cast<ComponentFactory*>(new RigidRectangleFactory(world_)));
+    component_factories_->AddFactory("Sprite", reinterpret_cast<ComponentFactory*>(new SpriteFactory(graphics_device_, art_library_)));
 
     // ContactListener* contact_listener = new ContactListener();
     // world_->SetContactListener(contact_listener);
@@ -146,7 +146,7 @@ bool Game::LoadLevel(std::string file) {
             // Loop through Component XML nodes
             for (pugi::xml_node component_node : actor_node.children("Component")) {
                 std::string type = component_node.attribute("type").value();
-                Component* new_component = (Component*)(component_factories_->Search(type)->Create(new_actor, component_node));
+                Component* new_component = reinterpret_cast<Component*>(component_factories_->Search(type)->Create(new_actor, component_node));
                 new_actor->AddComponent(new_component);
             }
             actors_.push_back(new_actor);
@@ -171,7 +171,7 @@ void Game::Update(float32 delta_time) {
     Dispatcher::GetInstance()->Pump();
 
     //keep this condition low enough to keep the game feeling non-laggy but high enough to keep threads busy
-    while(Dispatcher::GetInstance()->QueueSize() > 128) sleep(1);
+    while (Dispatcher::GetInstance()->QueueSize() > 128) sleep(1);
 
     // Cycle through every objects' Update method
     for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
@@ -180,3 +180,10 @@ void Game::Update(float32 delta_time) {
     world_->Step(delta_time, velocity_iterations_, position_iterations_);
     // world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
 }
+
+#ifdef NDEBUG
+    void Game::printFrameRate(std::shared_ptr<void> delta_time) {
+        float32 time = *(float32*)delta_time->get();
+        std::cout << "FPS:\t" << 1.0/time << std::endl;
+    }
+#endif

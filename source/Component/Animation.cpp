@@ -31,7 +31,6 @@ Animation::~Animation() {
 
 void Animation::Update(std::shared_ptr<void> delta_time) {
     frame_time_ += *reinterpret_cast<float32*>(delta_time.get());
-    std::cout << frame_time_ << std::endl;
 
     if (frame_time_ >= .05) {
         frame_time_ = 0;

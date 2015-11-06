@@ -14,8 +14,10 @@
 // Dispatcher Static Variables
 bool Dispatcher::inited = false;
 bool Dispatcher::running = false;
-std::mutex Dispatcher::dispatchQueueLock;
-std::mutex Dispatcher::threadQueueLock;
+
+std::mutex Dispatcher::dispatchQueueMutex;
+std::mutex Dispatcher::threadQueueMutex;
+std::condition_variable Dispatcher::threadSignal;
 
 Dispatcher* Dispatcher::theInstance = nullptr;
 std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  Dispatcher::threadQueue;
@@ -62,25 +64,25 @@ void Dispatcher::Initialize() {
 }
 
 void Dispatcher::Pump() {
-    std::lock_guard<std::mutex> dispatchLock(dispatchQueueLock);
+    std::lock_guard<std::mutex> dispatchLock(dispatchQueueMutex);
     for (auto i : *dispatchEvents) {  // for every event
         for (auto obj : *(mappedEvents->at(i.first))) {  // for every Subscriber* for that event
             if (obj == nullptr) continue;
-            std::lock_guard<std::mutex> lock(threadQueueLock);  // unlocked on out-of-scope
+            std::lock_guard<std::mutex> lock(threadQueueMutex);  // unlocked on out-of-scope
             threadQueue->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
             threadSignal.notify_one();
         }
     }
     dispatchEvents->clear();  // we queued them all for processing so clear the cache
-    // std::cout << threadQueue->size() << std::endl;
 }
 
 void Dispatcher::ThreadProcess() {
     while (running) {
         std::pair<Subscriber*, std::shared_ptr<void>> work;  // compiler might whine here
         {
-            while (threadQueue->size() == 0) std::this_thread::yield();
-            std::lock_guard<std::mutex> lock(threadQueueLock);  // unlocked on out-of-scope
+            std::unique_lock<std::mutex> lock(threadQueueMutex);
+            threadSignal.wait(lock);
+
             if (threadQueue->size() == 0) continue;
             work = threadQueue->front();
             threadQueue->pop_front();
@@ -98,7 +100,7 @@ void Dispatcher::ThreadProcess() {
 
 void Dispatcher::DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData) {
     // std::cout << "Dispatcher --->  Received event " << eventID << "." << std::endl;
-    std::lock_guard<std::mutex> dispatchLock(dispatchQueueLock);
+    std::lock_guard<std::mutex> dispatchLock(dispatchQueueMutex);
     dispatchEvents->push_back(std::pair<EventType, std::shared_ptr<void>>(eventID, eventData));
 }
 
