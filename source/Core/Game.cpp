@@ -21,7 +21,7 @@ Game::Game() {
 
 Game::~Game() {
     #ifdef NDEBUG
-        if(debugSubscriber != nullptr) {
+        if (debugSubscriber != nullptr) {
             delete debugSubscriber;
             debugSubscriber = nullptr;
         }
@@ -188,16 +188,16 @@ void Game::Update(float32 delta_time) {
     }
 
     // Cycle through every objects' Update method
-    //for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
+    // for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
     //    (*iter)->Update(delta_time);
-    //}
+    // }
     world_->Step(delta_time, velocity_iterations_, position_iterations_);
     // world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
 }
 
 #ifndef NDEBUG
     void Game::printFrameRate(std::shared_ptr<void> delta_time) {
-        float32 time = *(float32*)delta_time.get();
+        float32 time = *reinterpret_cast<float32*>(delta_time.get());
         std::cout << "FPS:\t" << 1.0/time << std::endl;
     }
 #endif

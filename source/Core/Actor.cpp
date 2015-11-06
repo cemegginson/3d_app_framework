@@ -1,5 +1,10 @@
 #include "Core/Actor.h"
 
+#include <map>
+#include <memory>
+#include <vector>
+#include <string>
+
 Actor::Actor() {}
 
 Actor::~Actor() {
@@ -13,7 +18,6 @@ void Actor::Initialize(std::string name,
                        Vector2 transform,
                        uint32 angle,
                        bool controllable) {
-
     name_ = name;
     transform_ = transform;
     angle_ = angle;
@@ -37,7 +41,7 @@ void Actor::AddComponent(Component* component) {
 }
 
 void Actor::Update(float32 delta_time) {
-    UNUSED(delta_time); //make linter shutup
+    UNUSED(delta_time);  // make linter shutup
 }
 
 Vector2 Actor::transform() {
