@@ -12,7 +12,7 @@
 // Project Libraries
 #include "Util/Definitions.h"
 #include "Core/Game.h"
-#include "Core/GraphicsDevice.h"
+#include "Core/Renderer.h"
 #include "Core/InputDevice.h"
 
 int main(int argc, char* argv[]) {
@@ -34,10 +34,8 @@ int main(int argc, char* argv[]) {
     //========================================
     // Construct Graphical Device
     //========================================
-    GraphicsDevice* graphics_device =
-        new GraphicsDevice(screen_width, screen_height);
-    // if (!gDevice->Initialize(true)) { Not sure what this true is about
-    if (!graphics_device->Initialize()) {
+    Renderer* renderer = new Renderer(screen_width, screen_height);
+    if (!renderer->Initialize()) {
         printf("Graphics Device could not initialize!");
         exit(1);
     }
@@ -55,7 +53,7 @@ int main(int argc, char* argv[]) {
     // Construct Game
     //========================================
     Game* game = new Game();
-    if (!game->Initialize(graphics_device, input_device)) {
+    if (!game->Initialize(renderer, input_device)) {
         printf("Game could not Initialize!");
         exit(1);  // this case will leak a lot of memory...
                   // should properly do destructor calls and proper shutdown
@@ -100,9 +98,9 @@ int main(int argc, char* argv[]) {
         input_device = nullptr;
     }
 
-    if (graphics_device != nullptr) {
-        delete graphics_device;
-        graphics_device = nullptr;
+    if (renderer != nullptr) {
+        delete renderer;
+        renderer = nullptr;
     }
 
     SDL_Quit();

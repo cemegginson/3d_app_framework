@@ -1,28 +1,28 @@
 #include <iostream>
 
-#include "Core/GraphicsDevice.h"
+#include "Core/SDLRenderer.h"
 #include "Util/GameUtils.h"
 
-GraphicsDevice::GraphicsDevice() {
+SDLRenderer::SDLRenderer() {
     window_ = nullptr;
     renderer_ = nullptr;
     width_ = 0;
     height_ = 0;
 }
 
-GraphicsDevice::GraphicsDevice(uint32 screen_width, uint32 screen_height) {
+SDLRenderer::SDLRenderer(uint32 screen_width, uint32 screen_height) {
     window_ = nullptr;
     renderer_ = nullptr;
     width_ = screen_width;
     height_ = screen_height;
 }
 
-GraphicsDevice::~GraphicsDevice() {
+SDLRenderer::~SDLRenderer() {
     SDL_DestroyRenderer(renderer_);
     SDL_DestroyWindow(window_);
 }
 
-bool GraphicsDevice::Initialize() {
+bool SDLRenderer::Initialize() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         LogSDLError(std::cerr, "SDL_Init");
         return false;
@@ -33,16 +33,20 @@ bool GraphicsDevice::Initialize() {
                                SDL_WINDOWPOS_UNDEFINED,
                                width_,
                                height_,
-                               SDL_WINDOW_RESIZABLE);
+                               SDL_WINDOW_RESIZABLE
+    );
 
     if (window_ == nullptr) {
         LogSDLError(std::cerr, "SDL_CreateWindow");
         return false;
     }
 
-    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED
-                                                //| SDL_RENDERER_PRESENTVSYNC //test performance increase
-                                  );
+    renderer_ = SDL_CreateRenderer(window_,
+                                   -1,
+                                   SDL_RENDERER_ACCELERATED
+                                //    | SDL_RENDERER_PRESENTVSYNC //test performance increase
+    );
+
     if (renderer_ == nullptr) {
         LogSDLError(std::cerr, "SDL_CreateRenderer");
         return false;
@@ -53,19 +57,19 @@ bool GraphicsDevice::Initialize() {
     return true;
 }
 
-int GraphicsDevice::width() { return width_; }
+int SDLRenderer::width() { return width_; }
 
-int GraphicsDevice::height() { return height_; }
+int SDLRenderer::height() { return height_; }
 
-SDL_Renderer* GraphicsDevice::renderer() {
+SDL_Renderer* SDLRenderer::renderer() {
     return renderer_;
 }
 
-void GraphicsDevice::AddSprite(Sprite* sprite) {
+void SDLRenderer::AddSprite(Sprite* sprite) {
     sprites_.push_back(sprite);
 }
 
-void GraphicsDevice::Render() {
+void SDLRenderer::Render() {
     SDL_RenderClear(renderer_);
 
     // Cycle through every objects' Draw method
