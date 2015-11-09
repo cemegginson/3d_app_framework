@@ -146,7 +146,7 @@ void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
             angular_velocity += PI*time;
         }
         if (owner_->CheckEvent(kMoveUp)) {
-            body_->ApplyForceToCenter(jump);
+            body_->ApplyForceToCenter(jump, 1);
         }
         if (owner_->CheckEvent(kMoveDown)) {}
         if (owner_->CheckEvent(kMoveLeft)) {
