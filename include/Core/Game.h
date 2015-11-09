@@ -28,6 +28,8 @@ protected:
     int32 position_iterations_;
     // int32 particle_iterations_;
 
+	Subscriber* debug_subscriber;
+
 public:
     Game();
     ~Game();
@@ -39,7 +41,6 @@ public:
 
     // cmake adds NDEBUG by default for debug builds
     #ifndef NDEBUG
-    Subscriber* debugSubscriber;
     void printFrameRate(std::shared_ptr<void> delta_time);
     #endif
 

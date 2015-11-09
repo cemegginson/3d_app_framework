@@ -6,6 +6,7 @@
 #include <mutex>
 #include <deque>
 #include <map>
+#include <memory>
 
 //Begin Dispatcher Class Section
 

@@ -5,7 +5,7 @@
 
 // Media Libraries
 #include "SDL.h"
-
+#undef main
 // Physics
 #include "Box2D/Box2D.h"
 
