@@ -10,10 +10,10 @@
 #include "Box2D/Box2D.h"
 
 // Project Libraries
-#include "Util/Definitions.h"
-#include "Core/Game.h"
-#include "Core/Renderer.h"
-#include "Core/InputDevice.h"
+#include "util/definitions.h"
+#include "core/Game.h"
+#include "render/Renderer.h"
+#include "core/InputDevice.h"
 
 int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);
