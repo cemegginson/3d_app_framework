@@ -80,11 +80,11 @@ public:
 
 class SpriteFactory : ComponentFactory {
 protected:
-    GraphicsDevice* graphics_device_;
+    Renderer* renderer_;
     ArtAssetLibrary* art_library_;
 
 public:
-    SpriteFactory(GraphicsDevice*, ArtAssetLibrary*);
+    SpriteFactory(Renderer*, ArtAssetLibrary*);
     ~SpriteFactory();
     Sprite* Create(Actor*, pugi::xml_node);
 };

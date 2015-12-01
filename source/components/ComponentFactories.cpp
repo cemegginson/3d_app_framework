@@ -144,10 +144,10 @@ RigidRectangle* RigidRectangleFactory::Create(Actor* owner,
 
 
 // SpriteFactory stuff
-SpriteFactory::SpriteFactory(GraphicsDevice* graphics_device,
+SpriteFactory::SpriteFactory(Renderer* renderer,
                              ArtAssetLibrary* art_library) :
                              ComponentFactory() {
-    graphics_device_ = graphics_device;
+    renderer_ = renderer;
     art_library_ = art_library;
 }
 
@@ -157,7 +157,7 @@ Sprite* SpriteFactory::Create(Actor* owner,
                               pugi::xml_node node) {
     Sprite* new_sprite = new Sprite(owner);
     std::string texture = node.attribute("texture").value();
-    new_sprite->Initialize(graphics_device_, art_library_->Search(texture));
+    new_sprite->Initialize(renderer_, art_library_->Search(texture));
     return new_sprite;
 }
 

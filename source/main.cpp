@@ -12,8 +12,15 @@
 // Project Libraries
 #include "util/definitions.h"
 #include "core/Game.h"
-#include "render/Renderer.h"
 #include "core/InputDevice.h"
+
+// Plugable Renderers
+#include "render/Renderer.h"
+#include "render/opengl/opengl_renderer.h"
+#include "render/sdl/SDLRenderer.h"
+
+// 0 is SDL 1 is opengl
+#define RENDER_TYPE 0
 
 int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);
@@ -34,7 +41,14 @@ int main(int argc, char* argv[]) {
     //========================================
     // Construct Graphical Device
     //========================================
-    Renderer* renderer = new Renderer(screen_width, screen_height);
+    Renderer* renderer = nullptr;
+    #if RENDER_TYPE == 0
+        renderer = new SDLRenderer(screen_width, screen_height);
+    #elif RENDER_TYPE == 1
+        renderer = new OpenGLRenderer(screen_width, screen_height);
+    #endif
+    static_assert(RENDER_TYPE == 0 || RENDER_TYPE == 1, "RENDER_TYPE is unrecognized.  Stopping compilation.");
+
     if (!renderer->Initialize()) {
         printf("Graphics Device could not initialize!");
         exit(1);

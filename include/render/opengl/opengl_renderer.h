@@ -15,13 +15,18 @@ class OpenGLRenderer : public Renderer {
 protected:
     SDL_Window* window_;
 
-    int32 width_;
-    int32 height_;
+    uint32 width_;
+    uint32 height_;
 
 public:
+    OpenGLRenderer();
+    OpenGLRenderer(uint32 screen_width, uint32 screen_height);
+
+    ~OpenGLRenderer();
+
     bool Initialize();
     void Render();
 
-    int32 width();
-    int32 height();
+    uint32 width();
+    uint32 height();
 };

@@ -2,25 +2,25 @@
 
 OpenGLRenderer::OpenGLRenderer() {
     window_ = nullptr;
-    renderer_ = nullptr;
+    //renderer_ = nullptr;
     width_ = 0;
     height_ = 0;
 }
 
 OpenGLRenderer::OpenGLRenderer(uint32 screen_width, uint32 screen_height) {
     window_ = nullptr;
-    renderer_ = nullptr;
+    //renderer_ = nullptr;
     width_ = screen_width;
     height_ = screen_height;
 }
 
 OpenGLRenderer::~OpenGLRenderer() {
-    SDL_DestroyWindow(window_);
+    //SDL_DestroyWindow(window_);
 }
 
 bool OpenGLRenderer::Initialize(){
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        LogSDLError(std::cerr, "SDL_Init");
+        //LogSDLError(std::cerr, "SDL_Init");
         return false;
     }
 
@@ -33,19 +33,21 @@ bool OpenGLRenderer::Initialize(){
     );
 
     if (window_ == nullptr) {
-        LogSDLError(std::cerr, "SDL_CreateWindow");
+        //LogSDLError(std::cerr, "SDL_CreateWindow");
         return false;
     }
+
+    return true;
 }
 void OpenGLRenderer::Render(){
-    glClear ( GL_COLOR_BUFFER_BIT );
+    //glClear ( GL_COLOR_BUFFER_BIT );
 
     SDL_GL_SwapWindow(window_);
 }
 
-int OpenGLRenderer::width(){
+uint32 OpenGLRenderer::width(){
     return width_;
 }
-int OpenGLRenderer::height(){
+uint32 OpenGLRenderer::height(){
     return height_;
 }

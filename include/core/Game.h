@@ -11,13 +11,15 @@
 #include "core/Timer.h"
 #include "core/View.h"
 
+#include "render/Renderer.h"
+
 #include "virtual/Component.h"
 
 class Game {
 protected:
     ComponentLibrary* component_factories_;
     ArtAssetLibrary* art_library_;
-    GraphicsDevice* graphics_device_;
+    Renderer* renderer_;
     InputDevice* input_device_;
     Timer* timer_;
     View* view_;
@@ -31,7 +33,7 @@ protected:
 public:
     Game();
     ~Game();
-    bool Initialize(GraphicsDevice*, InputDevice*);
+    bool Initialize(Renderer*, InputDevice*);
     void Reset();
     bool LoadLevel(std::string);
     void Run();

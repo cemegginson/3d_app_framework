@@ -20,6 +20,9 @@ SDLRenderer::SDLRenderer(uint32 screen_width, uint32 screen_height) {
 SDLRenderer::~SDLRenderer() {
     SDL_DestroyRenderer(renderer_);
     SDL_DestroyWindow(window_);
+
+    window_ = nullptr;
+    renderer_ = nullptr;
 }
 
 bool SDLRenderer::Initialize() {
@@ -57,9 +60,9 @@ bool SDLRenderer::Initialize() {
     return true;
 }
 
-int SDLRenderer::width() { return width_; }
+uint32 SDLRenderer::width() { return width_; }
 
-int SDLRenderer::height() { return height_; }
+uint32 SDLRenderer::height() { return height_; }
 
 SDL_Renderer* SDLRenderer::renderer() {
     return renderer_;

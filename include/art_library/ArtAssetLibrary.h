@@ -3,9 +3,12 @@
 #include <map>
 #include <string>
 
-#include "core/GraphicsDevice.h"
 #include "core/Texture.h"
 #include "core/View.h"
+
+#include "render/Renderer.h"
+#include "render/sdl/SDLRenderer.h"
+#include "render/opengl/opengl_renderer.h"
 
 
 class ArtAssetLibrary {
@@ -15,6 +18,6 @@ protected:
 public:
     ArtAssetLibrary();
     ~ArtAssetLibrary();
-    bool LoadAssets(GraphicsDevice*, View*);
+    bool LoadAssets(Renderer*, View*);
     Texture* Search(std::string);
 };

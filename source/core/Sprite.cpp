@@ -17,13 +17,15 @@ Sprite::~Sprite() {
     }
 }
 
-void Sprite::Initialize(GraphicsDevice* graphics_device, Texture* texture) {
-    graphics_device_ = graphics_device;
-    graphics_device_->AddSprite(this);
+void Sprite::Initialize(Renderer* renderer, Texture* texture) {
+    renderer_ = renderer;
+    #if RENDER_TYPE == 0
+        reinterpret_cast<SDLRenderer*>(renderer_)->AddSprite(this);
+    #endif
     texture_ = texture;
 
-    // Add Sprite to graphics_device_
-    // graphics_device_->AddSprite(shared_from_this());
+    // Add Sprite to renderer_
+    // renderer_->AddSprite(shared_from_this());
 }
 
 void Sprite::Update(std::shared_ptr<void> delta_time) {

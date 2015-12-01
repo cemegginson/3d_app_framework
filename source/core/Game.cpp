@@ -9,7 +9,7 @@
 Game::Game() {
     component_factories_ = nullptr;
     art_library_ = nullptr;
-    graphics_device_ = nullptr;
+    renderer_ = nullptr;
     input_device_ = nullptr;
     timer_ = nullptr;
     view_ = nullptr;
@@ -53,9 +53,9 @@ Game::~Game() {
     }
 }
 
-bool Game::Initialize(GraphicsDevice* graphics_device,
+bool Game::Initialize(Renderer* renderer,
                       InputDevice* input_device) {
-    graphics_device_ = graphics_device;
+    renderer_ = renderer;
     input_device_ = input_device;
 
     view_ = new View();
@@ -63,7 +63,7 @@ bool Game::Initialize(GraphicsDevice* graphics_device,
 
     // Load sprites
     art_library_ = new ArtAssetLibrary();
-    art_library_->LoadAssets(graphics_device_, view_);
+    art_library_->LoadAssets(renderer_, view_);
 
     timer_ = new Timer();
     timer_->Start();
@@ -119,7 +119,7 @@ bool Game::Initialize(GraphicsDevice* graphics_device,
     component_factories_->AddFactory("Player", reinterpret_cast<ComponentFactory*>(new PlayerFactory(input_device_)));
     // component_factories_->AddFactory("RigidCircle", reinterpret_cast<ComponentFactory*>new RigidCircleFactory(world_));
     component_factories_->AddFactory("RigidRectangle", reinterpret_cast<ComponentFactory*>(new RigidRectangleFactory(world_)));
-    component_factories_->AddFactory("Sprite", reinterpret_cast<ComponentFactory*>(new SpriteFactory(graphics_device_, art_library_)));
+    component_factories_->AddFactory("Sprite", reinterpret_cast<ComponentFactory*>(new SpriteFactory(renderer_, art_library_)));
 
     // ContactListener* contact_listener = new ContactListener();
     // world_->SetContactListener(contact_listener);
@@ -169,7 +169,7 @@ bool Game::LoadLevel(std::string file) {
 void Game::Run() {
     Update(timer_->DeltaTime());
     timer_->Update();
-    graphics_device_->Render();
+    renderer_->Render();
 }
 
 void Game::Update(float32 delta_time) {
