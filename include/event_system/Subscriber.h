@@ -17,13 +17,13 @@ class Subscriber {
 	    Subscriber(Subscriber &other) {
 			this->owner = other.owner;
 			this->method = other.method;
-			this->serialized = other.seralized;
+			this->serialized = other.serialized;
 		}
 		//C++14 move semantics override
 		Subscriber(Subscriber &&other) {
-			this->owner = other->owner;
-			this->method = other->method;
-			this->serialized = other->seralized;
+			this->owner = other.owner;
+			this->method = other.method;
+			this->serialized = other.serialized;
 		}
 
 /*  //Returns strongly typed std::bind objects with typed args and returns
