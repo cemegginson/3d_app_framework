@@ -180,6 +180,7 @@ void Game::Update(float32 delta_time) {
     Dispatcher::GetInstance()->DispatchEvent("EVENT_PHYSICS_UPDATE",      std::make_shared<float32>(delta_time));
 
     Dispatcher::GetInstance()->Pump();
+	Dispatcher::GetInstance()->NonSerialProcess(); //do processing of subscriber objects that can't be run in the thread pool
 
     // keep this condition low enough to keep the game feeling non-laggy but high enough to keep threads busy
     while (Dispatcher::GetInstance()->QueueSize() > 128) {

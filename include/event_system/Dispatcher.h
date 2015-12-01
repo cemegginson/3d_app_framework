@@ -28,6 +28,8 @@ class Dispatcher {
 		std::map<EventType,std::list<Subscriber*>*>* mappedEvents;
 
 		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  threadQueue;
+		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  nonserialQueue;
+
 		std::deque<std::thread*>* processingThreads; //using std::deque for constant time size() and O(1) random access
 
 		static std::mutex dispatchQueueMutex;
@@ -43,8 +45,6 @@ class Dispatcher {
 		Dispatcher(const Dispatcher&); //disallow copying
 	    Dispatcher& operator= (const Dispatcher&); //disallow copying
 
-
-
 		void Terminate();
 
 		void AddEventSubscriber(Subscriber *requestor, const EventType);
@@ -54,6 +54,8 @@ class Dispatcher {
 		void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
 
 		void Pump();
+		void NonSerialProcess();
+
 		int QueueSize() { return threadQueue->size(); }
 
 	private:

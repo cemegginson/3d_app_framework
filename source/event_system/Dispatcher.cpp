@@ -21,6 +21,7 @@ std::condition_variable Dispatcher::threadSignal;
 
 Dispatcher* Dispatcher::theInstance = nullptr;
 std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  Dispatcher::threadQueue;
+std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>* Dispatcher::nonserialQueue;
 
 // Begin Class Methods
 Dispatcher::Dispatcher() { }
@@ -31,6 +32,16 @@ Dispatcher::~Dispatcher() {
         t->join();  // thould stop eventually...
         delete t;   // i'm pretty sure we need to shutdown the threads before we delete them
     }
+
+	dispatchEvents->clear();
+	delete dispatchEvents;
+	delete mappedEvents;
+
+	threadQueue->clear();
+	delete threadQueue;
+
+	nonserialQueue->clear();
+	delete nonserialQueue;
 }
 
 Dispatcher* Dispatcher::GetInstance() {
@@ -48,6 +59,8 @@ void Dispatcher::Initialize() {
         dispatchEvents  = new std::deque<std::pair<EventType, std::shared_ptr<void>>>();
         mappedEvents    = new std::map<EventType, std::list<Subscriber*>*>();
         threadQueue     = new std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>();
+		nonserialQueue = new std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>();
+
         processingThreads = new std::deque<std::thread*>();
 
         running = true;
@@ -69,17 +82,36 @@ void Dispatcher::Pump() {
         for (auto obj : *(mappedEvents->at(i.first))) {  // for every Subscriber* for that event
             if (obj == nullptr) continue;
             std::lock_guard<std::mutex> lock(threadQueueMutex);  // unlocked on out-of-scope
-            threadQueue->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
-            threadSignal.notify_one();
+			if (obj->serialized) {
+				threadQueue->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+				threadSignal.notify_one();
+			}
+			else {
+				nonserialQueue->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+			}
         }
     }
     dispatchEvents->clear();  // we queued them all for processing so clear the cache
 }
 
+void Dispatcher::NonSerialProcess() {
+	for (auto work : nonserialQueue) {
+		try {
+			if (work.first->method == NULL || work.first->owner == nullptr) continue;
+			work.first->method(work.second);
+		}
+		catch (std::string msg) {
+			std::cerr << "Exception thrown by function called in nonserial processing." << std::endl;
+			std::cerr << msg << std::endl;
+		}
+	}
+}
+
 void Dispatcher::ThreadProcess() {
     while (running) {
         std::pair<Subscriber*, std::shared_ptr<void>> work;  // compiler might whine here
-        {
+
+        { //enter new scope so std::unique_lock will unlock on exceptions
             std::unique_lock<std::mutex> lock(threadQueueMutex);
             while (threadQueue->size() == 0) threadSignal.wait(lock);
 
@@ -105,7 +137,7 @@ void Dispatcher::DispatchEvent(const EventType eventID, const std::shared_ptr<vo
 
 void Dispatcher::AddEventSubscriber(Subscriber *requestor, const EventType event_id) {
     if (mappedEvents->count(event_id) < 1) {
-        std::cerr << "Dispatcher --->  Dynamically allocating list for Specific EventID "
+        std::cerr << "Dispatcher --->  Dynamically allocating list for EventID "
             << event_id << "."
             << std::endl << "Dispatcher --->  This should be avoided for performance reasons."
             << std::endl;

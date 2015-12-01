@@ -8,12 +8,22 @@ typedef void (SubscriptionFunction(std::shared_ptr<void>));
 
 class Subscriber {
 	public:
-	    Subscriber(void* owner) {
+		bool serialized = true;
+
+	    Subscriber(void* owner, bool serialized = true) {
 			this->owner = owner;
+			this->serialized = serialized;
 		}
 	    Subscriber(Subscriber &other) {
 			this->owner = other.owner;
 			this->method = other.method;
+			this->serialized = other.seralized;
+		}
+		//C++14 move semantics override
+		Subscriber(Subscriber &&other) {
+			this->owner = other->owner;
+			this->method = other->method;
+			this->serialized = other->seralized;
 		}
 
 /*  //Returns strongly typed std::bind objects with typed args and returns
