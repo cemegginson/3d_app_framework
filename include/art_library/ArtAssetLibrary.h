@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-#include "core/Texture.h"
+#include "render/sdl/sdl_texture.h"
 #include "render/sdl/sdl_view.h"
 
 #include "render/renderer.h"

@@ -6,7 +6,7 @@
 #include "render/renderer.h"
 #include "render/sdl/sdl_renderer.h"
 #include "render/opengl/opengl_renderer.h"
-#include "core/Texture.h"
+#include "render/sdl/sdl_texture.h"
 
 class Sprite : public Component, public std::enable_shared_from_this<Sprite> {
 protected:

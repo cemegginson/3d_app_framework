@@ -1,6 +1,6 @@
 #include <iostream>
 #include <SDL_image.h>
-#include "core/Texture.h"
+#include "render/sdl/sdl_texture.h"
 // #include "game_utils.h"
 
 Texture::Texture() { texture_ = nullptr; }
