@@ -1,10 +1,10 @@
 #pragma once
 
 #include <memory>
-
-#include "core/Actor.h"
-#include "util/definitions.h"
 #include <vector>
+
+#include "core/actor.h"
+#include "util/definitions.h"
 #include "event_system/Subscriber.h"
 
 class Actor;

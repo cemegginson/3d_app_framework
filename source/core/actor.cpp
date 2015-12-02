@@ -1,4 +1,4 @@
-#include "core/Actor.h"
+#include "core/actor.h"
 
 #include <map>
 #include <memory>
