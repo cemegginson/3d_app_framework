@@ -7,7 +7,7 @@
 
 #include "SDL.h"
 
-#include "virtual/Component.h"
+#include "virtual/component.h"
 #include "util/definitions.h"
 #include "core/InputDevice.h"
 #include "render/sdl/sdl_view.h"

@@ -5,7 +5,7 @@
 
 #include "art_library/ArtAssetLibrary.h"
 #include "components/Bullet.h"
-#include "virtual/Component.h"
+#include "virtual/component.h"
 #include "util/definitions.h"
 
 

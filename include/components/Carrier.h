@@ -3,7 +3,7 @@
 #include <string>
 
 #include "util/definitions.h"
-#include "virtual/Component.h"
+#include "virtual/component.h"
 
 class Carrier : public Component {
 protected:

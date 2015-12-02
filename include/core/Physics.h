@@ -4,7 +4,7 @@
 
 #include "Box2D/Box2D.h"
 
-#include "virtual/Component.h"
+#include "virtual/component.h"
 #include "util/definitions.h"
 
 // Base Rigidbody class

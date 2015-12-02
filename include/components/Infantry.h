@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-#include "virtual/Component.h"
+#include "virtual/component.h"
 #include "util/definitions.h"
 
 class Infantry : public Component {

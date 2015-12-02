@@ -7,7 +7,7 @@
 
 #include "SDL.h"
 
-#include "virtual/Component.h"
+#include "virtual/component.h"
 #include "util/definitions.h"
 
 class Animation : public Component {

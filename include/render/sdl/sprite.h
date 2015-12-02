@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "virtual/Component.h"
+#include "virtual/component.h"
 #include "render/renderer.h"
 #include "render/sdl/sdl_renderer.h"
 #include "render/opengl/opengl_renderer.h"

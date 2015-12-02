@@ -13,7 +13,7 @@
 
 #include "render/renderer.h"
 
-#include "virtual/Component.h"
+#include "virtual/component.h"
 
 class Game {
 protected:

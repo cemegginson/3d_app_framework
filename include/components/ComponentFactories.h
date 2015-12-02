@@ -19,7 +19,7 @@
 #include "render/sdl/sprite.h"
 #include "core/Physics.h"
 
-#include "virtual/Component.h"
+#include "virtual/component.h"
 
 class ComponentFactory {
 protected:

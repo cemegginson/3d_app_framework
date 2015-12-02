@@ -2,7 +2,7 @@
 //
 // #include <string>
 // #include "definitions.h"
-// #include "Component.h"
+// #include "component.h"
 // #include "ArtAssetLibrary.h"
 // #include <Box2D/Box2D.h>
 //
