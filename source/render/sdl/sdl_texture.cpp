@@ -1,5 +1,7 @@
 #include <iostream>
 #include <SDL_image.h>
+#include <string>
+
 #include "render/sdl/sdl_texture.h"
 // #include "game_utils.h"
 
