@@ -27,9 +27,9 @@ public:
     bool Initialize();
     void AddSprite(Sprite*);
 
-    void PreDraw();
-    void Draw();
-    void PostDraw();
+    inline void PreDraw();
+    inline void Draw();
+    inline void PostDraw();
 
     uint32 width();
     uint32 height();

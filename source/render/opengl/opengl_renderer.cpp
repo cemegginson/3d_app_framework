@@ -40,15 +40,15 @@ bool OpenGLRenderer::Initialize() {
     return true;
 }
 
-void OpenGLRenderer::PreDraw() {
+inline void OpenGLRenderer::PreDraw() {
     // glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void OpenGLRenderer::Draw() {
+inline void OpenGLRenderer::Draw() {
 
 }
 
-void OpenGLRenderer::PostDraw() {
+inline void OpenGLRenderer::PostDraw() {
     SDL_GL_SwapWindow(window_);
 }
 

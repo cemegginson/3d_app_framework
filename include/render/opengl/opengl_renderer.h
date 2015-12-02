@@ -26,9 +26,9 @@ public:
 
     bool Initialize();
 
-    void PreDraw();
-    void Draw();
-    void PostDraw();
+    inline void PreDraw();
+    inline void Draw();
+    inline void PostDraw();
 
     uint32 width();
     uint32 height();
