@@ -19,5 +19,5 @@ public:
     ~Sprite();
     void Initialize(Renderer*, Texture*);
     void Update(std::shared_ptr<void> delta_time);
-    void Render();
+    void Draw();
 };

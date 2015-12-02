@@ -33,7 +33,7 @@ void Sprite::Update(std::shared_ptr<void> delta_time) {
     sprite_clip_ = owner_->sprite_clip();
 }
 
-void Sprite::Render() {
+void Sprite::Draw() {
     Vector2 position = owner_->transform();
     float32 angle = owner_->angle();
     // Not finished here

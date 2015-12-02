@@ -72,13 +72,17 @@ void SDLRenderer::AddSprite(Sprite* sprite) {
     sprites_.push_back(sprite);
 }
 
-void SDLRenderer::Render() {
+void SDLRenderer::PreDraw() {}
+
+void SDLRenderer::Draw() {
     SDL_RenderClear(renderer_);
 
     // Cycle through every objects' Draw method
     for (auto iter = sprites_.begin(); iter != sprites_.end(); ++iter) {
-        (*iter)->Render();
+        (*iter)->Draw();
     }
 
     SDL_RenderPresent(renderer_);
 }
+
+void SDLRenderer::PostDraw() {}

@@ -169,7 +169,10 @@ bool Game::LoadLevel(std::string file) {
 void Game::Run() {
     Update(timer_->DeltaTime());
     timer_->Update();
-    renderer_->Render();
+
+    renderer_->PreDraw();
+    renderer_->Draw();
+    renderer_->PostDraw();
 }
 
 void Game::Update(float32 delta_time) {

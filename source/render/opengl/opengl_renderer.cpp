@@ -18,7 +18,7 @@ OpenGLRenderer::~OpenGLRenderer() {
     //SDL_DestroyWindow(window_);
 }
 
-bool OpenGLRenderer::Initialize(){
+bool OpenGLRenderer::Initialize() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         //LogSDLError(std::cerr, "SDL_Init");
         return false;
@@ -39,15 +39,22 @@ bool OpenGLRenderer::Initialize(){
 
     return true;
 }
-void OpenGLRenderer::Render(){
-    //glClear ( GL_COLOR_BUFFER_BIT );
 
+void OpenGLRenderer::PreDraw() {
+    // glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void OpenGLRenderer::Draw() {
+
+}
+
+void OpenGLRenderer::PostDraw() {
     SDL_GL_SwapWindow(window_);
 }
 
-uint32 OpenGLRenderer::width(){
+uint32 OpenGLRenderer::width() {
     return width_;
 }
-uint32 OpenGLRenderer::height(){
+uint32 OpenGLRenderer::height() {
     return height_;
 }

@@ -26,7 +26,10 @@ public:
     ~SDLRenderer();
     bool Initialize();
     void AddSprite(Sprite*);
-    void Render();
+
+    void PreDraw();
+    void Draw();
+    void PostDraw();
 
     uint32 width();
     uint32 height();

@@ -25,7 +25,10 @@ public:
     ~OpenGLRenderer();
 
     bool Initialize();
-    void Render();
+
+    void PreDraw();
+    void Draw();
+    void PostDraw();
 
     uint32 width();
     uint32 height();
