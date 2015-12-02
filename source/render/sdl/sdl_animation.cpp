@@ -4,7 +4,7 @@
 #include <map>
 #include <utility>
 
-#include "components/Animation.h"
+#include "render/sdl/sdl_animation.h"
 
 Animation::Animation(Actor* owner) : Component(owner) {
     animations_ = std::map<std::string, std::vector<SDL_Rect>*>();

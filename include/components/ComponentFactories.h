@@ -8,7 +8,7 @@
 
 #include "art_library/ArtAssetLibrary.h"
 
-#include "components/Animation.h"
+#include "render/sdl/sdl_animation.h"
 #include "components/Bullet.h"
 #include "components/Carrier.h"
 #include "components/Infantry.h"
