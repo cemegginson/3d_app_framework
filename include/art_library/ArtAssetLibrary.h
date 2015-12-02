@@ -6,7 +6,7 @@
 #include "core/Texture.h"
 #include "render/sdl/sdl_view.h"
 
-#include "render/Renderer.h"
+#include "render/renderer.h"
 #include "render/sdl/sdl_renderer.h"
 #include "render/opengl/opengl_renderer.h"
 

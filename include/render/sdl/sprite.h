@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "virtual/Component.h"
-#include "render/Renderer.h"
+#include "render/renderer.h"
 #include "render/sdl/sdl_renderer.h"
 #include "render/opengl/opengl_renderer.h"
 #include "core/Texture.h"

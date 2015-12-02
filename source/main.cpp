@@ -15,7 +15,7 @@
 #include "core/InputDevice.h"
 
 // Plugable Renderers
-#include "render/Renderer.h"
+#include "render/renderer.h"
 #include "render/opengl/opengl_renderer.h"
 #include "render/sdl/sdl_renderer.h"
 

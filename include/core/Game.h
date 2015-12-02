@@ -11,7 +11,7 @@
 #include "core/Timer.h"
 #include "render/sdl/sdl_view.h"
 
-#include "render/Renderer.h"
+#include "render/renderer.h"
 
 #include "virtual/Component.h"
 
