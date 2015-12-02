@@ -8,7 +8,7 @@
 #include "art_library/ComponentLibrary.h"
 #include "art_library/ArtAssetLibrary.h"
 
-#include "core/Timer.h"
+#include "core/timer.h"
 #include "render/sdl/sdl_view.h"
 
 #include "render/renderer.h"
