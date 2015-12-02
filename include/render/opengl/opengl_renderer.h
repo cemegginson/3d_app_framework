@@ -30,6 +30,7 @@ public:
     inline void Draw();
     inline void PostDraw();
 
+    RENDER_TYPE type();
     uint32 width();
     uint32 height();
 };

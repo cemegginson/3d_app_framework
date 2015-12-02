@@ -60,6 +60,10 @@ bool SDLRenderer::Initialize() {
     return true;
 }
 
+inline RENDER_TYPE SDLRenderer::type() {
+    return RENDER_TYPE::SDL;
+}
+
 uint32 SDLRenderer::width() { return width_; }
 
 uint32 SDLRenderer::height() { return height_; }

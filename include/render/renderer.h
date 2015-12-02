@@ -10,6 +10,7 @@ public:
     virtual ~Renderer() {}
 
     virtual bool Initialize() = 0;
+    virtual RENDER_TYPE type() = 0;
 
     virtual inline void PreDraw() = 0;
     virtual inline void Draw() = 0;
