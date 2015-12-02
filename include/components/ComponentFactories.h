@@ -16,7 +16,7 @@
 
 
 #include "core/InputDevice.h"
-#include "core/Sprite.h"
+#include "render/sdl/sprite.h"
 #include "core/Physics.h"
 
 #include "virtual/Component.h"

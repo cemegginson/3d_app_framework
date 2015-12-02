@@ -1,5 +1,5 @@
 // Copyright 2015 Casey Megginson and Blaise Koch
-#include "core/Sprite.h"
+#include "render/sdl/sprite.h"
 
 Sprite::Sprite(Actor* owner) : Component(owner) {
     texture_ = nullptr;

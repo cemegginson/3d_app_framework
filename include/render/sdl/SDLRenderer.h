@@ -7,7 +7,7 @@
 
 #include "util/definitions.h"
 #include "render/Renderer.h"
-#include "core/Sprite.h"
+#include "render/sdl/sprite.h"
 
 class Sprite;
 
