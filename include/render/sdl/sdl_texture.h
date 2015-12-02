@@ -8,15 +8,15 @@
 #include "util/definitions.h"
 #include "render/sdl/sdl_view.h"
 
-class Texture {
+class SDLTexture {
 protected:
     SDL_Texture* texture_;
     SDL_Renderer* renderer_;
     SDLView* SDLView_;
 
 public:
-    Texture();
-    ~Texture();
+    SDLTexture();
+    ~SDLTexture();
     bool Initialize(SDL_Renderer*, SDLView*, std::string);
     void Render(Vector2, float32, SDL_Rect);
     // void Render(Vector2, float32);

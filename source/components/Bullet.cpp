@@ -27,7 +27,7 @@
 //     texture->Render(gDevice->renderer(), SDLView, position, NULL, nullptr);
 // }
 //
-// void Bullet::Initialize(GraphicsDevice* gDev, Texture* tex, b2World* wor, Vector2 origin, Vector2 ivelocity) {
+// void Bullet::Initialize(GraphicsDevice* gDev, SDLTexture* tex, b2World* wor, Vector2 origin, Vector2 ivelocity) {
 //     gDevice = gDev;
 //     texture = tex;
 //     world = wor;

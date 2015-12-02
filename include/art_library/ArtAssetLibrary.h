@@ -13,11 +13,11 @@
 
 class ArtAssetLibrary {
 protected:
-    std::map<std::string, Texture*> library_;
+    std::map<std::string, SDLTexture*> library_;
 
 public:
     ArtAssetLibrary();
     ~ArtAssetLibrary();
     bool LoadAssets(Renderer*, SDLView*);
-    Texture* Search(std::string);
+    SDLTexture* Search(std::string);
 };

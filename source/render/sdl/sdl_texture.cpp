@@ -3,13 +3,13 @@
 #include "render/sdl/sdl_texture.h"
 // #include "game_utils.h"
 
-Texture::Texture() { texture_ = nullptr; }
+SDLTexture::SDLTexture() { texture_ = nullptr; }
 
-Texture::~Texture() { SDL_DestroyTexture(texture_); }
+SDLTexture::~SDLTexture() { SDL_DestroyTexture(texture_); }
 
-bool Texture::Initialize(SDL_Renderer* renderer,
-                         SDLView* SDLView,
-                         std::string image_path) {
+bool SDLTexture::Initialize(SDL_Renderer* renderer,
+                            SDLView* SDLView,
+                            std::string image_path) {
     renderer_ = renderer;
     SDLView_ = SDLView;
 
@@ -26,14 +26,14 @@ bool Texture::Initialize(SDL_Renderer* renderer,
     SDL_FreeSurface(surface);
 
     if (texture_ == NULL) {
-        // LogSDLError(std::cerr, "LoadTexture");
-        std::cerr << "Texture failed: " << SDL_GetError() << std::endl;
+        // LogSDLError(std::cerr, "LoadSDLTexture");
+        std::cerr << "SDLTexture failed: " << SDL_GetError() << std::endl;
         return false;
     }
     return true;
 }
 
-void Texture::Render(Vector2 position, float32 angle, SDL_Rect sprite_clip) {
+void SDLTexture::Render(Vector2 position, float32 angle, SDL_Rect sprite_clip) {
     Vector2 SDLView_position = SDLView_->position();
 
     SDL_Rect render_destination;
@@ -47,7 +47,7 @@ void Texture::Render(Vector2 position, float32 angle, SDL_Rect sprite_clip) {
     SDL_RenderCopyEx(renderer_, texture_, &sprite_clip, &render_destination, angle, NULL, SDL_FLIP_NONE);
 }
 
-void Texture::GetDimensions(int32* w, int32* h) {
+void SDLTexture::GetDimensions(int32* w, int32* h) {
     SDL_QueryTexture(texture_, NULL, NULL, w, h);
     return;
 }

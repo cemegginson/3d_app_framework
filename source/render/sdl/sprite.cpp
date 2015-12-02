@@ -17,7 +17,7 @@ Sprite::~Sprite() {
     }
 }
 
-void Sprite::Initialize(Renderer* renderer, Texture* texture) {
+void Sprite::Initialize(Renderer* renderer, SDLTexture* texture) {
     renderer_ = renderer;
     #if RENDER_TYPE == 0
         reinterpret_cast<SDLRenderer*>(renderer_)->AddSprite(this);
