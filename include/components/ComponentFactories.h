@@ -15,7 +15,7 @@
 #include "components/Player.h"
 
 
-#include "core/InputDevice.h"
+#include "core/input_device.h"
 #include "render/sdl/sprite.h"
 #include "core/Physics.h"
 

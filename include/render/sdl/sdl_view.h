@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/InputDevice.h"
+#include "core/input_device.h"
 #include "util/definitions.h"
 
 class SDLView {

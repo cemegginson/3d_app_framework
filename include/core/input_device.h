@@ -6,8 +6,6 @@
 
 #include "util/definitions.h"
 
-
-
 class InputDevice {
 protected:
     GameEvent game_event_;

@@ -1,4 +1,4 @@
-#include "core/InputDevice.h"
+#include "core/input_device.h"
 
 InputDevice::InputDevice() { game_event_ = kGameNA; }
 

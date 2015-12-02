@@ -12,7 +12,7 @@
 // Project Libraries
 #include "util/definitions.h"
 #include "core/Game.h"
-#include "core/InputDevice.h"
+#include "core/input_device.h"
 
 // Plugable Renderers
 #include "render/renderer.h"
