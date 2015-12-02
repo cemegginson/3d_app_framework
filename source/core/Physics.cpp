@@ -150,10 +150,10 @@ void RigidRectangle::Update(std::shared_ptr<void> delta_time) {
             // I'm not sure if these checks are correct but we need to do them
             // because some programmers don't understand default paramaters
             // #ifdef WIN32
-                body_->ApplyForceToCenter(jump, 1);
+                // body_->ApplyForceToCenter(jump, 1);
             // #endif
             // #ifndef WIN32
-            //     body_->ApplyForceToCenter(jump);
+                body_->ApplyForceToCenter(jump);
             // #endif
         }
         if (owner_->CheckEvent(kMoveDown)) {}
