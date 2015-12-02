@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "render/sdl/SDLRenderer.h"
+#include "render/sdl/sdl_renderer.h"
 #include "util/game_utils.h"
 
 SDLRenderer::SDLRenderer() {

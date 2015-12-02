@@ -4,7 +4,7 @@
 
 #include "virtual/Component.h"
 #include "render/Renderer.h"
-#include "render/sdl/SDLRenderer.h"
+#include "render/sdl/sdl_renderer.h"
 #include "render/opengl/opengl_renderer.h"
 #include "core/Texture.h"
 

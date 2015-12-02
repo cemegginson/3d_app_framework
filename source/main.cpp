@@ -17,7 +17,7 @@
 // Plugable Renderers
 #include "render/Renderer.h"
 #include "render/opengl/opengl_renderer.h"
-#include "render/sdl/SDLRenderer.h"
+#include "render/sdl/sdl_renderer.h"
 
 // 0 is SDL 1 is opengl
 #define RENDER_TYPE 0
