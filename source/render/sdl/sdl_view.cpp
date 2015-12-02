@@ -1,10 +1,10 @@
-#include "core/View.h"
+#include "render/sdl/sdl_view.h"
 
-View::View() {}
+SDLView::SDLView() {}
 
-View::~View() {}
+SDLView::~SDLView() {}
 
-bool View::Initialize(InputDevice* input_device, float32 x, float32 y) {
+bool SDLView::Initialize(InputDevice* input_device, float32 x, float32 y) {
     input_device_ = input_device;
     velocity_ = 400;
     position_.x = x;
@@ -12,7 +12,7 @@ bool View::Initialize(InputDevice* input_device, float32 x, float32 y) {
     return true;
 }
 
-void View::Update(float32 delta_time) {
+void SDLView::Update(float32 delta_time) {
     if (input_device_->IsPressed(kGameUp)) {
         position_.y += velocity_ * delta_time;
     }
@@ -28,6 +28,6 @@ void View::Update(float32 delta_time) {
     return;
 }
 
-Vector2 View::position() {
+Vector2 SDLView::position() {
     return position_;
 }

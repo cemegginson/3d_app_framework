@@ -23,8 +23,8 @@
 //     angle = PW2RWAngle(body->angle());
 // }
 //
-// void Bullet::Render(float32 gameTime, View* view) {
-//     texture->Render(gDevice->renderer(), view, position, NULL, nullptr);
+// void Bullet::Render(float32 gameTime, SDLView* SDLView) {
+//     texture->Render(gDevice->renderer(), SDLView, position, NULL, nullptr);
 // }
 //
 // void Bullet::Initialize(GraphicsDevice* gDev, Texture* tex, b2World* wor, Vector2 origin, Vector2 ivelocity) {

@@ -4,7 +4,7 @@
 #include <string>
 
 #include "core/Texture.h"
-#include "core/View.h"
+#include "render/sdl/sdl_view.h"
 
 #include "render/Renderer.h"
 #include "render/sdl/SDLRenderer.h"
@@ -18,6 +18,6 @@ protected:
 public:
     ArtAssetLibrary();
     ~ArtAssetLibrary();
-    bool LoadAssets(Renderer*, View*);
+    bool LoadAssets(Renderer*, SDLView*);
     Texture* Search(std::string);
 };

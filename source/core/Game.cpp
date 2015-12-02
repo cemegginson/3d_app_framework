@@ -12,7 +12,7 @@ Game::Game() {
     renderer_ = nullptr;
     input_device_ = nullptr;
     timer_ = nullptr;
-    view_ = nullptr;
+    SDLView_ = nullptr;
     // physics_delta_time_ = 1.0/100.0;
     velocity_iterations_ = 8;
     position_iterations_ = 3;
@@ -39,9 +39,9 @@ Game::~Game() {
         delete art_library_;
         art_library_ = nullptr;
     }
-    if (view_ != nullptr) {
-        delete view_;
-        view_ = nullptr;
+    if (SDLView_ != nullptr) {
+        delete SDLView_;
+        SDLView_ = nullptr;
     }
     if (timer_ != nullptr) {
         delete timer_;
@@ -58,12 +58,12 @@ bool Game::Initialize(Renderer* renderer,
     renderer_ = renderer;
     input_device_ = input_device;
 
-    view_ = new View();
-    view_->Initialize(input_device_, 0, 0);
+    SDLView_ = new SDLView();
+    SDLView_->Initialize(input_device_, 0, 0);
 
     // Load sprites
     art_library_ = new ArtAssetLibrary();
-    art_library_->LoadAssets(renderer_, view_);
+    art_library_->LoadAssets(renderer_, SDLView_);
 
     timer_ = new Timer();
     timer_->Start();
@@ -176,8 +176,8 @@ void Game::Run() {
 }
 
 void Game::Update(float32 delta_time) {
-    // Update View position
-    view_->Update(delta_time);
+    // Update SDLView position
+    SDLView_->Update(delta_time);
 
     Dispatcher::GetInstance()->DispatchEvent("EVENT_COMPONENT_UPDATE",    std::make_shared<float32>(delta_time));
     Dispatcher::GetInstance()->DispatchEvent("EVENT_PHYSICS_UPDATE",      std::make_shared<float32>(delta_time));

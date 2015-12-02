@@ -9,7 +9,7 @@
 #include "art_library/ArtAssetLibrary.h"
 
 #include "core/Timer.h"
-#include "core/View.h"
+#include "render/sdl/sdl_view.h"
 
 #include "render/Renderer.h"
 
@@ -22,7 +22,7 @@ protected:
     Renderer* renderer_;
     InputDevice* input_device_;
     Timer* timer_;
-    View* view_;
+    SDLView* SDLView_;
     std::list<Actor*> actors_;
     b2World* world_;
     // float32 physics_delta_time_;

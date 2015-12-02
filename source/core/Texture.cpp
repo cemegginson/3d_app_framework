@@ -8,10 +8,10 @@ Texture::Texture() { texture_ = nullptr; }
 Texture::~Texture() { SDL_DestroyTexture(texture_); }
 
 bool Texture::Initialize(SDL_Renderer* renderer,
-                         View* view,
+                         SDLView* SDLView,
                          std::string image_path) {
     renderer_ = renderer;
-    view_ = view;
+    SDLView_ = SDLView;
 
     // Load image
     SDL_Surface* surface = nullptr;
@@ -34,11 +34,11 @@ bool Texture::Initialize(SDL_Renderer* renderer,
 }
 
 void Texture::Render(Vector2 position, float32 angle, SDL_Rect sprite_clip) {
-    Vector2 view_position = view_->position();
+    Vector2 SDLView_position = SDLView_->position();
 
     SDL_Rect render_destination;
-    render_destination.x = position.x + view_position.x;
-    render_destination.y = position.y + view_position.y;
+    render_destination.x = position.x + SDLView_position.x;
+    render_destination.y = position.y + SDLView_position.y;
     render_destination.w = sprite_clip.w * 2;
     render_destination.h = sprite_clip.h * 2;
 
