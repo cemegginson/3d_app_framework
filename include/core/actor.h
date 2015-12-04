@@ -13,7 +13,6 @@
 #include "render/sdl/sdl_view.h"
 
 class Component;
-class GraphicsDevice;
 
 class Actor : public std::enable_shared_from_this<Actor> {
 protected:
