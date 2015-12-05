@@ -6,6 +6,7 @@ file(GLOB_RECURSE SRC_FILES *.cpp)
 add_executable(${TARGET_NAME} ${SRC_FILES})
 
 target_include_directories(${TARGET_NAME} PRIVATE
+    glm::glm
     "${SDL2_INCLUDE_DIR}"
     "${SDL2_IMAGE_INCLUDE_DIRS}"
     "${BOX2D_INCLUDE_DIR}"

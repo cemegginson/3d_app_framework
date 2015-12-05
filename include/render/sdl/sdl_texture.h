@@ -12,12 +12,12 @@ class SDLTexture {
 protected:
     SDL_Texture* texture_;
     SDL_Renderer* renderer_;
-    SDLView* SDLView_;
+    SDLCamera* SDLCamera_;
 
 public:
     SDLTexture();
     ~SDLTexture();
-    bool Initialize(SDL_Renderer*, SDLView*, std::string);
+    bool Initialize(SDL_Renderer*, SDLCamera*, std::string);
     void Render(Vector2, float32, SDL_Rect);
     // void Render(Vector2, float32);
     void GetDimensions(int32*, int32*);

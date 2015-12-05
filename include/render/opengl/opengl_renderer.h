@@ -3,10 +3,14 @@
 #include <vector>
 #include <memory>
 
-#include "SDL.h"
+// Opengl related includes
+#include <SDL.h>
+#include <GL/glew.h>
+#include <SDL_opengl.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 #include "util/definitions.h"
-#include "render/sdl/sprite.h"
 #include "render/renderer.h"
 
 class Sprite;
@@ -14,6 +18,7 @@ class Sprite;
 class OpenGLRenderer : public Renderer {
 protected:
     SDL_Window* window_;
+    SDL_GLContext context_;
 
     uint32 width_;
     uint32 height_;

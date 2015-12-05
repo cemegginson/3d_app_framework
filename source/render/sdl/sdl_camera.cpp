@@ -1,10 +1,10 @@
 #include "render/sdl/sdl_view.h"
 
-SDLView::SDLView() {}
+SDLCamera::SDLCamera() {}
 
-SDLView::~SDLView() {}
+SDLCamera::~SDLCamera() {}
 
-bool SDLView::Initialize(InputDevice* input_device, float32 x, float32 y) {
+bool SDLCamera::Initialize(InputDevice* input_device, float32 x, float32 y) {
     input_device_ = input_device;
     velocity_ = 400;
     position_.x = x;
@@ -12,7 +12,7 @@ bool SDLView::Initialize(InputDevice* input_device, float32 x, float32 y) {
     return true;
 }
 
-void SDLView::Update(float32 delta_time) {
+void SDLCamera::Update(float32 delta_time) {
     if (input_device_->IsPressed(kGameUp)) {
         position_.y += velocity_ * delta_time;
     }
@@ -28,6 +28,6 @@ void SDLView::Update(float32 delta_time) {
     return;
 }
 
-Vector2 SDLView::position() {
+Vector2 SDLCamera::position() {
     return position_;
 }

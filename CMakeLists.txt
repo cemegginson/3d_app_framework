@@ -43,6 +43,7 @@ option(BOX2D_BUILD_UNITTESTS "Build Box2D Unit Tests" OFF)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(glm REQUIRED)
 find_package(Box2D REQUIRED)
 
 message(STATUS "SDL2_LIBRARY...... ${SDL2_LIBRARY}")

@@ -18,6 +18,6 @@ protected:
 public:
     ArtAssetLibrary();
     ~ArtAssetLibrary();
-    bool LoadAssets(Renderer*, SDLView*);
+    bool LoadAssets(Renderer*, SDLCamera*);
     SDLTexture* Search(std::string);
 };

@@ -10,10 +10,10 @@ SDLTexture::SDLTexture() { texture_ = nullptr; }
 SDLTexture::~SDLTexture() { SDL_DestroyTexture(texture_); }
 
 bool SDLTexture::Initialize(SDL_Renderer* renderer,
-                            SDLView* SDLView,
+                            SDLCamera* SDLCamera,
                             std::string image_path) {
     renderer_ = renderer;
-    SDLView_ = SDLView;
+    SDLCamera_ = SDLCamera;
 
     // Load image
     SDL_Surface* surface = nullptr;
@@ -36,11 +36,11 @@ bool SDLTexture::Initialize(SDL_Renderer* renderer,
 }
 
 void SDLTexture::Render(Vector2 position, float32 angle, SDL_Rect sprite_clip) {
-    Vector2 SDLView_position = SDLView_->position();
+    Vector2 SDLCamera_position = SDLCamera_->position();
 
     SDL_Rect render_destination;
-    render_destination.x = position.x + SDLView_position.x;
-    render_destination.y = position.y + SDLView_position.y;
+    render_destination.x = position.x + SDLCamera_position.x;
+    render_destination.y = position.y + SDLCamera_position.y;
     render_destination.w = sprite_clip.w * 2;
     render_destination.h = sprite_clip.h * 2;
 

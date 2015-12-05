@@ -22,7 +22,7 @@ protected:
     Renderer* renderer_;
     InputDevice* input_device_;
     Timer* timer_;
-    SDLView* SDLView_;
+    SDLCamera* SDLCamera_;
     std::list<Actor*> actors_;
     b2World* world_;
     // float32 physics_delta_time_;
