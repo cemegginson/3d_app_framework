@@ -12,15 +12,19 @@ protected:
     InputDevice* input_device_;
     uint32 velocity_;
 
+    glm::vec3 up_vector_;
+    glm::vec3 position_;
+
     glm::mat4 projection_;
     glm::mat4 view_;
-    
+    glm::mat4 vp_matrix_;
 
 public:
     OpenGlCamera();
     ~OpenGlCamera();
 
-    bool Initialize(InputDevice*, float32, float32);
+    bool Initialize(InputDevice*);
     void Update(float32);
-    void SetPosition();
+    void set_position();
+    glm::mat4 vp_matrix();
 }

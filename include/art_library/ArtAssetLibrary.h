@@ -4,7 +4,7 @@
 #include <string>
 
 #include "render/sdl/sdl_texture.h"
-#include "render/sdl/sdl_view.h"
+#include "render/sdl/sdl_camera.h"
 
 #include "render/renderer.h"
 #include "render/sdl/sdl_renderer.h"

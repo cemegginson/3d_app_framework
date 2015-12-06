@@ -4,6 +4,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include "render/opengl/opengl_renderer.h"
 #include "util/game_utils.h"
 

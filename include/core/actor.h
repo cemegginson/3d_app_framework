@@ -10,7 +10,7 @@
 #include "virtual/component.h"
 #include "util/definitions.h"
 #include "core/input_device.h"
-#include "render/sdl/sdl_view.h"
+#include "render/sdl/sdl_camera.h"
 
 class Component;
 

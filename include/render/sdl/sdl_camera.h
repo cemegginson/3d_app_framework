@@ -12,7 +12,7 @@ protected:
 public:
     SDLCamera();
     ~SDLCamera();
-    bool Initialize(InputDevice*, float32, float32);
+    bool Initialize(InputDevice*);
     void Update(float32);
     Vector2 position();
 };

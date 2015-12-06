@@ -6,7 +6,7 @@
 #include "SDL_image.h"
 
 #include "util/definitions.h"
-#include "render/sdl/sdl_view.h"
+#include "render/sdl/sdl_camera.h"
 
 class SDLTexture {
 protected:

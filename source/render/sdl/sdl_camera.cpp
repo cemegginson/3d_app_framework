@@ -1,14 +1,14 @@
-#include "render/sdl/sdl_view.h"
+#include "render/sdl/sdl_camera.h"
 
 SDLCamera::SDLCamera() {}
 
 SDLCamera::~SDLCamera() {}
 
-bool SDLCamera::Initialize(InputDevice* input_device, float32 x, float32 y) {
+bool SDLCamera::Initialize(InputDevice* input_device) {
     input_device_ = input_device;
     velocity_ = 400;
-    position_.x = x;
-    position_.y = y;
+    position_.x = 0;
+    position_.y = 0;
     return true;
 }
 

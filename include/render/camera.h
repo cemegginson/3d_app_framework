@@ -9,6 +9,6 @@ protected:
     uint32 velocity_;
 
 public:
-    bool Initialize(InputDevice*, float32, float32);
+    bool Initialize(InputDevice*);
     void Update(float32);
 }
