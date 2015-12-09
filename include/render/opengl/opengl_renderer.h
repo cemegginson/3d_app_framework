@@ -12,7 +12,7 @@
 
 #include "util/definitions.h"
 #include "render/renderer.h"
-#include "render/opengl/opengl_camera.h"
+#include "render/opengl/gl_camera.h"
 
 class Sprite;
 
@@ -20,7 +20,7 @@ class OpenGLRenderer : public Renderer {
 protected:
     SDL_Window* window_;
     SDL_GLContext context_;
-    OpenGlCamera* camera_;
+    GlCamera* camera_;
     GLuint mvp_uniform_;
 
     uint32 width_;

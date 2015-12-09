@@ -8,7 +8,7 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-Class OpenGlCamera : Camera{
+Class GlCamera : Camera{
 protected:
     InputDevice* input_device_;
     uint32 velocity_;
@@ -21,8 +21,8 @@ protected:
     glm::mat4 vp_matrix_;
 
 public:
-    OpenGlCamera();
-    ~OpenGlCamera();
+    GlCamera();
+    ~GlCamera();
 
     bool Initialize(InputDevice*);
     void Update(float32);

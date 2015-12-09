@@ -12,7 +12,7 @@ class SDLTexture {
 protected:
     SDL_Texture* texture_;
     SDL_Renderer* renderer_;
-    SDLCamera* SDLCamera_;
+    SDLCamera* camera;
 
 public:
     SDLTexture();

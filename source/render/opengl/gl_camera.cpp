@@ -1,5 +1,5 @@
 #include "definitions.h"
-#include "render/opengl/opengl_camera.h"
+#include "render/opengl/gl_camera.h"
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -8,20 +8,20 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-OpenGlCamera::OpenGlCamera() {
+GlCamera::GlCamera() {
     input_device = nullptr;
 }
 
-OpenGlCamera::~OpenGlCamera() {}
+GlCamera::~GlCamera() {}
 
-bool OpenGlCamera::Initialize(InputDevice* input_device, float32, float32) {
+bool GlCamera::Initialize(InputDevice* input_device, float32, float32) {
     input_device_ = input_device;
     velocity_ = 1;
     up_vector_ = glm::vec3(0, 1, 0);
     position_ = glm::vec3(0, 0, 0);
 }
 
-void OpenGlCamera::Update(float32 delta_time) {
+void GlCamera::Update(float32 delta_time) {
     float32 z_movement = 0;
     float32 x_movement = 0;
 
@@ -44,10 +44,10 @@ void OpenGlCamera::Update(float32 delta_time) {
     vp_matrix_ = projection_ * view_;
 }
 
-// void OpenGlCamera::set_position() {
+// void GlCamera::set_position() {
 //
 // }
 
-glm::mat4 OpenGlCamera::vp_matrix() {
+glm::mat4 GlCamera::vp_matrix() {
     return vp_matrix_;
 }
