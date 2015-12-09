@@ -8,6 +8,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
+OpenGlCamera::OpenGlCamera() {
+    input_device = nullptr;
+}
+
+OpenGlCamera::~OpenGlCamera() {}
+
 bool OpenGlCamera::Initialize(InputDevice* input_device, float32, float32) {
     input_device_ = input_device;
     velocity_ = 1;
@@ -16,7 +22,8 @@ bool OpenGlCamera::Initialize(InputDevice* input_device, float32, float32) {
 }
 
 void OpenGlCamera::Update(float32 delta_time) {
-    float32 z_movement, x_movement;
+    float32 z_movement = 0;
+    float32 x_movement = 0;
 
     if (input_device_->IsPressed(kGameUp)) {
         z_movement += velocity_ * delta_time;
@@ -37,9 +44,9 @@ void OpenGlCamera::Update(float32 delta_time) {
     vp_matrix_ = projection_ * view_;
 }
 
-void OpenGlCamera::set_position() {
-
-}
+// void OpenGlCamera::set_position() {
+//
+// }
 
 glm::mat4 OpenGlCamera::vp_matrix() {
     return vp_matrix_;

@@ -11,7 +11,7 @@
 class Sprite : public Component, public std::enable_shared_from_this<Sprite> {
 protected:
     SDLTexture* texture_;
-    Renderer* renderer_;
+    SDLRenderer* renderer_;
     SDL_Rect sprite_clip_;
 
 public:

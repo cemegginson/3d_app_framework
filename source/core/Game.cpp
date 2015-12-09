@@ -176,7 +176,7 @@ void Game::Run() {
 }
 
 void Game::Update(float32 delta_time) {
-    // Update SDLCamera position
+    // Update Camera position
     camera_->Update(delta_time);
 
     Dispatcher::GetInstance()->DispatchEvent("EVENT_COMPONENT_UPDATE",    std::make_shared<float32>(delta_time));

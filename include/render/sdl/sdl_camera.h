@@ -3,7 +3,7 @@
 #include "core/input_device.h"
 #include "util/definitions.h"
 
-class SDLCamera {
+class SDLCamera : Camera {
 protected:
     InputDevice* input_device_;
     Vector2 position_;

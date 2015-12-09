@@ -6,9 +6,8 @@
 class Camera {
 protected:
     InputDevice* input_device_;
-    uint32 velocity_;
 
 public:
-    bool Initialize(InputDevice*);
-    void Update(float32);
+    virtual bool Initialize(InputDevice*) = 0;
+    virtual void Update(float32) = 0;
 }
