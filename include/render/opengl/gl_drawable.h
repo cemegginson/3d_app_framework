@@ -7,8 +7,8 @@ protected:
     GlModel* model_;
 
 public:
-    GlDrawable();
+    GlDrawable(GlModel*);
     ~GlDrawable();
-    
+
     void Draw();
 }
