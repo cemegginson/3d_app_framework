@@ -11,14 +11,14 @@
 
 OpenGLRenderer::OpenGLRenderer() {
     window_ = nullptr;
-    // renderer_ = nullptr;
-    width_ = 0;
-    height_ = 0;
+    context_ = nullptr;
+    width_ = 800;
+    height_ = 600;
 }
 
 OpenGLRenderer::OpenGLRenderer(uint32 screen_width, uint32 screen_height) {
     window_ = nullptr;
-    // renderer_ = nullptr;
+    context_ = nullptr;
     width_ = screen_width;
     height_ = screen_height;
 }
@@ -52,8 +52,9 @@ bool OpenGLRenderer::Initialize() {
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-    context_ = SDL_GL_CreateContext(window);
-    if(context_ == NULL) {
+    context_ = SDL_GL_CreateContext(window_);
+
+    if(context_ == nullptr) {
         std::cerr << "SDL_GL_CreateContext: " << SDL_GetError() << std::endl;
         return 1;
     }

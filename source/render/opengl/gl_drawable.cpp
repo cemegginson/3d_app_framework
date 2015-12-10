@@ -1,13 +1,13 @@
 #include "render/opengl/gl_drawable.h"
 
-GlDrawable::GlDrawable(GlModel* model) {
-    model_ = model;
+GlDrawable::GlDrawable(Actor* owner) : Component(owner){
+
 }
 
 GlDrawable::~GlDrawable() {
 
 }
 
-GlDrawable::Draw() {
+void GlDrawable::Draw() {
     model_->Draw();
 }

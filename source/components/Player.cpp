@@ -65,7 +65,7 @@ void Player::Update(std::shared_ptr<void> delta_time) {
     //     bulletpos.y = position.y + center.y + radius * tsin;
     //
     //     std::shared_ptr<Bullet> bullet = new Bullet();
-    //     bullet->Initialize(graphics_device_, art_library->Search("Bullet"), world, bulletpos, direction);
+    //     bullet->Initialize(renderer_, art_library->Search("Bullet"), world, bulletpos, direction);
     //     bullets.push_front(bullet);
     // }
 }

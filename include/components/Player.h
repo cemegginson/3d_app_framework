@@ -12,7 +12,7 @@
 class Player : public Component {
 protected:
     ArtAssetLibrary* art_library_;
-    GraphicsDevice* graphics_device_;
+    // SDLRenderer* renderer_;
     InputDevice* input_device_;
     uint32 travel_;
     uint32 radius_;

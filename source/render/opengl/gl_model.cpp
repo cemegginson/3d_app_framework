@@ -5,3 +5,7 @@ GlModel::GlModel() {}
 GlModel::~GlModel() {
     glInvalidateBufferData();
 }
+
+void GlModel::Draw() {
+    
+}

@@ -1,4 +1,4 @@
-#include "definitions.h"
+#include "util/definitions.h"
 #include "render/opengl/gl_camera.h"
 
 #include <glm/vec3.hpp>
@@ -9,12 +9,12 @@
 
 
 GlCamera::GlCamera() {
-    input_device = nullptr;
+    input_device_ = nullptr;
 }
 
 GlCamera::~GlCamera() {}
 
-bool GlCamera::Initialize(InputDevice* input_device, float32, float32) {
+bool GlCamera::Initialize(InputDevice* input_device) {
     input_device_ = input_device;
     velocity_ = 1;
     up_vector_ = glm::vec3(0, 1, 0);

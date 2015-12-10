@@ -2,6 +2,7 @@
 
 #include "core/input_device.h"
 #include "util/definitions.h"
+#include "render/camera.h"
 
 class SDLCamera : Camera {
 protected:

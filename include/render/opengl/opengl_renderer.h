@@ -13,6 +13,7 @@
 #include "util/definitions.h"
 #include "render/renderer.h"
 #include "render/opengl/gl_camera.h"
+#include "render/opengl/gl_model.h"
 
 class Sprite;
 
@@ -22,6 +23,8 @@ protected:
     SDL_GLContext context_;
     GlCamera* camera_;
     GLuint mvp_uniform_;
+
+    std::vector<GlModel*> models_;
 
     uint32 width_;
     uint32 height_;

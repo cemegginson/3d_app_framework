@@ -1,4 +1,4 @@
-#pragma #ifndef
+#pragma once
 
 #include "core/input_device.h"
 #include "util/definitions.h"
@@ -10,4 +10,4 @@ protected:
 public:
     virtual bool Initialize(InputDevice*) = 0;
     virtual void Update(float32) = 0;
-}
+};

@@ -2,7 +2,7 @@
 
 #include <map>
 #include <string>
-#include <vector>
+#include <stack>
 
 #include <SDL.h>
 #include <GL/glew.h>
@@ -12,10 +12,10 @@
 
 #include "render/opengl/gl_model.h"
 
-Class GlModelStore {
+class GlModelStore {
 protected:
     std::map<std::string, GlModel*> model_store_;
-    GLuint* buffer_names_;
+    std::stack<GLuint*> buffer_names_;
 
 public:
     GlModelStore();
@@ -23,4 +23,5 @@ public:
 
     bool LoadAssets();
     GlModel* Search(std::string)
-}
+    void FetchBufferNames();
+};

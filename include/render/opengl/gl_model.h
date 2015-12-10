@@ -9,11 +9,13 @@
 #include "util/definitions.h"
 #include "render/renderer.h"
 
-Class GlModel {
+class GlModel {
 protected:
     GLuint vertex_buffer_object_;
 
 public:
     GlModel();
     ~GlModel();
-}
+
+    void Draw();
+};

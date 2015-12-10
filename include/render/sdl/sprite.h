@@ -3,12 +3,12 @@
 #include <memory>
 
 #include "virtual/component.h"
-#include "render/renderer.h"
 #include "render/sdl/sdl_renderer.h"
-#include "render/opengl/opengl_renderer.h"
 #include "render/sdl/sdl_texture.h"
 
-class Sprite : public Component, public std::enable_shared_from_this<Sprite> {
+class SDLRenderer;
+
+class Sprite : public Component {
 protected:
     SDLTexture* texture_;
     SDLRenderer* renderer_;
