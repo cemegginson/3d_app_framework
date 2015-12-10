@@ -23,7 +23,9 @@ protected:
     InputDevice* input_device_;
     Timer* timer_;
     SDLCamera* camera_;
+
     std::list<Actor*> actors_;
+
     b2World* world_;
     // float32 physics_delta_time_;
     int32 velocity_iterations_;
@@ -41,7 +43,7 @@ public:
 
     // cmake adds NDEBUG by default for debug builds
     #ifndef NDEBUG
-    Subscriber* debugSubscriber;
+    Subscriber* debug_subscriber_;
     void printFrameRate(std::shared_ptr<void> delta_time);
     #endif
 

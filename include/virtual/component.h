@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 
-#include "core/actor.h"
+#include "render/sdl/actor_2d.h"
 #include "util/definitions.h"
 #include "event_system/Subscriber.h"
 
@@ -11,10 +11,9 @@ class Actor;
 
 class Component {
 protected:
-    Actor* owner_;
-    std::vector<Subscriber*> subscribers;
 
 public:
-    Component(Actor*);
-    virtual ~Component();
+    virtual Component() = 0;
+    virtual ~Component() = 0;
+    virtual void Update(float32) = 0;
 };

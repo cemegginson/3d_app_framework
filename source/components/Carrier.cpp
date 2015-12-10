@@ -2,7 +2,9 @@
 #include "components/Carrier.h"
 #include "util/box2d_utils.h"
 
-Carrier::Carrier(Actor* owner) : Component(owner) {}
+Carrier::Carrier(Actor* owner) {
+    owner_ = owner;
+}
 
 Carrier::~Carrier() {}
 

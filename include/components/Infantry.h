@@ -8,6 +8,8 @@
 
 class Infantry : public Component {
 protected:
+    Actor* owner_;
+    std::vector<Subscriber*> subscribers_;
     float32 rotation_rate_;
 
 public:

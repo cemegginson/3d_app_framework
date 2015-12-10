@@ -2,6 +2,7 @@
 
 #include <list>
 #include <string>
+#include <vector>
 
 #include "art_library/ArtAssetLibrary.h"
 #include "components/Bullet.h"
@@ -11,6 +12,8 @@
 
 class Player : public Component {
 protected:
+    Actor* owner_;
+    std::vector<Subscriber*> subscribers_;
     ArtAssetLibrary* art_library_;
     // SDLRenderer* renderer_;
     InputDevice* input_device_;

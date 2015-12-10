@@ -7,6 +7,8 @@
 
 class Carrier : public Component {
 protected:
+    Actor* owner_;
+    std::vector<Subscriber*> subscribers_;
     Vector2 position;
     Vector2 center;
     float32 rotation;
@@ -14,7 +16,7 @@ protected:
     float32 angle;
 
 public:
-    Carrier(Actor*);
+    Carrier(Actor2D*);
     ~Carrier();
     void Update(float32);
     void Initialize();

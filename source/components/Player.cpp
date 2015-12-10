@@ -4,7 +4,8 @@
 #include "util/box2d_utils.h"
 #include "components/Player.h"
 
-Player::Player(Actor* owner) : Component(owner) {
+Player::Player(Actor* owner) {
+    owner_ = owner;
     input_device_ = nullptr;
     travel_ = 200;
     rotation_ = 360.0;
@@ -13,13 +14,13 @@ Player::Player(Actor* owner) : Component(owner) {
     Subscriber* s = new Subscriber(this);
     s->method = std::bind(&Player::Update, this, std::placeholders::_1);
     Dispatcher::GetInstance()->AddEventSubscriber(s, "EVENT_COMPONENT_UPDATE");
-    subscribers.push_back(s);
+    subscribers_.push_back(s);
 }
 
 Player::~Player() {
-    while (subscribers.size() > 0) {
-        delete subscribers.back();
-        subscribers.pop_back();
+    while (subscribers_.size() > 0) {
+        delete subscribers_.back();
+        subscribers_.pop_back();
     }
 }
 

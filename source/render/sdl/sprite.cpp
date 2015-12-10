@@ -1,7 +1,7 @@
 // Copyright 2015 Casey Megginson and Blaise Koch
 #include "render/sdl/sprite.h"
 
-Sprite::Sprite(Actor* owner) : Component(owner) {
+Sprite::Sprite(Actor2D* owner) : Component(owner) {
     texture_ = nullptr;
 
     Subscriber* s = new Subscriber(this);

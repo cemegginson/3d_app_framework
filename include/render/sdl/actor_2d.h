@@ -11,10 +11,11 @@
 #include "util/definitions.h"
 #include "core/input_device.h"
 #include "render/sdl/sdl_camera.h"
+#include "render/sdl/actor_2d.h"
 
 class Component;
 
-class Actor : public std::enable_shared_from_this<Actor> {
+class Actor2D : Actor{
 protected:
     std::string name_;
     Vector2 transform_;
@@ -28,8 +29,8 @@ protected:
     SDL_Rect sprite_clip_;
 
 public:
-    Actor();
-    ~Actor();
+    Actor2D();
+    ~Actor2D();
     void Initialize(std::string, Vector2, uint32, bool);
     void AddComponent(Component*);
 

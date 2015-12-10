@@ -5,6 +5,8 @@
 
 class GlDrawable : Component {
 protected:
+    Actor* owner_;
+    std::vector<Subscriber*> subscribers_;
     GlModel* model_;
 
 public:
@@ -12,5 +14,6 @@ public:
     ~GlDrawable();
 
     void Initialize(GlModel*);
+    void Update(float32);
     void Draw();
 };

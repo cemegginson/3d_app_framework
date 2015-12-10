@@ -21,9 +21,9 @@ Game::Game() {
 
 Game::~Game() {
     #ifdef NDEBUG
-        if (debugSubscriber != nullptr) {
-            delete debugSubscriber;
-            debugSubscriber = nullptr;
+        if (debug_subscriber_ != nullptr) {
+            delete debug_subscriber_;
+            debug_subscriber_ = nullptr;
         }
     #endif
 
@@ -76,9 +76,9 @@ bool Game::Initialize(Renderer* renderer,
     world_ = new b2World(gravity);
 
     #ifndef NDEBUG
-        debugSubscriber = new Subscriber(this);
-        debugSubscriber->method = std::bind(&Game::printFrameRate, this, std::placeholders::_1);
-        Dispatcher::GetInstance()->AddEventSubscriber(debugSubscriber, "EVENT_COMPONENT_UPDATE");
+        debug_subscriber_ = new Subscriber(this);
+        debug_subscriber_->method = std::bind(&Game::printFrameRate, this, std::placeholders::_1);
+        Dispatcher::GetInstance()->AddEventSubscriber(debug_subscriber_, "EVENT_COMPONENT_UPDATE");
     #endif
 
     // Set boundaries of world (Render->Physics)

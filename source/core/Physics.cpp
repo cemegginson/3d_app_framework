@@ -15,7 +15,7 @@ Rigidbody::~Rigidbody() {
 /*
 // RigidCircle methods
 
-RigidCircle::RigidCircle(Actor* owner) :
+RigidCircle::RigidCircle(Actor2D* owner) :
                          Rigidbody(),
                          Component(owner) {}
 
@@ -103,7 +103,7 @@ float32 RigidCircle::ImportAngle() {
 
 // RigidRectangle methods
 
-RigidRectangle::RigidRectangle(Actor* owner) :
+RigidRectangle::RigidRectangle(Actor2D* owner) :
                                Rigidbody(),
                                Component(owner) {}
 

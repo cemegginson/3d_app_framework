@@ -1,20 +1,20 @@
-#include "core/actor.h"
+#include "render/sdl/actor_2d.h"
 
 #include <map>
 #include <memory>
 #include <vector>
 #include <string>
 
-Actor::Actor() {}
+Actor2D::Actor2D() {}
 
-Actor::~Actor() {
+Actor2D::~Actor2D() {
     while (components_.size() > 0) {
         delete components_.back();
         components_.pop_back();
     }
 }
 
-void Actor::Initialize(std::string name,
+void Actor2D::Initialize(std::string name,
                        Vector2 transform,
                        uint32 angle,
                        bool controllable) {
@@ -36,47 +36,47 @@ void Actor::Initialize(std::string name,
     controllable_ = controllable;
 }
 
-void Actor::AddComponent(Component* component) {
+void Actor2D::AddComponent(Component* component) {
     components_.push_back(component);
 }
 
-void Actor::Update(float32 delta_time) {
+void Actor2D::Update(float32 delta_time) {
     UNUSED(delta_time);  // make linter shutup
 }
 
-Vector2 Actor::transform() {
+Vector2 Actor2D::transform() {
     return transform_;
 }
-void Actor::set_transform(Vector2 new_transform) {
+void Actor2D::set_transform(Vector2 new_transform) {
     transform_ = new_transform;
 }
 
-float32 Actor::angle() {
+float32 Actor2D::angle() {
     return angle_;
 }
-void Actor::set_angle(float32 new_angle) {
+void Actor2D::set_angle(float32 new_angle) {
     angle_ = new_angle;
 }
 
-SDL_Rect Actor::sprite_clip() {
+SDL_Rect Actor2D::sprite_clip() {
     return sprite_clip_;
 }
-void Actor::set_sprite_clip(SDL_Rect new_sprite_clip) {
+void Actor2D::set_sprite_clip(SDL_Rect new_sprite_clip) {
     sprite_clip_ = new_sprite_clip;
 }
 
-void Actor::SetEvent(ActorEvent event, bool value) {
+void Actor2D::SetEvent(ActorEvent event, bool value) {
     actor_events_.at(event) = value;
 }
-bool Actor::CheckEvent(ActorEvent event) {
+bool Actor2D::CheckEvent(ActorEvent event) {
     return actor_events_.at(event);
 }
-void Actor::ResetEvents() {
+void Actor2D::ResetEvents() {
     for (auto iter = actor_events_.begin(); iter != actor_events_.end(); ++iter) {
         iter->second = false;
     }
 }
 
-bool Actor::IsControllable() {
+bool Actor2D::IsControllable() {
     return controllable_;
 }

@@ -6,7 +6,8 @@
 
 #include "render/sdl/sdl_animation.h"
 
-Animation::Animation(Actor* owner) : Component(owner) {
+Animation::Animation(Actor2D* owner) {
+    owner_ = owner;
     animations_ = std::map<std::string, std::vector<SDL_Rect>*>();
     current_animation_ = nullptr;
     current_frame_ = 0;
@@ -15,7 +16,7 @@ Animation::Animation(Actor* owner) : Component(owner) {
     Subscriber* s = new Subscriber(this);
     s->method = std::bind(&Animation::Update, this, std::placeholders::_1);
     Dispatcher::GetInstance()->AddEventSubscriber(s, "EVENT_COMPONENT_UPDATE");
-    subscribers.push_back(s);
+    subscribers_.push_back(s);
 }
 Animation::~Animation() {
     // delete animations
@@ -23,9 +24,9 @@ Animation::~Animation() {
         delete iter->second;
     }
 
-    while (subscribers.size() > 0) {
-        delete subscribers.back();
-        subscribers.pop_back();
+    while (subscribers_.size() > 0) {
+        delete subscribers_.back();
+        subscribers_.pop_back();
     }
 }
 
