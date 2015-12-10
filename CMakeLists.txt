@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(GameHomework)
+project(game_engine)
 
 set(CMAKE_USE_RELATIVE_PATHS TRUE)
 
