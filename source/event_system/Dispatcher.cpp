@@ -12,64 +12,64 @@
 #include "util/definitions.h"
 
 // Dispatcher Static Variables
-bool Dispatcher::inited = false;
-bool Dispatcher::running = false;
+bool Dispatcher::initialized_ = false;
+bool Dispatcher::running_ = false;
 
-std::mutex Dispatcher::dispatchQueueMutex;
-std::mutex Dispatcher::threadQueueMutex;
-std::condition_variable Dispatcher::threadSignal;
+// std::mutex Dispatcher::dispatch_queue_mutex_;
+// std::mutex Dispatcher::thread_queue_mutex_;
+// std::condition_variable Dispatcher::thread_signal_;
 
-Dispatcher* Dispatcher::theInstance = nullptr;
-std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  Dispatcher::threadQueue;
-std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>* Dispatcher::nonserialQueue;
+Dispatcher* Dispatcher::instance_ = nullptr;
+std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  Dispatcher::thread_queue_;
+std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>* Dispatcher::nonserial_queue_;
 
 // Begin Class Methods
 Dispatcher::Dispatcher() { }
 
 Dispatcher::~Dispatcher() {
-    running = false;
-    for (std::thread* t : *processingThreads) {
+    running_ = false;
+    for (std::thread* t : *processing_threads_) {
         t->join();  // thould stop eventually...
         delete t;   // i'm pretty sure we need to shutdown the threads before we delete them
     }
 
-	dispatchEvents->clear();
-	delete dispatchEvents;
-	delete mappedEvents;
+	dispatch_events_->clear();
+	delete dispatch_events_;
+	delete mapped_events_;
 
-	threadQueue->clear();
-	delete threadQueue;
+	thread_queue_->clear();
+	delete thread_queue_;
 
-	nonserialQueue->clear();
-	delete nonserialQueue;
+	nonserial_queue_->clear();
+	delete nonserial_queue_;
 }
 
 Dispatcher* Dispatcher::GetInstance() {
-    if (theInstance == nullptr) {
-        theInstance = new Dispatcher();
-        theInstance->Initialize();
+    if (instance_ == nullptr) {
+        instance_ = new Dispatcher();
+        instance_->Initialize();
     }
-    return theInstance;
+    return instance_;
 }
 
 void Dispatcher::Initialize() {
-    if (!inited) {
-        inited = true;
+    if (!initialized_) {
+        initialized_ = true;
 
-        dispatchEvents  = new std::deque<std::pair<EventType, std::shared_ptr<void>>>();
-        mappedEvents    = new std::map<EventType, std::list<Subscriber*>*>();
-        threadQueue     = new std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>();
-        nonserialQueue = new std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>();
+        dispatch_events_  = new std::deque<std::pair<EventType, std::shared_ptr<void>>>();
+        mapped_events_    = new std::map<EventType, std::list<Subscriber*>*>();
+        thread_queue_     = new std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>();
+        nonserial_queue_ = new std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>();
 
-        processingThreads = new std::deque<std::thread*>();
+        processing_threads_ = new std::deque<std::thread*>();
 
-        running = true;
+        running_ = true;
 
         for (int i=0; i < 7; i++) {
-            std::thread* processingThread = new std::thread(ThreadProcess);
+            std::thread* processing_thread = new std::thread(ThreadProcess);
             // it probably won't terminate before the end of this program so we want to ignore errors
-            processingThread->detach();
-            processingThreads->push_back(processingThread);
+            processing_thread->detach();
+            processing_threads_->push_back(processingThread);
         }
     } else {
         std::cerr << "Attempting to reinitialize a dispatcher...  Ignoring." << std::endl;
@@ -77,26 +77,26 @@ void Dispatcher::Initialize() {
 }
 
 void Dispatcher::Pump() {
-    std::lock_guard<std::mutex> dispatchLock(dispatchQueueMutex);
-    for (auto i : *dispatchEvents) {  // for every event
-        for (auto obj : *(mappedEvents->at(i.first))) {  // for every Subscriber* for that event
+    std::lock_guard<std::mutex> dispatchLock(dispatch_queue_mutex_);
+    for (auto i : *dispatch_events_) {  // for every event
+        for (auto obj : *(mapped_events_->at(i.first))) {  // for every Subscriber* for that event
             if (obj == nullptr) continue;
-            std::lock_guard<std::mutex> lock(threadQueueMutex);  // unlocked on out-of-scope
+            std::lock_guard<std::mutex> lock(thread_queue_mutex_);  // unlocked on out-of-scope
             if (obj->serialized) {
-                threadQueue->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
-                threadSignal.notify_one();
+                thread_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+                thread_signal_.notify_one();
             } else {
-                nonserialQueue->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+                nonserial_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
             }
         }
     }
-    dispatchEvents->clear();  // we queued them all for processing so clear the cache
+    dispatch_events_->clear();  // we queued them all for processing so clear the cache
 }
 
 void Dispatcher::NonSerialProcess() {
-    while(nonserialQueue->size() != 0) {
-        auto work = nonserialQueue->front();
-        nonserialQueue->pop_front();
+    while(nonserial_queue_->size() != 0) {
+        auto work = nonserial_queue_->front();
+        nonserial_queue_->pop_front();
         try {
             if (work.first->method == NULL || work.first->owner == nullptr) continue;
             work.first->method(work.second);
@@ -108,15 +108,15 @@ void Dispatcher::NonSerialProcess() {
 }
 
 void Dispatcher::ThreadProcess() {
-    while (running) {
+    while (running_) {
         std::pair<Subscriber*, std::shared_ptr<void>> work;  // compiler might whine here
 
         {   // enter new scope so std::unique_lock will unlock on exceptions
-            std::unique_lock<std::mutex> lock(threadQueueMutex);
-            while (threadQueue->size() == 0) threadSignal.wait(lock);
+            std::unique_lock<std::mutex> lock(thread_queue_mutex_);
+            while (thread_queue_->size() == 0) thread_signal_.wait(lock);
 
-            work = threadQueue->front();
-            threadQueue->pop_front();
+            work = thread_queue_->front();
+            thread_queue_->pop_front();
         }
 
         try {
@@ -131,33 +131,33 @@ void Dispatcher::ThreadProcess() {
 
 void Dispatcher::DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData) {
     // std::cout << "Dispatcher --->  Received event " << eventID << "." << std::endl;
-    std::lock_guard<std::mutex> dispatchLock(dispatchQueueMutex);
-    dispatchEvents->push_back(std::pair<EventType, std::shared_ptr<void>>(eventID, eventData));
+    std::lock_guard<std::mutex> dispatchLock(dispatch_queue_mutex_);
+    dispatch_events_->push_back(std::pair<EventType, std::shared_ptr<void>>(eventID, eventData));
 }
 
 void Dispatcher::AddEventSubscriber(Subscriber *requestor, const EventType event_id) {
-    if (mappedEvents->count(event_id) < 1) {
+    if (mapped_events_->count(event_id) < 1) {
         std::cerr << "Dispatcher --->  Dynamically allocating list for EventID "
             << event_id << "."
             << std::endl << "Dispatcher --->  This should be avoided for performance reasons."
             << std::endl;
-        mappedEvents->emplace(event_id, new std::list<Subscriber*>());
+        mapped_events_->emplace(event_id, new std::list<Subscriber*>());
     }
-    mappedEvents->at(event_id)->push_back(requestor);
+    mapped_events_->at(event_id)->push_back(requestor);
 }
 
 Subscriber* Dispatcher::RemoveEventSubscriber(Subscriber *requestor, const EventType event_id) {
-    if (mappedEvents->find(event_id) != mappedEvents->end()) {
+    if (mapped_events_->find(event_id) != mapped_events_->end()) {
         auto list = std::list<Subscriber*>();
         Subscriber* s = nullptr;
 
-        for (auto sub : *(mappedEvents->at(event_id))) {
+        for (auto sub : *(mapped_events_->at(event_id))) {
             if (sub == requestor) list.push_back(sub);
         }
 
         for (auto sub : list) {
             s = sub;
-            mappedEvents->at(event_id)->remove(sub);
+            mapped_events_->at(event_id)->remove(sub);
         }
 
         return s;
@@ -173,6 +173,6 @@ std::list<Subscriber*> Dispatcher::GetAllSubscribers(const void* owner) {
 }
 
 void Dispatcher::Terminate() {
-    running = false;
+    running_ = false;
     sleep(100);
 }

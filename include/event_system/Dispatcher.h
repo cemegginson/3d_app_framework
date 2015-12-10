@@ -19,22 +19,22 @@ class Dispatcher {
 		Dispatcher();
 		void Initialize();
 
-		static bool inited;
-		static bool running;
+		static bool initialized_;
+		static bool running_;
 
-		static Dispatcher* theInstance;
+		static Dispatcher* instance_;
 
-		std::deque<std::pair<EventType,std::shared_ptr<void>>>*  dispatchEvents;
-		std::map<EventType,std::list<Subscriber*>*>* mappedEvents;
+		std::deque<std::pair<EventType,std::shared_ptr<void>>>*  dispatch_events_;
+		std::map<EventType,std::list<Subscriber*>*>* mapped_events_;
 
-		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  threadQueue;
-		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  nonserialQueue;
+		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  thread_queue_;
+		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  nonserial_queue_;
 
-		std::deque<std::thread*>* processingThreads; //using std::deque for constant time size() and O(1) random access
+		std::deque<std::thread*>* processing_threads_; //using std::deque for constant time size() and O(1) random access
 
-		static std::mutex dispatchQueueMutex;
-		static std::mutex threadQueueMutex;
-		static std::condition_variable threadSignal;
+		static std::mutex dispatch_queue_mutex_;
+		static std::mutex thread_queue_mutex_;
+		static std::condition_variable thread_signal_;
 
 	public:
 
@@ -56,7 +56,7 @@ class Dispatcher {
 		void Pump();
 		void NonSerialProcess();
 
-		int QueueSize() { return threadQueue->size(); }
+		int QueueSize() { return thread_queue_->size(); }
 
 	private:
 		static void ThreadProcess();
