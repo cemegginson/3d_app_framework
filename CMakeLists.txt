@@ -17,7 +17,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR
     ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
     # Compiler options for GCC and Clang on Linus or OSX
-    
+
     # Use C++ 11
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -39,11 +39,16 @@ endif()
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
 find_package(glm REQUIRED)
+
 find_package(Box2D REQUIRED)
 
 message(STATUS "SDL2_LIBRARY...... ${SDL2_LIBRARY}")
 message(STATUS "SDL2_INCLUDE_DIR.. ${SDL2_INCLUDE_DIR}")
+message(STATUS "OPENGL_LIBRARY.... ${OPENGL_gl_LIBRARY}")
+message(STATUS "GLEW_LIBRARIES ${OPENGL_glu_LIBRARY}")
 message(STATUS "BOX2D_LIBRARY..... ${BOX2D_LIBRARY}")
 message(STATUS "BOX2D_INCLUDE_DIR. ${BOX2D_INCLUDE_DIR}")
 
