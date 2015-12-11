@@ -67,8 +67,8 @@ int main(int argc, char* argv[]) {
     //========================================
     // Construct Game
     //========================================
-    App* game = new App3D();
-    if (!game->Initialize(renderer, input_device)) {
+    App* app = new App3D();
+    if (!app->Initialize(renderer, input_device)) {
         printf("Game could not Initialize!");
         exit(1);  // this case will leak a lot of memory...
                   // should properly do destructor calls and proper shutdown
@@ -77,16 +77,16 @@ int main(int argc, char* argv[]) {
     //========================================
     // Load Level
     //========================================
-    game->Reset();
-    std::string levelConfigFile = "./Assets/Config/level.xml";
-    if (!game->LoadLevel(levelConfigFile)) {
+    app->Reset();
+    std::string level_config_file = "foobar.xml";
+    if (!app->LoadLevel(level_config_file)) {
         printf("Game could not load level %s: ",
-               levelConfigFile.c_str());
+               level_config_file.c_str());
         exit(1);  // this case will leak a lot of memory...
                   // should properly do destructor calls and proper shutdown
     }
 
-    // Start the game
+    // Start the app
     SDL_Event event;
     bool quit = false;
     while (!quit) {
@@ -97,15 +97,15 @@ int main(int argc, char* argv[]) {
             // Update the Input Device with the Event
             input_device->Update(&event);
         }
-        game->Run();
+        app->Run();
     }
 
     //========================================
     // Clean-up
     //========================================
-    if (game != nullptr) {
-        delete game;
-        game = nullptr;
+    if (app != nullptr) {
+        delete app;
+        app = nullptr;
     }
 
     if (input_device != nullptr) {
