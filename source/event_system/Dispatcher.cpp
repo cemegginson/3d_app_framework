@@ -91,7 +91,7 @@ void Dispatcher::Pump() {
                 }
             }
         } catch (std::string msg) {
-            std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
+            std::cerr << "Event \"" << i.first << "\" does not apply to any Subscribers." << std::endl;
         }
     }
     dispatch_events_->clear();  // we queued them all for processing so clear the cache
