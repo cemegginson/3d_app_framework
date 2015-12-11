@@ -73,6 +73,7 @@ bool OpenGLRenderer::Initialize() {
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+    glClearColor(0, 5, 0, 0);
 
     return true;
 }

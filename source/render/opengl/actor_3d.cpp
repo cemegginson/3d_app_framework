@@ -1,7 +1,7 @@
 #include "render/opengl/actor_3d.h"
 
 Actor3D::Actor3D() {
-    position_ = glm::vec3(0, 0, 0);
+    position_ = glm::vec3(0.0, 0.0, 0.0);
 }
 
 Actor3D::~Actor3D() {
