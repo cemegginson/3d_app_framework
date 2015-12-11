@@ -34,6 +34,8 @@ OpenGLRenderer::~OpenGLRenderer() {
 }
 
 bool OpenGLRenderer::Initialize() {
+    // glewInit();
+
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         LogSDLError(std::cerr, "SDL_Init");
         return false;
@@ -44,7 +46,7 @@ bool OpenGLRenderer::Initialize() {
                                SDL_WINDOWPOS_UNDEFINED,
                                width_,
                                height_,
-                               SDL_WINDOW_RESIZABLE
+                               SDL_WINDOW_OPENGL
     );
 
     if (window_ == nullptr) {
