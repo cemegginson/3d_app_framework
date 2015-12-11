@@ -1,4 +1,4 @@
-set(TARGET_NAME GameHomework)
+set(TARGET_NAME game_engine)
 
 file(GLOB_RECURSE SRC_FILES *.cpp)
 
