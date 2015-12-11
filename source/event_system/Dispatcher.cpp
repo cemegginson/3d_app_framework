@@ -33,15 +33,15 @@ Dispatcher::~Dispatcher() {
         delete t;   // i'm pretty sure we need to shutdown the threads before we delete them
     }
 
-	dispatch_events_->clear();
-	delete dispatch_events_;
-	delete mapped_events_;
+    dispatch_events_->clear();
+    delete dispatch_events_;
+    delete mapped_events_;
 
-	thread_queue_->clear();
-	delete thread_queue_;
+    thread_queue_->clear();
+    delete thread_queue_;
 
-	nonserial_queue_->clear();
-	delete nonserial_queue_;
+    nonserial_queue_->clear();
+    delete nonserial_queue_;
 }
 
 Dispatcher* Dispatcher::GetInstance() {
@@ -79,15 +79,19 @@ void Dispatcher::Initialize() {
 void Dispatcher::Pump() {
     std::lock_guard<std::mutex> dispatchLock(dispatch_queue_mutex_);
     for (auto i : *dispatch_events_) {  // for every event
-        for (auto obj : *(mapped_events_->at(i.first))) {  // for every Subscriber* for that event
-            if (obj == nullptr) continue;
-            std::lock_guard<std::mutex> lock(thread_queue_mutex_);  // unlocked on out-of-scope
-            if (obj->serialized) {
-                thread_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
-                thread_signal_.notify_one();
-            } else {
-                nonserial_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+        try {
+            for (auto obj : *(mapped_events_->at(i.first))) {  // for every Subscriber* for that event
+                if (obj == nullptr) continue;
+                std::lock_guard<std::mutex> lock(thread_queue_mutex_);  // unlocked on out-of-scope
+                if (obj->serialized) {
+                    thread_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+                    thread_signal_.notify_one();
+                } else {
+                    nonserial_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+                }
             }
+        } catch (std::string msg) {
+            std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
         }
     }
     dispatch_events_->clear();  // we queued them all for processing so clear the cache
