@@ -66,11 +66,15 @@ void Dispatcher::Initialize() {
 void Dispatcher::Pump() {
     std::lock_guard<std::mutex> dispatchLock(dispatchQueueMutex);
     for (auto i : *dispatchEvents) {  // for every event
-        for (auto obj : *(mappedEvents->at(i.first))) {  // for every Subscriber* for that event
-            if (obj == nullptr) continue;
-            std::lock_guard<std::mutex> lock(threadQueueMutex);  // unlocked on out-of-scope
-            threadQueue->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
-            threadSignal.notify_one();
+        try {
+            for (auto obj : *(mappedEvents->at(i.first))) {  // for every Subscriber* for that event
+                if (obj == nullptr) continue;
+                std::lock_guard<std::mutex> lock(threadQueueMutex);  // unlocked on out-of-scope
+                threadQueue->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+                threadSignal.notify_one();
+            }
+        } catch (std::string msg) {
+            std::cerr << "Event for \" << i.first << "/" has no Subscribers." << std::endl;
         }
     }
     dispatchEvents->clear();  // we queued them all for processing so clear the cache
