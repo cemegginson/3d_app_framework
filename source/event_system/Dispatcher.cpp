@@ -69,7 +69,7 @@ void Dispatcher::Initialize() {
             std::thread* processing_thread = new std::thread(ThreadProcess);
             // it probably won't terminate before the end of this program so we want to ignore errors
             processing_thread->detach();
-            processing_threads_->push_back(processingThread);
+            processing_threads_->push_back(processing_thread);
         }
     } else {
         std::cerr << "Attempting to reinitialize a dispatcher...  Ignoring." << std::endl;

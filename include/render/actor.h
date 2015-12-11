@@ -1,5 +1,10 @@
 #pragma once
 
+#include "virtual/component.h"
+#include "util/definitions.h"
+
+class Component;
+
 class Actor {
 protected:
 

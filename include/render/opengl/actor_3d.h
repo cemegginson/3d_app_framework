@@ -11,13 +11,14 @@
 class Actor3D : Actor {
 protected:
     glm::vec3 position_;
-    glm::mat4 model_matrix_;
-    
+    // glm::mat4 model_matrix_;
+
     std::vector<Component*> components_;
 
 public:
     Actor3D();
     ~Actor3D();
+    void Initialize(std::string);
     void AddComponent(Component*);
     void Update(float32);
 };

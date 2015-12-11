@@ -4,6 +4,8 @@
 #include "core/app_3d.h"
 #include "core/PugiXML/pugixml.hpp"
 
+#include "render/opengl/gl_drawable.h"
+
 App3D::App3D() {
     component_factories_ = nullptr;
     model_store_ = nullptr;
@@ -23,8 +25,8 @@ App3D::~App3D() {
         component_factories_ = nullptr;
     }
     if (model_store_ != nullptr) {
-        delete art_library_;
-        art_library_ = nullptr;
+        delete model_store_;
+        model_store_ = nullptr;
     }
     if (camera_ != nullptr) {
         delete camera_;
@@ -38,15 +40,14 @@ App3D::~App3D() {
 
 bool App3D::Initialize(Renderer* renderer,
                        InputDevice* input_device) {
-    renderer_ = renderer;
+    renderer_ = static_cast<OpenGLRenderer*>(renderer);
     input_device_ = input_device;
 
     camera_ = new GlCamera();
     camera_->Initialize(input_device_);
 
-    // Load sprites
-    art_library_ = new ArtAssetLibrary();
-    art_library_->LoadAssets(renderer_, camera_);
+    model_store_ = new GlModelStore();
+    model_store_->LoadAssets();
 
     timer_ = new Timer();
     timer_->Start();
@@ -63,13 +64,7 @@ bool App3D::Initialize(Renderer* renderer,
     // Create Factories
     component_factories_ = new ComponentLibrary();
 
-    component_factories_->AddFactory("Animation", reinterpret_cast<ComponentFactory*>(new AnimationFactory()));
-    component_factories_->AddFactory("Carrier", reinterpret_cast<ComponentFactory*>(new CarrierFactory()));
-    component_factories_->AddFactory("Infantry", reinterpret_cast<ComponentFactory*>(new InfantryFactory()));
-    component_factories_->AddFactory("Player", reinterpret_cast<ComponentFactory*>(new PlayerFactory(input_device_)));
-    // component_factories_->AddFactory("RigidCircle", reinterpret_cast<ComponentFactory*>new RigidCircleFactory(world_));
-    component_factories_->AddFactory("RigidRectangle", reinterpret_cast<ComponentFactory*>(new RigidRectangleFactory(world_)));
-    component_factories_->AddFactory("Sprite", reinterpret_cast<ComponentFactory*>(new SpriteFactory(renderer_, art_library_)));
+    // component_factories_->AddFactory("GlDrawable", reinterpret_cast<ComponentFactory*>(new GlDrawableFactory()));
 
     return true;
 }
@@ -83,33 +78,43 @@ void App3D::Reset() {
 }
 
 bool App3D::LoadLevel(std::string file) {
-    pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_file(file.c_str());
-    if (result) {
-        pugi::xml_node Level = doc.child("Level");
+    // pugi::xml_document doc;
+    // pugi::xml_parse_result result = doc.load_file(file.c_str());
+    // if (result) {
+    //     pugi::xml_node Level = doc.child("Level");
+    //
+    //     // Loop through Actor XML nodes
+    //     for (pugi::xml_node actor_node : Level.children("Actor")) {
+    //         std::string name = actor_node.attribute("name").value();
+    //         bool controllable = std::stoi(actor_node.attribute("controllable").value());
+    //
+    //         Vector2 position;
+    //         position.x = std::stof(actor_node.attribute("x").value());
+    //         position.y = std::stof(actor_node.attribute("y").value());
+    //         float32 angle = std::stof(actor_node.attribute("angle").value());
+    //
+    //         Actor* new_actor = new Actor();
+    //         new_actor->Initialize(name, position, angle, controllable);
+    //
+    //         // Loop through Component XML nodes
+    //         for (pugi::xml_node component_node : actor_node.children("Component")) {
+    //             std::string type = component_node.attribute("type").value();
+    //             Component* new_component = reinterpret_cast<Component*>(component_factories_->Search(type)->Create(new_actor, component_node));
+    //             new_actor->AddComponent(new_component);
+    //         }
+    //         actors_.push_back(new_actor);
+    //     }
+    // }
 
-        // Loop through Actor XML nodes
-        for (pugi::xml_node actor_node : Level.children("Actor")) {
-            std::string name = actor_node.attribute("name").value();
-            bool controllable = std::stoi(actor_node.attribute("controllable").value());
+    Actor3D* new_actor = new Actor3D();
+    // new_actor->Initialize("cube")
+    std::string model = "cube";
 
-            Vector2 position;
-            position.x = std::stof(actor_node.attribute("x").value());
-            position.y = std::stof(actor_node.attribute("y").value());
-            float32 angle = std::stof(actor_node.attribute("angle").value());
+    GlDrawable* new_gldrawable = new GlDrawable(new_actor);
+    new_gldrawable->Initialize(model_store_->Search(model));
+    Component* new_component = reinterpret_cast<Component*>(new_gldrawable);
+    new_actor->AddComponent(new_component);
 
-            Actor* new_actor = new Actor();
-            new_actor->Initialize(name, position, angle, controllable);
-
-            // Loop through Component XML nodes
-            for (pugi::xml_node component_node : actor_node.children("Component")) {
-                std::string type = component_node.attribute("type").value();
-                Component* new_component = reinterpret_cast<Component*>(component_factories_->Search(type)->Create(new_actor, component_node));
-                new_actor->AddComponent(new_component);
-            }
-            actors_.push_back(new_actor);
-        }
-    }
     return true;
 }
 

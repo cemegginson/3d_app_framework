@@ -1,19 +1,21 @@
 #pragma once
 
 #include "virtual/component.h"
-#include "render/opengl/gl_model.h"
 
-class GlDrawable : Component {
+#include "render/opengl/gl_model.h"
+#include "render/opengl/actor_3d.h"
+
+class GlDrawable : public Component {
 protected:
-    Actor* owner_;
+    Actor3D* owner_;
     std::vector<Subscriber*> subscribers_;
     GlModel* model_;
 
 public:
-    GlDrawable(GlModel*);
+    GlDrawable(Actor3D*);
     ~GlDrawable();
 
     void Initialize(GlModel*);
-    void Update(float32);
+    void Update(std::shared_ptr<void> delta_time);
     void Draw();
 };

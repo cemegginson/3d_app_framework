@@ -11,11 +11,12 @@
 #include "render/opengl/gl_camera.h"
 #include "render/opengl/opengl_renderer.h"
 // #include "render/renderer.h"
+#include "render/opengl/actor_3d.h"
 
 #include "virtual/component.h"
 #include "virtual/app.h"
 
-class App3D : App {
+class App3D : public App {
 protected:
     ComponentLibrary* component_factories_;
     InputDevice* input_device_;
@@ -35,4 +36,4 @@ public:
     bool LoadLevel(std::string);
     void Run();
     void Update(float32);
-}
+};

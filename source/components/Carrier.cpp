@@ -2,30 +2,30 @@
 #include "components/Carrier.h"
 #include "util/box2d_utils.h"
 
-Carrier::Carrier(Actor* owner) {
+Carrier::Carrier(Actor2D* owner) {
     owner_ = owner;
 }
 
 Carrier::~Carrier() {}
 
-void Carrier::Update(float32 delta_time) {
-    angle += rotation * delta_time;
-    if (angle > 360) {
-        angle -= 360;
-    } else if (angle < 0) {
-        angle += 360;
-    }
-
-    float32 radian_angle = (angle * (PI / 180.0)) - PI;
-    Vector2 temp_position;
-    temp_position.x = RW2PW((float32)((radius * cos(radian_angle)) + center.x));
-    temp_position.y = RW2PW((float32)((radius * sin(radian_angle)) + center.y));
-
-    position.x = PW2RW(temp_position.x);
-    position.y = PW2RW(temp_position.y);
-
-    owner_->set_transform(position);
-    owner_->set_angle(angle);
+void Carrier::Update(std::shared_ptr<void> delta_time) {
+    // angle += rotation * delta_time;
+    // if (angle > 360) {
+    //     angle -= 360;
+    // } else if (angle < 0) {
+    //     angle += 360;
+    // }
+    //
+    // float32 radian_angle = (angle * (PI / 180.0)) - PI;
+    // Vector2 temp_position;
+    // temp_position.x = RW2PW((float32)((radius * cos(radian_angle)) + center.x));
+    // temp_position.y = RW2PW((float32)((radius * sin(radian_angle)) + center.y));
+    //
+    // position.x = PW2RW(temp_position.x);
+    // position.y = PW2RW(temp_position.y);
+    //
+    // owner_->set_transform(position);
+    // owner_->set_angle(angle);
 }
 
 void Carrier::Initialize() {

@@ -4,7 +4,7 @@
 #include "util/box2d_utils.h"
 #include "components/Player.h"
 
-Player::Player(Actor* owner) {
+Player::Player(Actor2D* owner) {
     owner_ = owner;
     input_device_ = nullptr;
     travel_ = 200;

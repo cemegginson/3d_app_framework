@@ -19,6 +19,8 @@ bool GlCamera::Initialize(InputDevice* input_device) {
     velocity_ = 1;
     up_vector_ = glm::vec3(0, 1, 0);
     position_ = glm::vec3(0, 0, 0);
+
+    return true;
 }
 
 void GlCamera::Update(float32 delta_time) {
@@ -39,7 +41,7 @@ void GlCamera::Update(float32 delta_time) {
     }
 
     position_.x += x_movement;
-    position_y += y_movement;
+    position_.z += z_movement;
 
     projection_ = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
     glm::mat4 view_ = glm::lookAt(

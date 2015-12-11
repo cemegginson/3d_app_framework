@@ -12,7 +12,7 @@
 
 class Player : public Component {
 protected:
-    Actor* owner_;
+    Actor2D* owner_;
     std::vector<Subscriber*> subscribers_;
     ArtAssetLibrary* art_library_;
     // SDLRenderer* renderer_;
@@ -24,7 +24,7 @@ protected:
     float32 last_fire_time_;
 
 public:
-    Player(Actor*);
+    Player(Actor2D*);
     ~Player();
     void Update(std::shared_ptr<void> delta_time);
     void Initialize();

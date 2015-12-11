@@ -7,7 +7,7 @@
 
 class Renderer {
 public:
-    virtual ~Renderer() {}
+    // virtual ~Renderer() = 0;
 
     virtual bool Initialize() = 0;
     virtual RENDER_TYPE type() = 0;

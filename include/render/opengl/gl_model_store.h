@@ -22,6 +22,6 @@ public:
     ~GlModelStore();
 
     bool LoadAssets();
-    GlModel* Search(std::string)
+    GlModel* Search(std::string);
     void FetchBufferNames();
 };

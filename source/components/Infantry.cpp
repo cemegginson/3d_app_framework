@@ -3,7 +3,7 @@
 
 #include "util/box2d_utils.h"
 
-Infantry::Infantry(Actor* owner) {
+Infantry::Infantry(Actor2D* owner) {
     owner_ = owner;
     rotation_rate_ = 90;
 

@@ -10,13 +10,14 @@
 
 #include "core/timer.h"
 #include "render/sdl/sdl_camera.h"
+#include "render/sdl/actor_2d.h"
 
 #include "render/renderer.h"
 
 #include "virtual/component.h"
 #include "virtual/app.h"
 
-class App2D : App {
+class App2D : public App {
 protected:
     ComponentLibrary* component_factories_;
     ArtAssetLibrary* art_library_;
@@ -25,7 +26,7 @@ protected:
     Timer* timer_;
     SDLCamera* camera_;
 
-    std::list<Actor*> actors_;
+    std::list<Actor2D*> actors_;
 
     b2World* world_;
     // float32 physics_delta_time_;

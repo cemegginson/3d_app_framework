@@ -7,7 +7,7 @@
 
 class Carrier : public Component {
 protected:
-    Actor* owner_;
+    Actor2D* owner_;
     std::vector<Subscriber*> subscribers_;
     Vector2 position;
     Vector2 center;
@@ -18,6 +18,6 @@ protected:
 public:
     Carrier(Actor2D*);
     ~Carrier();
-    void Update(float32);
+    void Update(std::shared_ptr<void> delta_time);
     void Initialize();
 };

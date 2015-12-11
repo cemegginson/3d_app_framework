@@ -9,7 +9,10 @@ GlModelStore::~GlModelStore() {
 }
 
 bool GlModelStore::LoadAssets() {
+    // Hard coded cube
+    library_.insert(std::pair<std::string, GlModel*>("cube", new GlModel()));
 
+    return true;
 )
 
 GlModel* GlModelStore::Search(std::string model_name) {
