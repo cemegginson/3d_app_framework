@@ -1,3 +1,6 @@
+#include <string>
+#include <utility>
+
 #include "render/opengl/gl_model_store.h"
 
 GlModelStore::GlModelStore() {
@@ -11,7 +14,7 @@ GlModelStore::~GlModelStore() {
 bool GlModelStore::LoadAssets() {
     // Hard coded cube
     model_store_.insert(std::pair<std::string, GlModel*>("cube", new GlModel()));
-
+    model_store_.at("cube")->Initialize();
     return true;
 }
 

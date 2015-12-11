@@ -137,7 +137,6 @@ void GlModel::BufferData() {
 }
 
 GLuint GlModel::LoadShaders(const char* vertex_file_path, const char* fragment_file_path) {
-
     // Create the shaders
     GLuint vertex_shader_id = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragment_shader_id = glCreateShader(GL_FRAGMENT_SHADER);
@@ -161,8 +160,9 @@ GLuint GlModel::LoadShaders(const char* vertex_file_path, const char* fragment_f
     std::ifstream fragment_shader_stream(fragment_file_path, std::ios::in);
     if(fragment_shader_stream.is_open()) {
         std::string line = "";
-        while(getline(fragment_shader_stream, line))
+        while(getline(fragment_shader_stream, line)) {
             fragment_shader_code += "\n" + line;
+        }
         fragment_shader_stream.close();
     }
 

@@ -34,7 +34,6 @@ OpenGLRenderer::~OpenGLRenderer() {
 }
 
 bool OpenGLRenderer::Initialize() {
-    // glewInit();
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         LogSDLError(std::cerr, "SDL_Init");
@@ -54,8 +53,9 @@ bool OpenGLRenderer::Initialize() {
         return false;
     }
 
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
@@ -65,6 +65,9 @@ bool OpenGLRenderer::Initialize() {
         std::cerr << "SDL_GL_CreateContext: " << SDL_GetError() << std::endl;
         return 1;
     }
+
+    glewExperimental = GL_TRUE;
+    glewInit();
 
     SDL_GL_SetSwapInterval(1);
 
