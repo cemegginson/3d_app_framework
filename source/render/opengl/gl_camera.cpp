@@ -37,7 +37,9 @@ void GlCamera::Update(float32 delta_time) {
     if (input_device_->IsPressed(kGameRight)) {
         x_movement -= velocity_ * delta_time;
     }
-    return;
+
+    position_.x += x_movement;
+    position_y += y_movement;
 
     projection_ = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
     glm::mat4 view_ = glm::lookAt(
