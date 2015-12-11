@@ -17,7 +17,7 @@
 
 #include "core/input_device.h"
 #include "render/sdl/sprite.h"
-#include "core/Physics.h"
+#include "core/physics_2d.h"
 
 #include "virtual/component.h"
 
