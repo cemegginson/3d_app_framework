@@ -191,3 +191,34 @@ Animation* AnimationFactory::Create(Actor* owner,
     new_animation->Initialize();
     return new_animation;
 }
+
+// GlDrawableFactory stuff
+
+// GlDrawableFactory::GlDrawableFactory() : ComponentFactory() {}
+//
+// GlDrawableFactory::~GlDrawableFactory() {}
+//
+// GlDrawable* GlDrawableFactory::Create(Actor* owner,
+//                                     pugi::xml_node node) {
+//     GlDrawable* new_animation = new GlDrawable(owner);
+//
+//     std::string name;
+//     SDL_Rect frame;
+//     std::vector<SDL_Rect>* frame_set;
+//
+//     // Loop through Animation XML nodes
+//     for (pugi::xml_node animation_node : node.children("GlDrawable")) {
+//         name = animation_node.attribute("name").value();
+//         frame_set = new std::vector<SDL_Rect>;
+//         for (pugi::xml_node frame_node : animation_node.children("Frame")) {
+//             frame.x = std::stoi(frame_node.attribute("x").value());
+//             frame.y = std::stoi(frame_node.attribute("y").value());
+//             frame.w = std::stoi(frame_node.attribute("w").value());
+//             frame.h = std::stoi(frame_node.attribute("h").value());
+//             frame_set->push_back(frame);
+//         }
+//         new_animation->AddAnimation(name, frame_set);
+//     }
+//     new_animation->Initialize();
+//     return new_animation;
+// }

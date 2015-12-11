@@ -8,12 +8,14 @@
 
 #include "art_library/ArtAssetLibrary.h"
 
-#include "render/sdl/sdl_animation.h"
 #include "components/Bullet.h"
 #include "components/Carrier.h"
 #include "components/Infantry.h"
 #include "components/Player.h"
 
+#include "render/sdl/sdl_animation.h"
+
+#include "render/opengl/gl_drawable.h"
 
 #include "core/input_device.h"
 #include "render/sdl/sprite.h"
@@ -98,3 +100,13 @@ public:
     ~AnimationFactory();
     Animation* Create(Actor*, pugi::xml_node);
 };
+
+// class GlDrawableFactory : ComponentFactory {
+// protected:
+//
+//
+// public:
+//     GlDrawableFactory();
+//     ~GlDrawableFactory();
+//     GlDrawable* Create(Actor*, pugi::xml_node);
+// };
