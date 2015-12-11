@@ -19,6 +19,7 @@ void GlDrawable::Initialize(OpenGLRenderer* renderer, GlModel* model) {
 }
 
 void GlDrawable::Update(std::shared_ptr<void> delta_time) {
+    UNUSED(delta_time);
     model_matrix_ = glm::translate(glm::mat4(1.0f), owner_->position());
 }
 
