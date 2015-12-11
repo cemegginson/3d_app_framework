@@ -12,6 +12,7 @@
 #include "render/renderer.h"
 
 #include "virtual/component.h"
+#include "virtual/app.h"
 
 class App3D : App {
 protected:

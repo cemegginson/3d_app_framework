@@ -14,6 +14,7 @@
 #include "render/renderer.h"
 
 #include "virtual/component.h"
+#include "virtual/app.h"
 
 class App2D : App {
 protected:
