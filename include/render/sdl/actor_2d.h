@@ -18,7 +18,7 @@ class Component;
 class Actor2D : Actor{
 protected:
     std::string name_;
-    Vector2 transform_;
+    Vector2 position_;
     Vector2 dimensions_;
     float32 angle_;
     std::vector<Component*> components_;
@@ -42,7 +42,7 @@ public:
 
     bool IsControllable();
 
-    Vector2 transform();
+    Vector2 position();
     void set_transform(Vector2);
 
     float32 angle();

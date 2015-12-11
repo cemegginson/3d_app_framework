@@ -63,7 +63,7 @@ RigidCircleFactory::~RigidCircleFactory() {}
 
 RigidCircle* RigidCircleFactory::Create(Actor* owner, pugi::xml_node node) {
     RigidCircle* rigid_circle = new RigidCircle(owner);
-    Vector2 position = owner->transform();
+    Vector2 position = owner->position();
     b2BodyDef body_definition;
     b2CircleShape circle_shape;
     b2FixtureDef shape_fixture_definition;
@@ -106,7 +106,7 @@ RigidRectangleFactory::~RigidRectangleFactory() {}
 RigidRectangle* RigidRectangleFactory::Create(Actor* owner,
                                               pugi::xml_node node) {
     RigidRectangle* rigid_rectangle = new RigidRectangle(owner);
-    Vector2 position = owner->transform();
+    Vector2 position = owner->position();
     b2BodyDef body_definition;
     b2PolygonShape polygon_shape;
     b2FixtureDef shape_fixture_definition;

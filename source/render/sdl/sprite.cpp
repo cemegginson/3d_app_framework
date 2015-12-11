@@ -32,7 +32,7 @@ void Sprite::Update(std::shared_ptr<void> delta_time) {
 }
 
 void Sprite::Draw() {
-    Vector2 position = owner_->transform();
+    Vector2 position = owner_->position();
     float32 angle = owner_->angle();
     // Not finished here
     texture_->Render(position, angle, sprite_clip_);

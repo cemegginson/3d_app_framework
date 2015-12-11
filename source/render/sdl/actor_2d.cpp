@@ -44,11 +44,11 @@ void Actor2D::Update(float32 delta_time) {
     UNUSED(delta_time);  // make linter shutup
 }
 
-Vector2 Actor2D::transform() {
-    return transform_;
+Vector2 Actor2D::position() {
+    return position_;
 }
-void Actor2D::set_transform(Vector2 new_transform) {
-    transform_ = new_transform;
+void Actor2D::set_position(Vector2 new_position) {
+    position_ = new_position;
 }
 
 float32 Actor2D::angle() {

@@ -29,7 +29,7 @@ void Carrier::Update(float32 delta_time) {
 }
 
 void Carrier::Initialize() {
-    position = owner_->transform();
+    position = owner_->position();
     angle = owner_->angle();
     rotation = 120;
     center = position;

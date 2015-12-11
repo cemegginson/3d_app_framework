@@ -14,7 +14,7 @@
 //     life += delta_time;
 //
 //     b2Vec2 physPosition;
-//     physPosition = body->transform();
+//     physPosition = body->position();
 //
 //     body->SetTransform(physPosition, body->angle());
 //

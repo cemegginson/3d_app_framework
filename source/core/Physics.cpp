@@ -88,7 +88,7 @@ float32 RigidCircle::ExportAngle() {
 }
 
 b2Vec2 RigidCircle::ImportPosition() {
-    Vector2 render_position = owner_->transform();
+    Vector2 render_position = owner_->position();
     b2Vec2 physics_position;
     physics_position.x = RW2PW(render_position.x);
     physics_position.y = RW2PW(render_position.y);
@@ -187,7 +187,7 @@ float32 RigidRectangle::ExportAngle() {
 }
 
 b2Vec2 RigidRectangle::ImportPosition() {
-    Vector2 render_position = owner_->transform();
+    Vector2 render_position = owner_->position();
     b2Vec2 physics_position;
     physics_position.x = RW2PW(render_position.x);
     physics_position.y = RW2PW(render_position.y);
