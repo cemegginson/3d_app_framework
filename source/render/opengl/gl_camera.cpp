@@ -40,7 +40,11 @@ void GlCamera::Update(float32 delta_time) {
     return;
 
     projection_ = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
-    glm::mat4 view_translate = glm::translate(glm::mat4(1), position_);
+    glm::mat4 view_ = glm::lookAt(
+        position_,
+        glm::vec3(0, 0, 0),
+        up_vector_
+    );
     vp_matrix_ = projection_ * view_;
 }
 

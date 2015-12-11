@@ -15,7 +15,7 @@
 
 #include "virtual/component.h"
 
-class Game {
+class App2D : App {
 protected:
     ComponentLibrary* component_factories_;
     ArtAssetLibrary* art_library_;
@@ -33,8 +33,8 @@ protected:
     // int32 particle_iterations_;
 
 public:
-    Game();
-    ~Game();
+    App2D();
+    ~App2D();
     bool Initialize(Renderer*, InputDevice*);
     void Reset();
     bool LoadLevel(std::string);

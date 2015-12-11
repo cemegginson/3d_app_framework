@@ -1,32 +1,19 @@
 #include <iostream>
 #include <string>
 
-// #include "ContactListener.h"
-#include "core/Game.h"
-#include "util/box2d_utils.h"
+#include "core/app_3d.h"
 #include "core/PugiXML/pugixml.hpp"
 
-Game::Game() {
+App3D::App3D() {
     component_factories_ = nullptr;
-    art_library_ = nullptr;
+    model_store_ = nullptr;
     renderer_ = nullptr;
     input_device_ = nullptr;
     timer_ = nullptr;
     camera_ = nullptr;
-    // physics_delta_time_ = 1.0/100.0;
-    velocity_iterations_ = 8;
-    position_iterations_ = 3;
-    // particle_iterations_ = 3;
 }
 
-Game::~Game() {
-    #ifdef NDEBUG
-        if (debug_subscriber_ != nullptr) {
-            delete debug_subscriber_;
-            debug_subscriber_ = nullptr;
-        }
-    #endif
-
+App3D::~App3D() {
     while (actors_.size() > 0) {
         delete actors_.back();
         actors_.pop_back();
@@ -35,7 +22,7 @@ Game::~Game() {
         delete component_factories_;
         component_factories_ = nullptr;
     }
-    if (art_library_ != nullptr) {
+    if (model_store_ != nullptr) {
         delete art_library_;
         art_library_ = nullptr;
     }
@@ -47,18 +34,14 @@ Game::~Game() {
         delete timer_;
         timer_ = nullptr;
     }
-    if (world_ != nullptr) {
-        delete world_;
-        world_ = nullptr;
-    }
 }
 
-bool Game::Initialize(Renderer* renderer,
-                      InputDevice* input_device) {
+bool App3D::Initialize(Renderer* renderer,
+                       InputDevice* input_device) {
     renderer_ = renderer;
     input_device_ = input_device;
 
-    camera_ = new SDLCamera();
+    camera_ = new GlCamera();
     camera_->Initialize(input_device_);
 
     // Load sprites
@@ -71,44 +54,11 @@ bool Game::Initialize(Renderer* renderer,
     uint32 screen_width = 800;
     uint32 screen_height = 600;
 
-    // Initialize Physics world
-    const b2Vec2 gravity(0, 150);
-    world_ = new b2World(gravity);
-
-    #ifndef NDEBUG
-        debug_subscriber_ = new Subscriber(this);
-        debug_subscriber_->method = std::bind(&Game::printFrameRate, this, std::placeholders::_1);
-        Dispatcher::GetInstance()->AddEventSubscriber(debug_subscriber_, "EVENT_COMPONENT_UPDATE");
-    #endif
-
-    // Set boundaries of world (Render->Physics)
-    const b2Vec2 vTopLeft = b2Vec2(RW2PW(0), RW2PW(0));
-    const b2Vec2 vTopRight = b2Vec2(RW2PW((int32)screen_width), RW2PW(0));
-    const b2Vec2 vBottomLeft = b2Vec2(RW2PW(0), RW2PW((int32)screen_height - 60));
-    const b2Vec2 vBottomRight = b2Vec2(RW2PW((int32)screen_width), RW2PW((int32)screen_height - 60));
-
-    //
-    // Create the world boundaries
-    //
-    b2BodyDef bd;
-    b2Body* edge = world_->CreateBody(&bd);
-    b2EdgeShape shape;
-
-    // Create top boundary
-    shape.Set(vTopLeft, vTopRight);
-    edge->CreateFixture(&shape, 0);
-
-    // Create bottom boundary
-    shape.Set(vBottomLeft, vBottomRight);
-    edge->CreateFixture(&shape, 0);
-
-    // Create left boundary
-    shape.Set(vBottomLeft, vTopLeft);
-    edge->CreateFixture(&shape, 0);
-
-    // Create right boundary
-    shape.Set(vBottomRight, vTopRight);
-    edge->CreateFixture(&shape, 0);
+    // #ifndef NDEBUG
+    //     debug_subscriber_ = new Subscriber(this);
+    //     debug_subscriber_->method = std::bind(&App3D::printFrameRate, this, std::placeholders::_1);
+    //     Dispatcher::GetInstance()->AddEventSubscriber(debug_subscriber_, "EVENT_COMPONENT_UPDATE");
+    // #endif
 
     // Create Factories
     component_factories_ = new ComponentLibrary();
@@ -121,13 +71,10 @@ bool Game::Initialize(Renderer* renderer,
     component_factories_->AddFactory("RigidRectangle", reinterpret_cast<ComponentFactory*>(new RigidRectangleFactory(world_)));
     component_factories_->AddFactory("Sprite", reinterpret_cast<ComponentFactory*>(new SpriteFactory(renderer_, art_library_)));
 
-    // ContactListener* contact_listener = new ContactListener();
-    // world_->SetContactListener(contact_listener);
-
     return true;
 }
 
-void Game::Reset() {
+void App3D::Reset() {
     // if(!actors_.empty()){
     //     for (auto iter = actors_.begin(); iter != actors_.end(); iter++) {
     //         delete *iter;
@@ -135,7 +82,7 @@ void Game::Reset() {
     // }
 }
 
-bool Game::LoadLevel(std::string file) {
+bool App3D::LoadLevel(std::string file) {
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(file.c_str());
     if (result) {
@@ -166,7 +113,7 @@ bool Game::LoadLevel(std::string file) {
     return true;
 }
 
-void Game::Run() {
+void App3D::Run() {
     Update(timer_->DeltaTime());
     timer_->Update();
 
@@ -175,7 +122,7 @@ void Game::Run() {
     renderer_->PostDraw();
 }
 
-void Game::Update(float32 delta_time) {
+void App3D::Update(float32 delta_time) {
     // Update Camera position
     camera_->Update(delta_time);
 
@@ -195,13 +142,4 @@ void Game::Update(float32 delta_time) {
     // for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
     //    (*iter)->Update(delta_time);
     // }
-    world_->Step(delta_time, velocity_iterations_, position_iterations_);
-    // world_->Step(physics_delta_time_, velocity_iterations_, position_iterations_, particle_iterations_);
 }
-
-#ifndef NDEBUG
-    void Game::printFrameRate(std::shared_ptr<void> delta_time) {
-        float32 time = *reinterpret_cast<float32*>(delta_time.get());
-        std::cout << "FPS:\t" << 1.0/time << std::endl;
-    }
-#endif

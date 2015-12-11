@@ -4,6 +4,10 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include "render/opengl/opengl_renderer.h"
@@ -60,6 +64,9 @@ bool OpenGLRenderer::Initialize() {
     }
 
     SDL_GL_SetSwapInterval(1);
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
 
     return true;
 }

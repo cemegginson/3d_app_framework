@@ -11,7 +11,8 @@
 
 // Project Libraries
 #include "util/definitions.h"
-#include "core/Game.h"
+#include "core/app_2d.h"
+#include "core/app_3d.h"
 #include "core/input_device.h"
 
 // Plugable Renderers
@@ -42,11 +43,11 @@ int main(int argc, char* argv[]) {
     // Construct Graphical Device
     //========================================
     Renderer* renderer = nullptr;
-    #if RENDER_TYPE == 0
-        renderer = new SDLRenderer(screen_width, screen_height);
-    #elif RENDER_TYPE == 1
+    // #if RENDER_TYPE == 0
+        // renderer = new SDLRenderer(screen_width, screen_height);
+    // #elif RENDER_TYPE == 1
         renderer = new OpenGLRenderer(screen_width, screen_height);
-    #endif
+    // #endif
     static_assert(RENDER_TYPE == 0 || RENDER_TYPE == 1, "RENDER_TYPE is unrecognized.  Stopping compilation.");
 
     if (!renderer->Initialize()) {
@@ -66,7 +67,7 @@ int main(int argc, char* argv[]) {
     //========================================
     // Construct Game
     //========================================
-    Game* game = new Game();
+    App* game = new App3D();
     if (!game->Initialize(renderer, input_device)) {
         printf("Game could not Initialize!");
         exit(1);  // this case will leak a lot of memory...

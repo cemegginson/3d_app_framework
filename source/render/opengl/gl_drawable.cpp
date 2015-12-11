@@ -5,7 +5,7 @@ GlDrawable::GlDrawable(Actor* owner) {
 }
 
 GlDrawable::~GlDrawable() {
-
+    owner_ = nullptr;
 }
 
 void GlDrawable::Update(float32 delta_time) {

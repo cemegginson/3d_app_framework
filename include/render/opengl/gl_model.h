@@ -17,5 +17,7 @@ public:
     GlModel();
     ~GlModel();
 
+    void Initialize();
     void Draw();
+    void BufferData();
 };
