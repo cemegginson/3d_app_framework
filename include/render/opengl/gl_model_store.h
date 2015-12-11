@@ -4,18 +4,18 @@
 #include <string>
 #include <stack>
 
-#include <SDL.h>
-#include <GL/glew.h>
-#include <SDL_opengl.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
+// #include <SDL.h>
+// #include <GL/glew.h>
+// #include <SDL_opengl.h>
+// #include <GL/gl.h>
+// #include <GL/glu.h>
 
 #include "render/opengl/gl_model.h"
 
 class GlModelStore {
 protected:
     std::map<std::string, GlModel*> model_store_;
-    std::stack<GLuint*> buffer_names_;
+    // std::stack<GLuint*> buffer_names_;
 
 public:
     GlModelStore();
@@ -23,5 +23,5 @@ public:
 
     bool LoadAssets();
     GlModel* Search(std::string);
-    void FetchBufferNames();
+    // void FetchBufferNames();
 };

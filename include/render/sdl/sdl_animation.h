@@ -7,12 +7,13 @@
 
 #include "SDL.h"
 
+#include "render/sdl/actor_2d.h"
 #include "virtual/component.h"
 #include "util/definitions.h"
 
 class Animation : public Component {
 protected:
-    Actor* owner_;
+    Actor2D* owner_;
     std::vector<Subscriber*> subscribers_;
     SDL_Rect sprite_clip_;
     std::map<std::string, std::vector<SDL_Rect>*> animations_;

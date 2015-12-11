@@ -18,9 +18,9 @@
 #include "util/definitions.h"
 #include "render/renderer.h"
 #include "render/opengl/gl_camera.h"
-#include "render/opengl/gl_model.h"
+#include "render/opengl/gl_drawable.h"
 
-class Sprite;
+class GlDrawable;
 
 class OpenGLRenderer : public Renderer {
 protected:
@@ -29,7 +29,7 @@ protected:
     GlCamera* camera_;
     GLuint mvp_uniform_;
 
-    std::vector<GlModel*> models_;
+    std::vector<GlDrawable*> models_;
 
     uint32 width_;
     uint32 height_;
@@ -41,6 +41,7 @@ public:
     ~OpenGLRenderer();
 
     bool Initialize();
+    void AddModel(GlDrawable*);
 
     inline void PreDraw();
     inline void Draw();
@@ -49,4 +50,6 @@ public:
     RENDER_TYPE type();
     uint32 width();
     uint32 height();
+
+    void set_camera(GlCamera*);
 };

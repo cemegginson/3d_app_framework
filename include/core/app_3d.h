@@ -18,7 +18,7 @@
 
 class App3D : public App {
 protected:
-    ComponentLibrary* component_factories_;
+    // ComponentLibrary* component_factories_;
     InputDevice* input_device_;
     Timer* timer_;
 

@@ -16,6 +16,7 @@
 OpenGLRenderer::OpenGLRenderer() {
     window_ = nullptr;
     context_ = nullptr;
+    camera_ = nullptr;
     width_ = 800;
     height_ = 600;
 }
@@ -71,12 +72,18 @@ bool OpenGLRenderer::Initialize() {
     return true;
 }
 
+void OpenGLRenderer::AddModel(GlDrawable* model) {
+    models_.push_back(model);
+}
+
 inline void OpenGLRenderer::PreDraw() {
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 inline void OpenGLRenderer::Draw() {
-
+    for(auto iter = models_.begin(); iter != models_.end(); ++iter) {
+        (*iter)->Draw(camera_->vp_matrix());
+    }
 }
 
 inline void OpenGLRenderer::PostDraw() {
@@ -92,4 +99,8 @@ uint32 OpenGLRenderer::width() {
 }
 uint32 OpenGLRenderer::height() {
     return height_;
+}
+
+void OpenGLRenderer::set_camera(GlCamera* camera) {
+    camera_ = camera;
 }

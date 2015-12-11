@@ -8,7 +8,7 @@
 
 #include "render/actor.h"
 
-class Actor3D : Actor {
+class Actor3D : public Actor {
 protected:
     glm::vec3 position_;
     // glm::mat4 model_matrix_;
@@ -21,4 +21,6 @@ public:
     void Initialize(std::string);
     void AddComponent(Component*);
     void Update(float32);
+
+    glm::vec3 position();
 };

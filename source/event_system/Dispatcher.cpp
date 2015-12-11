@@ -15,9 +15,9 @@
 bool Dispatcher::initialized_ = false;
 bool Dispatcher::running_ = false;
 
-// std::mutex Dispatcher::dispatch_queue_mutex_;
-// std::mutex Dispatcher::thread_queue_mutex_;
-// std::condition_variable Dispatcher::thread_signal_;
+std::mutex Dispatcher::dispatch_queue_mutex_;
+std::mutex Dispatcher::thread_queue_mutex_;
+std::condition_variable Dispatcher::thread_signal_;
 
 Dispatcher* Dispatcher::instance_ = nullptr;
 std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  Dispatcher::thread_queue_;

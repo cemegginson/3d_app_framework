@@ -13,11 +13,11 @@
 #include "util/definitions.h"
 #include "core/input_device.h"
 #include "render/sdl/sdl_camera.h"
-#include "render/sdl/actor_2d.h"
 
 class Component;
+// class Actor;
 
-class Actor2D : Actor {
+class Actor2D : public Actor {
 protected:
     std::string name_;
     Vector2 position_;

@@ -13,9 +13,13 @@ Actor3D::~Actor3D() {
 // }
 
 void Actor3D::AddComponent(Component* new_component) {
-    omponents_.push_back(new_component);
+    components_.push_back(new_component);
 }
 
 void Actor3D::Update(float32 delta_time) {
 
+}
+
+glm::vec3 Actor3D::position() {
+    return position_;
 }

@@ -1,16 +1,16 @@
-// Copyright 2015 Casey Megginson and Blaise Koch
-
-#include <math.h>
-
-#include "util/box2d_utils.h"
-#include "core/physics_2d.h"
-
-Rigidbody::Rigidbody()
-    {}
-
-Rigidbody::~Rigidbody() {
-    world_->DestroyBody(body_);
-}
+// // Copyright 2015 Casey Megginson and Blaise Koch
+//
+// #include <math.h>
+//
+// #include "util/box2d_utils.h"
+// #include "core/physics_2d.h"
+//
+// Rigidbody::Rigidbody()
+//     {}
+//
+// Rigidbody::~Rigidbody() {
+//     world_->DestroyBody(body_);
+// }
 
 /*
 // RigidCircle methods

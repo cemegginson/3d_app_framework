@@ -7,7 +7,7 @@
 #include "render/opengl/gl_drawable.h"
 
 App3D::App3D() {
-    component_factories_ = nullptr;
+    // component_factories_ = nullptr;
     model_store_ = nullptr;
     renderer_ = nullptr;
     input_device_ = nullptr;
@@ -20,10 +20,10 @@ App3D::~App3D() {
         delete actors_.back();
         actors_.pop_back();
     }
-    if (component_factories_ != nullptr) {
-        delete component_factories_;
-        component_factories_ = nullptr;
-    }
+    // if (component_factories_ != nullptr) {
+    //     delete component_factories_;
+    //     component_factories_ = nullptr;
+    // }
     if (model_store_ != nullptr) {
         delete model_store_;
         model_store_ = nullptr;
@@ -46,6 +46,8 @@ bool App3D::Initialize(Renderer* renderer,
     camera_ = new GlCamera();
     camera_->Initialize(input_device_);
 
+    renderer_->set_camera(camera_);
+
     model_store_ = new GlModelStore();
     model_store_->LoadAssets();
 
@@ -62,7 +64,7 @@ bool App3D::Initialize(Renderer* renderer,
     // #endif
 
     // Create Factories
-    component_factories_ = new ComponentLibrary();
+    // component_factories_ = new ComponentLibrary();
 
     // component_factories_->AddFactory("GlDrawable", reinterpret_cast<ComponentFactory*>(new GlDrawableFactory()));
 
@@ -111,7 +113,7 @@ bool App3D::LoadLevel(std::string file) {
     std::string model = "cube";
 
     GlDrawable* new_gldrawable = new GlDrawable(new_actor);
-    new_gldrawable->Initialize(model_store_->Search(model));
+    new_gldrawable->Initialize(renderer_, model_store_->Search(model));
     Component* new_component = reinterpret_cast<Component*>(new_gldrawable);
     new_actor->AddComponent(new_component);
 

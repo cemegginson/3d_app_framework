@@ -1,14 +1,14 @@
-#include <math.h>
-#include "components/Carrier.h"
-#include "util/box2d_utils.h"
-
-Carrier::Carrier(Actor2D* owner) {
-    owner_ = owner;
-}
-
-Carrier::~Carrier() {}
-
-void Carrier::Update(std::shared_ptr<void> delta_time) {
+// #include <math.h>
+// #include "components/Carrier.h"
+// #include "util/box2d_utils.h"
+//
+// Carrier::Carrier(Actor2D* owner) {
+//     owner_ = owner;
+// }
+//
+// Carrier::~Carrier() {}
+//
+// void Carrier::Update(std::shared_ptr<void> delta_time) {
     // angle += rotation * delta_time;
     // if (angle > 360) {
     //     angle -= 360;
@@ -26,15 +26,15 @@ void Carrier::Update(std::shared_ptr<void> delta_time) {
     //
     // owner_->set_transform(position);
     // owner_->set_angle(angle);
-}
-
-void Carrier::Initialize() {
-    position = owner_->position();
-    angle = owner_->angle();
-    rotation = 120;
-    center = position;
-    radius = rand() % 100;
-    center.x += radius;
+// }
+//
+// void Carrier::Initialize() {
+//     position = owner_->position();
+//     angle = owner_->angle();
+//     rotation = 120;
+//     center = position;
+//     radius = rand() % 100;
+//     center.x += radius;
 //
 //     // Physics stuff
 //     body_definition.type = b2_dynamicBody;
@@ -50,4 +50,4 @@ void Carrier::Initialize() {
 //     shapefd.friction = 0.0f;
 //     shapefd.restitution = 0.0f;
 //     body->CreateFixture(&shapefd);
-}
+// }
