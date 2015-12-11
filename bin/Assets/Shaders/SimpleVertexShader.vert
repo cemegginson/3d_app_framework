@@ -11,7 +11,6 @@ out vec3 fragment_color;
 
 void main() {
     // Output position of the vertex, in clip space : model_view_projection * position
-    // Transform an homogeneous 4D vector, remember ?
     vec4 v = vec4(vertex_position_modelspace, 1);
     gl_Position = model_view_projection * v;
 
