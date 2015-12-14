@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(GameHomework)
+project(game_engine)
 
 set(CMAKE_USE_RELATIVE_PATHS TRUE)
 
@@ -14,11 +14,22 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 # Bump up warning levels appropriately for clang, gcc & msvc
 # Also set debug/optimization flags depending on the build type. IDE users choose this when
 # selecting the build mode in their IDE
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -std=c++11")
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR
+    ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+    # Compiler options for GCC and Clang on Linus or OSX
+
+    # Use C++ 11
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+    # Set warning levels
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
+
+    # Set debug and release flags
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG} -g")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE} -O2")
+
 elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
+    # Compiler options for MSVC on Windows
     if (CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
         string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     else()
@@ -26,29 +37,20 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
     endif()
 endif()
 
-# if(WIN32)
-#     set(SDL2_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/include")
-#     set(SDL2_LIBRARY_TEMP "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/lib/x86/SDL2.lib")
-#     set(SDL2MAIN_LIBRARY  "${CMAKE_SOURCE_DIR}/SDL2-2.0.3/lib/x86/SDL2main.lib")
-#     set(SDL2_IMAGE_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/SDL2_image-2.0.0/include")
-#     set(SDL2_IMAGE_LIBRARY "${CMAKE_SOURCE_DIR}/SDL2_image-2.0.0/lib/x86/SDL2_image.lib")
-#     set(BOX2D_LIBRARY "${CMAKE_SOURCE_DIR}/liquidfun/liquidfun/Box2D/Box2D/") #Fix for Windows :TODO
-# endif()
-
-option(BOX2D_INSTALL_DOC "Install Box2D documentation" OFF)
-option(BOX2D_BUILD_SHARED "Build Box2D shared libraries" OFF)
-option(BOX2D_BUILD_STATIC "Build Box2D static libraries" ON)
-option(BOX2D_BUILD_EXAMPLES "Build Box2D examples" OFF)
-option(BOX2D_BUILD_UNITTESTS "Build Box2D Unit Tests" OFF)
-
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
-find_package(Box2D REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(GLM REQUIRED)
+
+# find_package(Box2D REQUIRED)
 
 message(STATUS "SDL2_LIBRARY...... ${SDL2_LIBRARY}")
 message(STATUS "SDL2_INCLUDE_DIR.. ${SDL2_INCLUDE_DIR}")
-message(STATUS "BOX2D_LIBRARY..... ${BOX2D_LIBRARY}")
-message(STATUS "BOX2D_INCLUDE_DIR. ${BOX2D_INCLUDE_DIR}")
+message(STATUS "OPENGL_LIBRARY.... ${OPENGL_gl_LIBRARY}")
+message(STATUS "GLEW_LIBRARIES ${OPENGL_glu_LIBRARY}")
+# message(STATUS "BOX2D_LIBRARY..... ${BOX2D_LIBRARY}")
+# message(STATUS "BOX2D_INCLUDE_DIR. ${BOX2D_INCLUDE_DIR}")
 
 # Include directories with relevant items
 add_subdirectory("${CMAKE_SOURCE_DIR}/source")
