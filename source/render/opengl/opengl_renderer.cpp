@@ -69,11 +69,12 @@ bool OpenGLRenderer::Initialize() {
     glewExperimental = GL_TRUE;
     glewInit();
 
-    SDL_GL_SetSwapInterval(1);
+    // Set to 1 to enable V-Sync, 0 to disale V-Sync, and -1 if you want to allow tearing for slow rendering
+    SDL_GL_SetSwapInterval(0);
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glClearColor(0, 5, 0, 0);
+    glClearColor(0, 0, 0, 0);
 
     return true;
 }
