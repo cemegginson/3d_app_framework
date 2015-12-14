@@ -65,7 +65,8 @@ void Dispatcher::Initialize() {
 
         running_ = true;
 
-        for (int i=0; i < 7; i++) {
+        // Adjust the thread count
+        for (int i=0; i < 3; i++) {
             std::thread* processing_thread = new std::thread(ThreadProcess);
             // it probably won't terminate before the end of this program so we want to ignore errors
             processing_thread->detach();
