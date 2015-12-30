@@ -13,9 +13,16 @@ GlModel::~GlModel() {
 }
 
 void GlModel::Initialize() {
+    GLuint* names;
+    glGenBuffers(2, names);
 
-    shader_program_ = LoadShaders("./Assets/Shaders/SimpleVertexShader.vert",
-                                  "./Assets/Shaders/SimpleFragmentShader.frag");
+    vertex_buffer_object_ = names[0];
+    color_buffer_object_ = names[1];
+
+    std::string vertex_shader = "Assets/Shaders/SimpleVertexShader.vert";
+    std::string fragment_shader = "Assets/Shaders/SimpleFragmentShader.frag";
+
+    shader_program_ = LoadShaders(vertex_shader, fragment_shader);
 
     mvp_id_ = glGetUniformLocation(shader_program_, "model_view_projection");
 
@@ -136,7 +143,7 @@ void GlModel::BufferData() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(color_buffer_data_), color_buffer_data_, GL_STATIC_DRAW);
 }
 
-GLuint GlModel::LoadShaders(const char* vertex_file_path, const char* fragment_file_path) {
+GLuint GlModel::LoadShaders(std::string vertex_file_path, std::string fragment_file_path) {
     // Create the shaders
     GLuint vertex_shader_id = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragment_shader_id = glCreateShader(GL_FRAGMENT_SHADER);
@@ -150,7 +157,7 @@ GLuint GlModel::LoadShaders(const char* vertex_file_path, const char* fragment_f
             vertex_shader_code += "\n" + line;
         vertex_shader_stream.close();
     } else {
-        printf("Impossible to open %s. Are you in the right directory?\n", vertex_file_path);
+        printf("Impossible to open %s. Are you in the right directory?\n", vertex_file_path.c_str());
         getchar();
         return 0;
     }
@@ -170,7 +177,7 @@ GLuint GlModel::LoadShaders(const char* vertex_file_path, const char* fragment_f
     int info_log_length;
 
     // Compile Vertex Shader
-    printf("Compiling shader : %s\n", vertex_file_path);
+    printf("Compiling shader : %s\n", vertex_file_path.c_str());
     char const* vertex_source_pointer = vertex_shader_code.c_str();
     glShaderSource(vertex_shader_id, 1, &vertex_source_pointer , NULL);
     glCompileShader(vertex_shader_id);
@@ -185,7 +192,7 @@ GLuint GlModel::LoadShaders(const char* vertex_file_path, const char* fragment_f
     }
 
     // Compile Fragment Shader
-    printf("Compiling shader : %s\n", fragment_file_path);
+    printf("Compiling shader : %s\n", fragment_file_path.c_str());
     char const* FragmentSourcePointer = fragment_shader_code.c_str();
     glShaderSource(fragment_shader_id, 1, &FragmentSourcePointer , NULL);
     glCompileShader(fragment_shader_id);

@@ -15,7 +15,6 @@
 class GlModelStore {
 protected:
     std::map<std::string, GlModel*> model_store_;
-    // std::stack<GLuint*> buffer_names_;
 
 public:
     GlModelStore();
@@ -23,5 +22,4 @@ public:
 
     bool LoadAssets();
     GlModel* Search(std::string);
-    // void FetchBufferNames();
 };

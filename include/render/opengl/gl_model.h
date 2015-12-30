@@ -26,7 +26,7 @@ protected:
 
     GLuint shader_program_;
 
-    GLuint LoadShaders(const char*, const char*);
+    GLuint LoadShaders(std::string, std::string);
 
 public:
     GlModel();
