@@ -38,9 +38,9 @@ App3D::~App3D() {
     }
 }
 
-bool App3D::Initialize(Renderer* renderer,
+bool App3D::Initialize(OpenGLRenderer* renderer,
                        InputDevice* input_device) {
-    renderer_ = static_cast<OpenGLRenderer*>(renderer);
+    renderer_ = renderer;
     input_device_ = input_device;
 
     camera_ = new GlCamera();

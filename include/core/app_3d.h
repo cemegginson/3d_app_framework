@@ -31,7 +31,7 @@ protected:
 public:
     App3D();
     ~App3D();
-    bool Initialize(Renderer*, InputDevice*);
+    bool Initialize(OpenGLRenderer*, InputDevice*);
     void Reset();
     bool LoadLevel(std::string);
     void Run();
