@@ -13,12 +13,6 @@ GlModel::~GlModel() {
 }
 
 void GlModel::Initialize() {
-    GLuint* names;
-    glGenBuffers(2, names);
-
-    vertex_buffer_object_ = names[0];
-    color_buffer_object_ = names[1];
-
     std::string vertex_shader = "Assets/Shaders/SimpleVertexShader.vert";
     std::string fragment_shader = "Assets/Shaders/SimpleFragmentShader.frag";
 
