@@ -4,7 +4,7 @@ temp
 *.exe
 <stdin>
 gamebin
-game_engine*
+bin/game_engine
 *.ilk
 *.pdb
 *~
