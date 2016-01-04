@@ -20,11 +20,9 @@
 #include "render/opengl/opengl_renderer.h"
 #include "render/sdl/sdl_renderer.h"
 
-// 0 is SDL 1 is opengl
-// #define RENDER_TYPE 0
-
 int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);
+    SDL_Init(0);
 
     Dispatcher::GetInstance();
 
@@ -43,12 +41,7 @@ int main(int argc, char* argv[]) {
     // Construct Graphical Device
     //========================================
     Renderer* renderer = nullptr;
-    // #if RENDER_TYPE == 0
-        // renderer = new SDLRenderer(screen_width, screen_height);
-    // #elif RENDER_TYPE == 1
-        renderer = new OpenGLRenderer(screen_width, screen_height);
-    // #endif
-    // static_assert(RENDER_TYPE == 0 || RENDER_TYPE == 1, "RENDER_TYPE is unrecognized.  Stopping compilation.");
+    renderer = new OpenGLRenderer(screen_width, screen_height);
 
     if (!renderer->Initialize()) {
         printf("Graphics Device could not initialize!");
@@ -87,6 +80,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Start the app
+    SDL_InitSubSystem(SDL_INIT_EVENTS);
     SDL_Event event;
     bool quit = false;
     while (!quit) {

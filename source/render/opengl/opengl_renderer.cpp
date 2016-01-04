@@ -34,11 +34,7 @@ OpenGLRenderer::~OpenGLRenderer() {
 }
 
 bool OpenGLRenderer::Initialize() {
-
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        LogSDLError(std::cerr, "SDL_Init");
-        return false;
-    }
+    SDL_InitSubSystem(SDL_INIT_VIDEO);
 
     window_ = SDL_CreateWindow("Game Engine",
                                SDL_WINDOWPOS_UNDEFINED,
