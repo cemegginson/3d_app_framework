@@ -4,7 +4,7 @@ temp
 *.exe
 <stdin>
 gamebin
-GameHomework
+game_engine*
 *.ilk
 *.pdb
 *~
