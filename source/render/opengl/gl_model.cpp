@@ -20,6 +20,9 @@ void GlModel::Initialize() {
 
     mvp_id_ = glGetUniformLocation(shader_program_, "model_view_projection");
 
+    glGenVertexArrays(1, &vertex_array_id_);
+    glBindVertexArray(vertex_array_id_);
+
     BufferData();
 }
 
@@ -43,12 +46,12 @@ void GlModel::Draw(glm::mat4 model_view_projection) {
 
 void GlModel::BufferData() {
     GLfloat vertex_buffer_data_[] = {
-        -1.0f,-1.0f,-1.0f, // triangle 1 : begin
+        -1.0f,-1.0f,-1.0f,  // triangle 1 : begin
         -1.0f,-1.0f, 1.0f,
-        -1.0f, 1.0f, 1.0f, // triangle 1 : end
-        1.0f, 1.0f,-1.0f, // triangle 2 : begin
+        -1.0f, 1.0f, 1.0f,  // triangle 1 : end
+        1.0f, 1.0f,-1.0f,  // triangle 2 : begin
         -1.0f,-1.0f,-1.0f,
-        -1.0f, 1.0f,-1.0f, // triangle 2 : end
+        -1.0f, 1.0f,-1.0f,  // triangle 2 : end
         1.0f,-1.0f, 1.0f,
         -1.0f,-1.0f,-1.0f,
         1.0f,-1.0f,-1.0f,

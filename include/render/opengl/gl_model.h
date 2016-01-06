@@ -17,6 +17,7 @@
 
 class GlModel {
 protected:
+    GLuint vertex_array_id_;
     GLuint vertex_buffer_object_;
     GLuint color_buffer_object_;
 
