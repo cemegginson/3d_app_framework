@@ -9,6 +9,7 @@ GlModel::GlModel() {}
 GlModel::~GlModel() {
     glInvalidateBufferData(vertex_buffer_object_);
     glInvalidateBufferData(color_buffer_object_);
+    glDeleteVertexArray(vertex_array_id_);
 
 }
 
