@@ -5,20 +5,17 @@
 
 // Media Libraries
 #include "SDL.h"
-#undef main
+
 // Physics
-#include "Box2D/Box2D.h"
 
 // Project Libraries
 #include "util/definitions.h"
-#include "core/app_2d.h"
 #include "core/app_3d.h"
 #include "core/input_device.h"
 
 // Plugable Renderers
 #include "render/renderer.h"
 #include "render/opengl/opengl_renderer.h"
-#include "render/sdl/sdl_renderer.h"
 
 int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);

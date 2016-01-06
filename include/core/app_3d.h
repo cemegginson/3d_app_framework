@@ -3,7 +3,7 @@
 #include <list>
 #include <string>
 
-#include "art_library/ComponentLibrary.h"
+// #include "art_library/ComponentLibrary.h"
 #include "render/opengl/gl_model_store.h"
 
 #include "core/timer.h"
