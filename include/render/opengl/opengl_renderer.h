@@ -28,6 +28,7 @@ protected:
     SDL_GLContext context_;
     GlCamera* camera_;
     GLuint mvp_uniform_;
+    GLuint vertex_array_id_;
 
     std::vector<GlDrawable*> models_;
 

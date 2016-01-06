@@ -9,8 +9,6 @@ GlModel::GlModel() {}
 GlModel::~GlModel() {
     glInvalidateBufferData(vertex_buffer_object_);
     glInvalidateBufferData(color_buffer_object_);
-    glDeleteVertexArray(vertex_array_id_);
-
 }
 
 void GlModel::Initialize() {
@@ -20,9 +18,6 @@ void GlModel::Initialize() {
     shader_program_ = LoadShaders(vertex_shader, fragment_shader);
 
     mvp_id_ = glGetUniformLocation(shader_program_, "model_view_projection");
-
-    glGenVertexArrays(1, &vertex_array_id_);
-    glBindVertexArray(vertex_array_id_);
 
     BufferData();
 }

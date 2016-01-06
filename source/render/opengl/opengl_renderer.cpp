@@ -29,6 +29,7 @@ OpenGLRenderer::OpenGLRenderer(uint32 screen_width, uint32 screen_height) {
 }
 
 OpenGLRenderer::~OpenGLRenderer() {
+    glDeleteVertexArrays(1, &vertex_array_id_);
     SDL_GL_DeleteContext(context_);
     SDL_DestroyWindow(window_);
 }
@@ -71,6 +72,9 @@ bool OpenGLRenderer::Initialize() {
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glClearColor(0, 0, 0, 0);
+
+    glGenVertexArrays(1, &vertex_array_id_);
+    glBindVertexArray(vertex_array_id_);
 
     return true;
 }
