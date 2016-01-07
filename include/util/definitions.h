@@ -3,23 +3,18 @@
 #define UNUSED(x) (void)x;
 
 // Unsigned Integers
-// typedef unsigned long long int uint64;
+typedef unsigned long long int uint64;
 typedef unsigned int uint32;
 typedef unsigned short int uint16;
 
 // Signed Integers
-// typedef long long int sint64;
+typedef long long int int64;
 typedef int int32;
 typedef short int int16;
 
 // Floats
 typedef float float32;
 typedef double float64;
-
-typedef struct Vector2 {
-    float32 x;
-    float32 y;
-} Vector2;
 
 //Render Types
 enum RENDER_TYPE { SDL, OPENGL };

@@ -6,11 +6,10 @@
 // #include "art_library/ComponentLibrary.h"
 #include "render/opengl/gl_model_store.h"
 
-#include "core/timer.h"
+#include "util/timer.h"
 
 #include "render/opengl/gl_camera.h"
 #include "render/opengl/opengl_renderer.h"
-// #include "render/renderer.h"
 #include "render/opengl/actor_3d.h"
 
 #include "virtual/component.h"
