@@ -86,9 +86,9 @@ enum ControllerButton {
 };
 
 enum MouseButton {
-    kButton1,
-    kButton2,
-    kButton3,
-    kButton4,
-    kButton5
+    kMouseLeft,
+    kMouseMiddle,
+    kMouseRight,
+    kMouse4,
+    kMouse5
 };
