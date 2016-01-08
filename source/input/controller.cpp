@@ -1,7 +1,7 @@
 #include "input/controller.h"
 
 Controller::Controller() {
-    for (auto button = kButton1; button <= kButton10; button++) {
+    for (auto button = kButtonInvalid; button <= kButtonMax; button++) {
         buttonstates_[button] = false;
     }
     left_joystick_ = glm::vec2(0, 0);

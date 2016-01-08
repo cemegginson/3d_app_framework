@@ -73,16 +73,23 @@ enum KeyboardKey {
 };
 
 enum ControllerButton {
-    kButton1,
-    kButton2,
-    kButton3,
-    kButton4,
-    kButton5,
-    kButton6,
-    kButton7,
-    kButton8,
-    kButton9,
-    kButton10
+    kButtonInvalid,
+    kButtonA,
+    kButtonB,
+    kButtonX,
+    kButtonY,
+    kButtonBack,
+    kButtonGuide,
+    kButtonStart,
+    kButtonLeftStick,
+    kButtonRightStick,
+    kButtonLeftShoulder,
+    kButtonRightShoulder,
+    kButtonDpadUp,
+    kButtonDpadDown,
+    kButtonDpadLeft,
+    kButtonDpadRight,
+    kButtonMax
 };
 
 enum MouseButton {

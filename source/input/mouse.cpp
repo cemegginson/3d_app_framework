@@ -1,7 +1,7 @@
 #include "input/mouse.h"
 
 Mouse::Mouse() {
-    for (auto button = kButton1; button <= kButton5; button++) {
+    for (auto button = kMouseLeft; button <= kMouse5; button++) {
         buttonstates_[button] = false;
     }
     position_ = glm::vec2(0, 0);
