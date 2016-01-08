@@ -27,7 +27,8 @@ enum KeyboardKey {
     kKeyX,
     kKeyY,
     kKeyZ,
-    kKey1,  // Numbers
+    kKey0,  // Numbers
+    kKey1,
     kKey2,
     kKey3,
     kKey4,
@@ -36,7 +37,6 @@ enum KeyboardKey {
     kKey7,
     kKey8,
     kKey9,
-    kKey0,
     kKeyBackspace,  // Modifiers, etc.
     kKeyLeftAlt,
     kKeyLeftShift,
