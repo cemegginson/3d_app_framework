@@ -35,12 +35,12 @@ class Dispatcher {
 
 		static std::mutex dispatch_queue_mutex_;
 		static std::mutex thread_queue_mutex_;
+        static std::mutex mapped_event_mutex_;
 		static std::condition_variable thread_signal_;
 
 	public:
 
 		~Dispatcher();
-
 		static Dispatcher* GetInstance();
 
 		Dispatcher(const Dispatcher&); //disallow copying
@@ -52,6 +52,7 @@ class Dispatcher {
 		std::list<Subscriber*> GetAllSubscribers(const void* owner);
 
 		void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
+        void DispatchImmediate(const EventType eventID, const std::shared_ptr<void> eventData);
 
 		void Pump();
 		void NonSerialProcess();

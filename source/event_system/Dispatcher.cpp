@@ -17,6 +17,7 @@ bool Dispatcher::running_ = false;
 
 std::mutex Dispatcher::dispatch_queue_mutex_;
 std::mutex Dispatcher::thread_queue_mutex_;
+std::mutex Dispatcher::mapped_event_mutex_;
 std::condition_variable Dispatcher::thread_signal_;
 
 Dispatcher* Dispatcher::instance_ = nullptr;
@@ -70,30 +71,19 @@ void Dispatcher::Pump() {
     if (!Dispatcher::running_) return;
 
     std::lock_guard<std::mutex> dispatchLock(dispatch_queue_mutex_);
-    for (auto i : *dispatch_events_) {  // for every event
+    for (auto i : *dispatch_events_) {
+        // try is needed to handle linux map implementations
         try {
             // handle microsoft map implementation
             if (mapped_events_->count(i.first) == 0) {
                 std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
                 continue;
             }
-            for (auto it=mapped_events_->at(i.first)->begin(); it != mapped_events_->at(i.first)->end(); it++) {
-                if(*it == nullptr) {
-                    it = mapped_events_->at(i.first)->erase(it);
-                    continue;
-                }
-                std::lock_guard<std::mutex> lock(thread_queue_mutex_);  // unlocked on out-of-scope
-                if ((*it)->serialized) {
-                    thread_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(*it, i.second));
-                    thread_signal_.notify_one();
-                } else {
-                    nonserial_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(*it, i.second));
-                }
-          }
-      } catch (std::string msg) {
-          // catch overflow for linux
-          std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
-      }
+            DispatchImmediate(i.first, i.second);
+        } catch (std::string msg) {
+            std::cerr << "Either event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
+            std::cerr << "Or " << msg << std::endl;
+        }
     }
     dispatch_events_->clear();  // we queued them all for processing so clear the cache
 }
@@ -146,6 +136,23 @@ void Dispatcher::DispatchEvent(const EventType eventID, const std::shared_ptr<vo
     dispatch_events_->push_back(std::pair<EventType, std::shared_ptr<void>>(eventID, eventData));
 }
 
+void Dispatcher::DispatchImmediate(const EventType eventID, const std::shared_ptr<void> eventData) {
+    std::lock_guard<std::mutex> dispatchLock(mapped_event_mutex_);
+    std::lock_guard<std::mutex> lock(thread_queue_mutex_);
+    for (auto it=mapped_events_->at(eventID)->begin(); it != mapped_events_->at(eventID)->end(); it++) {
+        if(*it == nullptr) {
+            it = mapped_events_->at(eventID)->erase(it);
+            continue;
+        }
+        if ((*it)->serialized) {
+            thread_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(*it, eventData));
+            thread_signal_.notify_one();
+        } else {
+            nonserial_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(*it, eventData));
+        }
+    }
+}
+
 void Dispatcher::AddEventSubscriber(Subscriber *requestor, const EventType event_id) {
     if (mapped_events_->count(event_id) < 1) {
         std::cerr << "Dispatcher --->  Dynamically allocating list for EventID "
@@ -176,7 +183,7 @@ void Dispatcher::Terminate() {
 
     // There is a race condition with the condition variable and the threadpool on Microsoft implementations
     // so we need to avoid it as much a possible
-    sleep(1000);
+    sleep(500);
 
     dispatch_events_->clear();
     delete dispatch_events_;
