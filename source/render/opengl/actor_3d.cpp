@@ -9,8 +9,8 @@ Actor3D::Actor3D() {
 
     Subscriber* update_subscriber = new Subscriber(this);
     update_subscriber->method = std::bind(&Actor3D::Update, this, std::placeholders::_1);
-
     Dispatcher::GetInstance()->AddEventSubscriber(update_subscriber, "EVENT_ACTOR_UPDATE");
+
 }
 
 Actor3D::~Actor3D() {

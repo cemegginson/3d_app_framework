@@ -44,7 +44,7 @@ bool App3D::Initialize(Renderer* renderer,
     input_device_ = input_device;
 
     camera_ = new GlCamera();
-    camera_->Initialize(input_device_);
+    camera_->Initialize();
 
     renderer_->set_camera(camera_);
 
@@ -114,7 +114,7 @@ bool App3D::LoadLevel(std::string file) {
 
     GlDrawable* new_gldrawable = new GlDrawable(new_actor);
     new_gldrawable->Initialize(renderer_, model_store_->Search(model));
-    Component* new_component = reinterpret_cast<Component*>(new_gldrawable);
+    Component* new_component = static_cast<Component*>(new_gldrawable);
     new_actor->AddComponent(new_component);
 
     return true;
@@ -130,22 +130,19 @@ void App3D::Run() {
 }
 
 void App3D::Update(float32 delta_time) {
-    // Update Camera position
-    camera_->Update(delta_time);
-
     std::cout << "App3D::Update -> FPS = " << 1/delta_time << "\r";
 
-    Dispatcher::GetInstance()->DispatchEvent("EVENT_COMPONENT_UPDATE",    std::make_shared<float32>(delta_time));
-    // Dispatcher::GetInstance()->DispatchEvent("EVENT_PHYSICS_UPDATE",      std::make_shared<float32>(delta_time));
+    Dispatcher::GetInstance()->DispatchEvent("EVENT_COMPONENT_UPDATE", std::make_shared<float32>(delta_time));
+    // Dispatcher::GetInstance()->DispatchEvent("EVENT_PHYSICS_UPDATE", std::make_shared<float32>(delta_time));
 
     Dispatcher::GetInstance()->Pump();
-    Dispatcher::GetInstance()->NonSerialProcess(); // do processing of subscriber objects that can't be run in the thread pool
+    Dispatcher::GetInstance()->NonSerialProcess();
 
     // We have to wait for all threads to finish before terminating this function
     // otherwise updating and rendering might access the same variables simultaniously
     // this is a work around while a better solution is put into Dispatcher
     while (Dispatcher::GetInstance()->QueueSize() > 0) {
-        //std::cout << "Thread queue is too full...  waiting a bit" << std::endl;
+        // std::cout << "Thread queue is too full...  waiting a bit" << std::endl;
         sleep(1);
     }
 
