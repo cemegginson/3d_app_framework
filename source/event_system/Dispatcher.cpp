@@ -77,14 +77,17 @@ void Dispatcher::Pump() {
                 std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
                 continue;
             }
-            for (auto obj : *(mapped_events_->at(i.first))) {  // for every Subscriber* for that event
-                if (obj == nullptr) continue;
+            for (auto it=mapped_events_->at(i.first)->begin(); it != mapped_events_->at(i.first)->end(); it++) {
+                if(*it == nullptr) {
+                    it = mapped_events_->at(i.first)->erase(it);
+                    continue;
+                }
                 std::lock_guard<std::mutex> lock(thread_queue_mutex_);  // unlocked on out-of-scope
-                if (obj->serialized) {
-                    thread_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+                if ((*it)->serialized) {
+                    thread_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(*it, i.second));
                     thread_signal_.notify_one();
                 } else {
-                    nonserial_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
+                    nonserial_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(*it, i.second));
                 }
           }
       } catch (std::string msg) {
