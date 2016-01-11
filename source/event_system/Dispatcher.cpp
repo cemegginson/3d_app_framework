@@ -157,25 +157,6 @@ void Dispatcher::AddEventSubscriber(Subscriber *requestor, const EventType event
     mapped_events_->at(event_id)->push_back(requestor);
 }
 
-Subscriber* Dispatcher::RemoveEventSubscriber(Subscriber *requestor, const EventType event_id) {
-    if (mapped_events_->find(event_id) != mapped_events_->end()) {
-        auto list = std::list<Subscriber*>();
-        Subscriber* s = nullptr;
-
-        for (auto sub : *(mapped_events_->at(event_id))) {
-            if (sub == requestor) list.push_back(sub);
-        }
-
-        for (auto sub : list) {
-            s = sub;
-            mapped_events_->at(event_id)->remove(sub);
-        }
-
-        return s;
-    }
-    return nullptr;
-}
-
 // TODO(bk5115545) reimplement using map traversal
 std::list<Subscriber*> Dispatcher::GetAllSubscribers(const void* owner) {
     std::list<Subscriber*> tmp;

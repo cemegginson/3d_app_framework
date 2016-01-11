@@ -49,7 +49,6 @@ class Dispatcher {
 		void Terminate();
 
 		void AddEventSubscriber(Subscriber *requestor, const EventType);
-		Subscriber* RemoveEventSubscriber(Subscriber *requestor, const EventType);
 		std::list<Subscriber*> GetAllSubscribers(const void* owner);
 
 		void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
