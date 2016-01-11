@@ -142,7 +142,7 @@ void App3D::Update(float32 delta_time) {
     Dispatcher::GetInstance()->NonSerialProcess(); // do processing of subscriber objects that can't be run in the thread pool
 
     // We have to wait for all threads to finish before terminating this function
-    // otherwise updating and rendering might access the same variables simultaniously 
+    // otherwise updating and rendering might access the same variables simultaniously
     // this is a work around while a better solution is put into Dispatcher
     while (Dispatcher::GetInstance()->QueueSize() > 0) {
         //std::cout << "Thread queue is too full...  waiting a bit" << std::endl;

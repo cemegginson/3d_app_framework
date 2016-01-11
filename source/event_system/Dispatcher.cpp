@@ -81,6 +81,11 @@ void Dispatcher::Pump() {
     std::lock_guard<std::mutex> dispatchLock(dispatch_queue_mutex_);
     for (auto i : *dispatch_events_) {  // for every event
         try {
+			//handle microsoft map implementation
+			if (mapped_events_->count(i.first) == 0) {
+				std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
+				continue;
+			}
             for (auto obj : *(mapped_events_->at(i.first))) {  // for every Subscriber* for that event
                 if (obj == nullptr) continue;
                 std::lock_guard<std::mutex> lock(thread_queue_mutex_);  // unlocked on out-of-scope
@@ -92,7 +97,8 @@ void Dispatcher::Pump() {
                 }
             }
         } catch (std::string msg) {
-            std::cerr << "Event \"" << i.first << "\" does not apply to any Subscribers." << std::endl;
+			//catch overflow for linux
+            std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
         }
     }
     dispatch_events_->clear();  // we queued them all for processing so clear the cache
