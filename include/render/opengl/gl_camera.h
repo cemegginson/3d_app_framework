@@ -10,9 +10,8 @@
 
 #include <memory>
 
-class GlCamera : Camera{
+class GlCamera : Camera {
 protected:
-    InputDevice* input_device_;
     uint32 velocity_;
 
     glm::vec3 up_vector_;
@@ -28,9 +27,9 @@ public:
     GlCamera();
     ~GlCamera();
 
-    bool Initialize(InputDevice*);
+    bool Initialize();
     void OnInput(std::shared_ptr<void>);
-    void Update(float32);
+    void Update(std::shared_ptr<void>);
     // void set_position();
     glm::mat4 vp_matrix();
 };
