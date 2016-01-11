@@ -108,7 +108,7 @@ bool App3D::LoadLevel(std::string file) {
     //     }
     // }
 
-    Actor3D* new_actor = new Actor3D();
+    Actor* new_actor = new Actor();
     // new_actor->Initialize("cube")
     std::string model = "cube";
 

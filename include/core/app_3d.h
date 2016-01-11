@@ -10,7 +10,7 @@
 
 #include "render/opengl/gl_camera.h"
 #include "render/opengl/opengl_renderer.h"
-#include "render/opengl/actor_3d.h"
+#include "render/actor.h"
 
 #include "virtual/component.h"
 #include "virtual/app.h"
@@ -25,7 +25,7 @@ protected:
     GlCamera* camera_;
     GlModelStore* model_store_;
 
-    std::list<Actor3D*> actors_;
+    std::list<Actor*> actors_;
 
 public:
     App3D();

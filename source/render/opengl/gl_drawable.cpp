@@ -1,6 +1,6 @@
 #include "render/opengl/gl_drawable.h"
 
-GlDrawable::GlDrawable(Actor3D* owner) {
+GlDrawable::GlDrawable(Actor* owner) {
     owner_ = owner;
 
     Subscriber* s = new Subscriber(this);
