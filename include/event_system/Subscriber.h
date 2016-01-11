@@ -29,7 +29,7 @@ class Subscriber {
 		}
 
 /*  //Returns strongly typed std::bind objects with typed args and returns
-	//Need a way to store this so that Dispatcher can call it
+		//Need a way to store this so that Dispatcher can call it
 
 		template<typename R, typename C, typename... Args>
 		std::function<R(Args...)> bind(R (C::* func)(Args...), C& instance) {
