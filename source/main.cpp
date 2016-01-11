@@ -101,6 +101,8 @@ int main(int argc, char* argv[]) {
     //========================================
     // Clean-up
     //========================================
+	Dispatcher::GetInstance()->Terminate();
+
     if (app != nullptr) {
         delete app;
         app = nullptr;

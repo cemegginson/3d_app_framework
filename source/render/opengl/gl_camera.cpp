@@ -9,6 +9,9 @@
 
 #include <iostream>
 
+#include "event_system/Dispatcher.h"
+#include "event_system/Subscriber.h"
+
 
 GlCamera::GlCamera() {
     input_device_ = nullptr;
@@ -22,23 +25,37 @@ bool GlCamera::Initialize(InputDevice* input_device) {
     up_vector_ = glm::vec3(0.0, 1.0, 0.0);
     position_ = glm::vec3(4, 3, -3);
 
+	Subscriber* input_subscriber = new Subscriber(this);
+	input_subscriber->method = std::bind(&GlCamera::OnInput, this, std::placeholders::_1);
+	Dispatcher::GetInstance()->AddEventSubscriber(input_subscriber, "EVENT_INPUT");
+
+	tracked_keys[kGameUp] = false;
+	tracked_keys[kGameDown] = false;
+	tracked_keys[kGameLeft] = false;
+	tracked_keys[kGameRight] = false;
+
     return true;
+}
+
+void GlCamera::OnInput(std::shared_ptr<void> event) {
+	std::pair<GameEvent, bool>* pair = (std::pair<GameEvent, bool>*)event.get();
+	tracked_keys[pair->first] = pair->second;
 }
 
 void GlCamera::Update(float32 delta_time) {
     float32 z_movement = 0;
     float32 x_movement = 0;
 
-    if (input_device_->IsPressed(kGameUp)) {
+    if (tracked_keys[kGameUp]) {
         z_movement += velocity_ * delta_time;
     }
-    if (input_device_->IsPressed(kGameDown)) {
+	if (tracked_keys[kGameDown]) {
         z_movement -= velocity_ * delta_time;
     }
-    if (input_device_->IsPressed(kGameLeft)) {
+	if (tracked_keys[kGameLeft]) {
         x_movement += velocity_ * delta_time;
     }
-    if (input_device_->IsPressed(kGameRight)) {
+	if (tracked_keys[kGameRight]) {
         x_movement -= velocity_ * delta_time;
     }
 
@@ -55,10 +72,6 @@ void GlCamera::Update(float32 delta_time) {
     );
     vp_matrix_ = projection_ * view_;
 }
-
-// void GlCamera::set_position() {
-//
-// }
 
 glm::mat4 GlCamera::vp_matrix() {
     return vp_matrix_;
