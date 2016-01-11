@@ -31,14 +31,17 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR
 elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
     # Compiler options for MSVC on Windows
     if (CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
-        string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        string(REGEX REPLACE "/W[0-4]" "/W3" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     else()
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
     endif()
 endif()
 
+set(SDL2_PATH "F:\\Libraries\\SDL2-2.0.3")
+set(GLEW_ROOT_DIR "F:\\Libraries\\glew-1.13.0")
+set(GLM_ROOT_DIR "F:\\Libraries\\glm")
+
 find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLM REQUIRED)

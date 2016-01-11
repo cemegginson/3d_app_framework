@@ -57,7 +57,7 @@ class Dispatcher {
 		void Pump();
 		void NonSerialProcess();
 
-		int QueueSize() { return thread_queue_->size(); }
+		int QueueSize() { return static_cast<int>(thread_queue_->size()); }
 
 	private:
 		static void ThreadProcess();

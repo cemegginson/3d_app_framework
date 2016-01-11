@@ -16,6 +16,6 @@ public:
     InputDevice();
 
     bool Initialize();
-    void Update(SDL_Event*);
+    void NewInput(std::shared_ptr<void> sdl_event);
     bool IsPressed(GameEvent);
 };

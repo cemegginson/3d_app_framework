@@ -1,4 +1,5 @@
 // Copyright 2015 Casey Megginson and Blaise Koch
+
 #include <ctime>
 #include <iostream>
 #include <string>
@@ -7,6 +8,9 @@
 #include "SDL.h"
 
 // Physics
+
+// Threaded Events
+#include "event_system/Dispatcher.h"
 
 // Project Libraries
 #include "util/definitions.h"
@@ -21,7 +25,7 @@ int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);
     SDL_Init(0);
 
-    Dispatcher::GetInstance();
+	Dispatcher* dispatch = Dispatcher::GetInstance();
 
     //========================================
     // Initialize the random number generator
@@ -78,15 +82,18 @@ int main(int argc, char* argv[]) {
 
     // Start the app
     SDL_InitSubSystem(SDL_INIT_EVENTS);
-    SDL_Event event;
     bool quit = false;
     while (!quit) {
+        SDL_Event event;
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 quit = true;
             }
             // Update the Input Device with the Event
-            input_device->Update(&event);
+            // input_device->Update(&event);
+            if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {
+              dispatch->DispatchEvent("EVENT_INPUT_NEW", std::make_shared<SDL_Event>(event));
+            }
         }
         app->Run();
     }
@@ -94,6 +101,8 @@ int main(int argc, char* argv[]) {
     //========================================
     // Clean-up
     //========================================
+	Dispatcher::GetInstance()->Terminate();
+
     if (app != nullptr) {
         delete app;
         app = nullptr;
