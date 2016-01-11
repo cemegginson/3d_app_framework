@@ -52,7 +52,7 @@ class Dispatcher {
         void AddEventSubscriber(Subscriber *requestor, const EventType);
         std::list<Subscriber*> GetAllSubscribers(const void* owner);
 
-		void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
+        void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
         void DispatchImmediate(const EventType eventID, const std::shared_ptr<void> eventData);
 
         void Pump();
