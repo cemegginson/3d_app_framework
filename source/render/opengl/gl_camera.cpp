@@ -1,4 +1,3 @@
-#include "util/definitions.h"
 #include "render/opengl/gl_camera.h"
 
 #include <glm/vec3.hpp>
@@ -8,10 +7,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
+#include <utility>
 
 #include "event_system/Dispatcher.h"
 #include "event_system/Subscriber.h"
 
+#include "util/definitions.h"
 
 GlCamera::GlCamera() {
     input_device_ = nullptr;
@@ -19,43 +20,48 @@ GlCamera::GlCamera() {
 
 GlCamera::~GlCamera() {}
 
-bool GlCamera::Initialize(InputDevice* input_device) {
-    input_device_ = input_device;
+bool GlCamera::Initialize() {
     velocity_ = 1;
     up_vector_ = glm::vec3(0.0, 1.0, 0.0);
     position_ = glm::vec3(4, 3, -3);
 
-	  Subscriber* input_subscriber = new Subscriber(this);
-	  input_subscriber->method = std::bind(&GlCamera::OnInput, this, std::placeholders::_1);
-	  Dispatcher::GetInstance()->AddEventSubscriber(input_subscriber, "EVENT_INPUT");
+    Subscriber* input_subscriber = new Subscriber(this);
+    input_subscriber->method = std::bind(&GlCamera::OnInput, this, std::placeholders::_1);
+    Dispatcher::GetInstance()->AddEventSubscriber(input_subscriber, "EVENT_INPUT");
 
-	  tracked_keys[kGameUp] = false;
-	  tracked_keys[kGameDown] = false;
-	  tracked_keys[kGameLeft] = false;
-	  tracked_keys[kGameRight] = false;
+    Subscriber* update_subscriber = new Subscriber(this);
+    update_subscriber->method = std::bind(&GlCamera::Update, this, std::placeholders::_1);
+    Dispatcher::GetInstance()->AddEventSubscriber(update_subscriber, "EVENT_COMPONENT_UPDATE");
+
+    tracked_keys[kGameUp] = false;
+    tracked_keys[kGameDown] = false;
+    tracked_keys[kGameLeft] = false;
+    tracked_keys[kGameRight] = false;
 
     return true;
 }
 
 void GlCamera::OnInput(std::shared_ptr<void> event) {
-	std::pair<GameEvent, bool>* pair = (std::pair<GameEvent, bool>*)event.get();
-	tracked_keys[pair->first] = pair->second;
+    std::pair<GameEvent, bool>* pair = (std::pair<GameEvent, bool>*)event.get();
+    tracked_keys[pair->first] = pair->second;
 }
 
-void GlCamera::Update(float32 delta_time) {
+void GlCamera::Update(std::shared_ptr<void> event_data) {
+    float32 delta_time = *(float32*)event_data.get();
+
     float32 z_movement = 0;
     float32 x_movement = 0;
 
     if (tracked_keys[kGameUp]) {
         z_movement += velocity_ * delta_time;
     }
-	  if (tracked_keys[kGameDown]) {
+    if (tracked_keys[kGameDown]) {
         z_movement -= velocity_ * delta_time;
     }
-	  if (tracked_keys[kGameLeft]) {
+    if (tracked_keys[kGameLeft]) {
         x_movement += velocity_ * delta_time;
     }
-	  if (tracked_keys[kGameRight]) {
+    if (tracked_keys[kGameRight]) {
         x_movement -= velocity_ * delta_time;
     }
 

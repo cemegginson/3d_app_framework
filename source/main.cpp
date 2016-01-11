@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);
     SDL_Init(0);
 
-	Dispatcher* dispatch = Dispatcher::GetInstance();
+    Dispatcher* dispatch = Dispatcher::GetInstance();
 
     //========================================
     // Initialize the random number generator
@@ -80,7 +80,6 @@ int main(int argc, char* argv[]) {
                   // should properly do destructor calls and proper shutdown
     }
 
-    // Start the app
     SDL_InitSubSystem(SDL_INIT_EVENTS);
     bool quit = false;
     while (!quit) {
@@ -90,7 +89,6 @@ int main(int argc, char* argv[]) {
                 quit = true;
             }
             // Update the Input Device with the Event
-            // input_device->Update(&event);
             if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {
               dispatch->DispatchEvent("EVENT_INPUT_NEW", std::make_shared<SDL_Event>(event));
             }
@@ -101,7 +99,7 @@ int main(int argc, char* argv[]) {
     //========================================
     // Clean-up
     //========================================
-	Dispatcher::GetInstance()->Terminate();
+    Dispatcher::GetInstance()->Terminate();
 
     if (app != nullptr) {
         delete app;
