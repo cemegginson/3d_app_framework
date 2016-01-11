@@ -16,9 +16,6 @@ typedef short int int16;
 typedef float float32;
 typedef double float64;
 
-//Render Types
-enum RENDER_TYPE { SDL, OPENGL };
-
 // Event Types
 enum GameEvent { kGameNA, kGameUp, kGameDown, kGameLeft, kGameRight, kGameW, kGameA, kGameS, kGameD, kGameSpace };
 enum ActorEvent { kMoveLeft, kMoveRight, kMoveUp, kMoveDown, kTurnLeft, kTurnRight };
