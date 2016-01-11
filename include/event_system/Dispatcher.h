@@ -16,49 +16,49 @@ class Subscriber;
 
 class Dispatcher {
 
-	private:
-		Dispatcher();
-		void Initialize();
+    private:
+        Dispatcher();
+        void Initialize();
 
-		static bool initialized_;
-		static bool running_;
+        static bool initialized_;
+        static bool running_;
 
-		static Dispatcher* instance_;
+        static Dispatcher* instance_;
 
-		std::deque<std::pair<EventType,std::shared_ptr<void>>>*  dispatch_events_;
-		std::map<EventType,std::list<Subscriber*>*>* mapped_events_;
+        std::deque<std::pair<EventType,std::shared_ptr<void>>>*  dispatch_events_;
+        std::map<EventType,std::list<Subscriber*>*>* mapped_events_;
 
-		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  thread_queue_;
-		static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  nonserial_queue_;
+        static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  thread_queue_;
+        static std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>*  nonserial_queue_;
 
-		std::deque<std::thread*>* processing_threads_; //using std::deque for constant time size() and O(1) random access
+        std::deque<std::thread*>* processing_threads_; //using std::deque for constant time size() and O(1) random access
 
-		static std::mutex dispatch_queue_mutex_;
-		static std::mutex thread_queue_mutex_;
+        static std::mutex dispatch_queue_mutex_;
+        static std::mutex thread_queue_mutex_;
         static std::mutex mapped_event_mutex_;
-		static std::condition_variable thread_signal_;
+        static std::condition_variable thread_signal_;
 
-	public:
+    public:
 
-		~Dispatcher();
-		static Dispatcher* GetInstance();
+        ~Dispatcher();
+        static Dispatcher* GetInstance();
 
-		Dispatcher(const Dispatcher&); //disallow copying
-	    Dispatcher& operator= (const Dispatcher&); //disallow copying
+        Dispatcher(const Dispatcher&); //disallow copying
+        Dispatcher& operator= (const Dispatcher&); //disallow copying
 
-		void Terminate();
+        void Terminate();
 
-		void AddEventSubscriber(Subscriber *requestor, const EventType);
-		std::list<Subscriber*> GetAllSubscribers(const void* owner);
+        void AddEventSubscriber(Subscriber *requestor, const EventType);
+        std::list<Subscriber*> GetAllSubscribers(const void* owner);
 
-		void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
+        void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
         void DispatchImmediate(const EventType eventID, const std::shared_ptr<void> eventData);
 
-		void Pump();
-		void NonSerialProcess();
+        void Pump();
+        void NonSerialProcess();
 
-		int QueueSize() { return static_cast<int>(thread_queue_->size()); }
+        int QueueSize() { return static_cast<int>(thread_queue_->size()); }
 
-	private:
-		static void ThreadProcess();
+    private:
+        static void ThreadProcess();
 };
