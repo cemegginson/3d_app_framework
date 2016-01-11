@@ -6,8 +6,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-// Forward-Declare to keep compile time speedy
-class Subscriber;
+#include "util/definitions.h"
+#include "virtual/component.h"
 
 class Actor {
 protected:

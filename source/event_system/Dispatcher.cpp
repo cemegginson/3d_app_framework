@@ -35,8 +35,6 @@ Dispatcher* Dispatcher::GetInstance() {
         instance_ = new Dispatcher();
         instance_->Initialize();
     }
-    // If the Dispatcher was terminated we can restart it
-    else if (!running_) Dispatcher::running_ = true;
 
     return instance_;
 }
@@ -167,7 +165,8 @@ std::list<Subscriber*> Dispatcher::GetAllSubscribers(const void* owner) {
 void Dispatcher::Terminate() {
     Dispatcher::running_ = false;
 
-    // Notify threads to resume processing so they terminate before the condition variable is uninitialized (avoid crash from microsoft)
+    // Notify threads to resume processing so they
+    // terminate before the condition variable is uninitialized (avoid crash from microsoft)
     thread_signal_.notify_all();
     for (std::thread* t : *processing_threads_) {
         t->join();  // should stop eventually...
@@ -176,7 +175,7 @@ void Dispatcher::Terminate() {
 
     // There is a race condition with the condition variable and the threadpool on Microsoft implementations
     // so we need to avoid it as much a possible
-    sleep(1000);
+    sleep(500);
 
     dispatch_events_->clear();
     delete dispatch_events_;
