@@ -40,29 +40,23 @@ class Dispatcher {
 
 
     public:
+        static Dispatcher* GetInstance();
 
-<<<<<<< HEAD
-		~Dispatcher();
-		static Dispatcher* GetInstance();
-======
+        ~Dispatcher();
+
         Dispatcher(const Dispatcher&); //disallow copying
         Dispatcher& operator= (const Dispatcher&); //disallow copying
->>>>>>> dispatcher_update
 
         void Terminate();
 
         void AddEventSubscriber(Subscriber *requestor, const EventType);
         std::list<Subscriber*> GetAllSubscribers(const void* owner);
 
-<<<<<<< HEAD
 		void DispatchEvent(const EventType eventID, const std::shared_ptr<void> eventData);
         void DispatchImmediate(const EventType eventID, const std::shared_ptr<void> eventData);
 
-=======
         void Pump();
         void NonSerialProcess();
-        
->>>>>>> dispatcher_update
 
         int QueueSize() { return static_cast<int>(thread_queue_->size()); }
 

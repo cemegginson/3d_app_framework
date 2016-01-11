@@ -49,5 +49,5 @@ const float32 PI = 3.14159f;
  * Will cause compile error without explicit inline or if inline is not respected.
 */
 inline void sleep(int time_millis) {
-	std::this_thread::sleep_for(std::chrono::milliseconds(time_millis));
+    std::this_thread::sleep_for(std::chrono::milliseconds(time_millis));
 }
