@@ -37,6 +37,10 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
     endif()
 endif()
 
+set(SDL2_PATH "F:\\Libraries\\SDL2-2.0.3")
+set(GLEW_ROOT_DIR "F:\\Libraries\\glew-1.13.0")
+set(GLM_ROOT_DIR "F:\\Libraries\\glm")
+
 find_package(SDL2 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
