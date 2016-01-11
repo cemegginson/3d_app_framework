@@ -97,10 +97,6 @@ inline void OpenGLRenderer::PostDraw() {
     SDL_GL_SwapWindow(window_);
 }
 
-inline RENDER_TYPE OpenGLRenderer::type() {
-    return RENDER_TYPE::OPENGL;
-}
-
 uint32 OpenGLRenderer::width() {
     return width_;
 }
