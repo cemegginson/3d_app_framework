@@ -27,16 +27,16 @@ std::deque<std::pair<Subscriber*, std::shared_ptr<void>>>* Dispatcher::nonserial
 Dispatcher::Dispatcher() { }
 
 Dispatcher::~Dispatcher() {
-	  Terminate();
+    Terminate();
 }
 
 Dispatcher* Dispatcher::GetInstance() {
     if (instance_ == nullptr) {
         instance_ = new Dispatcher();
         instance_->Initialize();
-	  }
-	  // If the Dispatcher was terminated we can restart it
-	  else if (!running_) Dispatcher::running_ = true;
+    }
+    // If the Dispatcher was terminated we can restart it
+    else if (!running_) Dispatcher::running_ = true;
 
     return instance_;
 }
@@ -67,16 +67,16 @@ void Dispatcher::Initialize() {
 }
 
 void Dispatcher::Pump() {
-		if (!Dispatcher::running_) return;
+    if (!Dispatcher::running_) return;
 
-  	std::lock_guard<std::mutex> dispatchLock(dispatch_queue_mutex_);
-  	for (auto i : *dispatch_events_) {  // for every event
-      	try {
-						// handle microsoft map implementation
-						if (mapped_events_->count(i.first) == 0) {
-								std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
-								continue;
-						}
+    std::lock_guard<std::mutex> dispatchLock(dispatch_queue_mutex_);
+    for (auto i : *dispatch_events_) {  // for every event
+        try {
+            // handle microsoft map implementation
+            if (mapped_events_->count(i.first) == 0) {
+                std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
+                continue;
+            }
             for (auto obj : *(mapped_events_->at(i.first))) {  // for every Subscriber* for that event
                 if (obj == nullptr) continue;
                 std::lock_guard<std::mutex> lock(thread_queue_mutex_);  // unlocked on out-of-scope
@@ -87,11 +87,11 @@ void Dispatcher::Pump() {
                     nonserial_queue_->push_back(std::pair<Subscriber*, std::shared_ptr<void>>(obj, i.second));
                 }
           }
-      	} catch (std::string msg) {
-						// catch overflow for linux
-          	std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
-      	}
-  	}
+      } catch (std::string msg) {
+          // catch overflow for linux
+          std::cerr << "Event \"" + i.first + "\" does not apply to any Subscribers." << std::endl;
+      }
+    }
     dispatch_events_->clear();  // we queued them all for processing so clear the cache
 }
 
@@ -114,18 +114,18 @@ void Dispatcher::ThreadProcess() {
         std::pair<Subscriber*, std::shared_ptr<void>> work;  // compiler might whine here
 
         try {
-						// enter new scope so std::unique_lock will unlock on exceptions
+            // enter new scope so std::unique_lock will unlock on exceptions
             std::unique_lock<std::mutex> lock(thread_queue_mutex_);
-						while (Dispatcher::running_ && thread_queue_->size() == 0) thread_signal_.wait(lock);
-						if (!Dispatcher::running_) continue;
+            while (Dispatcher::running_ && thread_queue_->size() == 0) thread_signal_.wait(lock);
+            if (!Dispatcher::running_) continue;
             work = thread_queue_->front();
             thread_queue_->pop_front();
-				}
-				catch (std::string e) {
-						std::cerr << "Exception thrown while waiting/getting work for Thread." << std::endl;
-						std::cerr << e << std::endl;
-						continue;
-				}
+        }
+        catch (std::string e) {
+            std::cerr << "Exception thrown while waiting/getting work for Thread." << std::endl;
+            std::cerr << e << std::endl;
+            continue;
+        }
 
         try {
             if (work.first->method == NULL || work.first->owner == nullptr) continue;
@@ -181,28 +181,28 @@ std::list<Subscriber*> Dispatcher::GetAllSubscribers(const void* owner) {
 }
 
 void Dispatcher::Terminate() {
-		Dispatcher::running_ = false;
+    Dispatcher::running_ = false;
 
-		// Notify threads to resume processing so they terminate before the condition variable is uninitialized (avoid crash from microsoft)
-		thread_signal_.notify_all();
-		for (std::thread* t : *processing_threads_) {
-				t->join();  // should stop eventually...
-				delete t;   // i'm pretty sure we need to shutdown the threads before we delete them
-		}
+    // Notify threads to resume processing so they terminate before the condition variable is uninitialized (avoid crash from microsoft)
+    thread_signal_.notify_all();
+    for (std::thread* t : *processing_threads_) {
+        t->join();  // should stop eventually...
+        delete t;   // i'm pretty sure we need to shutdown the threads before we delete them
+    }
 
-		// There is a race condition with the condition variable and the threadpool on Microsoft implementations
-		// so we need to avoid it as much a possible
-		sleep(1000);
+    // There is a race condition with the condition variable and the threadpool on Microsoft implementations
+    // so we need to avoid it as much a possible
+    sleep(1000);
 
-		dispatch_events_->clear();
-		delete dispatch_events_;
-		delete mapped_events_;
+    dispatch_events_->clear();
+    delete dispatch_events_;
+    delete mapped_events_;
 
-		thread_queue_->clear();
-		delete thread_queue_;
+    thread_queue_->clear();
+    delete thread_queue_;
 
-		nonserial_queue_->clear();
-		delete nonserial_queue_;
+    nonserial_queue_->clear();
+    delete nonserial_queue_;
 
-		instance_ = nullptr;
+    instance_ = nullptr;
 }
