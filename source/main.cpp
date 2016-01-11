@@ -1,4 +1,5 @@
 // Copyright 2015 Casey Megginson and Blaise Koch
+
 #include <ctime>
 #include <iostream>
 #include <string>

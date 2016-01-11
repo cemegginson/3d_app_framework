@@ -29,7 +29,7 @@ Dispatcher::Dispatcher() { }
 Dispatcher::~Dispatcher() {
     running_ = false;
     for (std::thread* t : *processing_threads_) {
-        t->join();  // thould stop eventually...
+        t->join();  // should stop eventually...
         delete t;   // i'm pretty sure we need to shutdown the threads before we delete them
     }
 

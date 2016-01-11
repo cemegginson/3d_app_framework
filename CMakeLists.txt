@@ -31,9 +31,9 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR
 elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
     # Compiler options for MSVC on Windows
     if (CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
-        string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        string(REGEX REPLACE "/W[0-4]" "/W3" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     else()
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
     endif()
 endif()
 
