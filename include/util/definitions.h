@@ -6,18 +6,17 @@
 typedef unsigned long long int uint64;
 typedef unsigned int uint32;
 typedef unsigned short int uint16;
+typedef unsigned char uint8;
 
 // Signed Integers
 typedef long long int int64;
 typedef int int32;
 typedef short int int16;
+typedef signed char int8;
 
 // Floats
 typedef float float32;
 typedef double float64;
-
-//Render Types
-enum RENDER_TYPE { SDL, OPENGL };
 
 // Event Types
 enum GameEvent { kGameNA, kGameUp, kGameDown, kGameLeft, kGameRight, kGameW, kGameA, kGameS, kGameD, kGameSpace };
