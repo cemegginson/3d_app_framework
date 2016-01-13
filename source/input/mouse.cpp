@@ -1,8 +1,8 @@
 #include "input/mouse.h"
 
 Mouse::Mouse() {
-    for (auto button = kMouseLeft; button <= kMouse5; button++) {
-        buttonstates_[button] = false;
+    for (uint8 button = (uint8)kMouseLeft; button <= (uint8)kMouse5; button++) {
+        buttonstates_[(MouseButton)button] = false;
     }
     position_ = glm::vec2(0, 0);
     movement_ = glm::vec2(0, 0);

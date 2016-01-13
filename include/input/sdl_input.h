@@ -9,6 +9,8 @@
 #include "util/definitions.h"
 
 #include "input/input_manager.h"
+
+#include "input/control_map.h"
 #include "input/control_utils.h"
 #include "input/keyboard.h"
 #include "input/mouse.h"
@@ -20,9 +22,11 @@ protected:
     std::map<uint8, ControllerButton> controller_map_;
     std::map<uint8, MouseButton> mouse_map_;
 
-    std::shared_ptr<Keyboard> keyboard_;
-    std::shared_ptr<Mouse> mouse_;
-    std::shared_ptr<Controller> controller_;
+    ControlMapPtr control_map_;
+
+    KeyboardPtr keyboard_;
+    MousePtr mouse_;
+    ControllerPtr controller_;
 
 public:
     SDLInput();

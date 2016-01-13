@@ -1,8 +1,8 @@
 #include "input/keyboard.h"
 
 Keyboard::Keyboard() {
-    for (auto key = kKeyA; key <= kKeyUnderscore; key++) {
-        keystates_[key] = false;
+    for (uint8 key = (uint8)kKeyA; key <= (uint8)kKeyUnderscore; key++) {
+        keystates_[(KeyboardKey)key] = false;
     }
 }
 

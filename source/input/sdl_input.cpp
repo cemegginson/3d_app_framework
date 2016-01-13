@@ -105,7 +105,6 @@ void SDLInput::Initialize() {
 void SDLInput::Update() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
-        // Update the Input Device with the Event
-        input_device->Update(&event);
+        // Update the various input device classes
     }
 }

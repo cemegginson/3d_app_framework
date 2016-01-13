@@ -48,7 +48,7 @@ enum KeyboardKey {
     kKeyAsterisk,
     kKeyAt,
     kKeyBackslash,
-    kKeyBackQuote
+    kKeyBackQuote,
     kKeyCaret,
     kKeyColon,
     kKeyComma,

@@ -6,6 +6,7 @@
 #include "glm/vec2.hpp"
 
 #include "input/control_utils.h"
+#include "util/definitions.h"
 
 class Mouse {
 protected:
@@ -26,3 +27,6 @@ public:
     void set_movement(glm::vec2 movement);
     glm::vec2 movement();
 };
+
+typedef std::shared_ptr<Mouse> MousePtr;
+typedef std::weak_ptr<Mouse> MouseWeakPtr;

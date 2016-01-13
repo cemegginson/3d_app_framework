@@ -4,6 +4,7 @@
 #include <utility>
 
 #include "input/control_utils.h"
+#include "util/definitions.h"
 
 class Keyboard {
 protected:
@@ -16,3 +17,6 @@ public:
     void SetKey(KeyboardKey key, bool is_pressed);
     bool CheckKey(KeyboardKey key);
 };
+
+typedef std::shared_ptr<Keyboard> KeyboardPtr;
+typedef std::weak_ptr<Keyboard> KeyboardWeakPtr;
