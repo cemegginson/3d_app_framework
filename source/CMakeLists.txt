@@ -1,7 +1,13 @@
+add_subdirectory(components)
+add_subdirectory(core)
+add_subdirectory(event_system)
+# add_subdirectory(input)
+add_subdirectory(render)
+add_subdirectory(util)
+
 set(TARGET_NAME game_engine)
 
-file(GLOB_RECURSE SRC_FILES *.cpp)
-
+set(SRC_FILES main.cpp)
 
 add_executable(${TARGET_NAME} ${SRC_FILES})
 
@@ -16,4 +22,11 @@ target_link_libraries(${TARGET_NAME}
                       ${GLEW_LIBRARIES}
                       ${GLEW_MX_LIBRARIES}
                       "${OPENGL_gl_LIBRARY}"
-                      "${SDL2_LIBRARY}")
+                      "${SDL2_LIBRARY}"
+                      components_lib
+                      core_lib
+                      event_system_lib
+                    #   input_management_lib
+                      opengl_lib
+                      util_lib
+)
