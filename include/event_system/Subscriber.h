@@ -6,7 +6,7 @@
 #include "util/definitions.h"
 #include "event_system/Dispatcher.h"
 
-typedef void (SubscriptionFunction(std::shared_ptr<void>));
+typedef void (SubscriptionFunction());
 
 class Subscriber {
     public:

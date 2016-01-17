@@ -10,5 +10,5 @@ public:
     virtual void Reset() = 0;
     virtual bool LoadLevel(std::string) = 0;
     virtual void Run() = 0;
-    virtual void Update(float32) = 0;
+    virtual void Update() = 0;
 };

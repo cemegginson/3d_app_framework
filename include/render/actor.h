@@ -22,7 +22,7 @@ public:
     ~Actor();
     void Initialize(std::string);
     void AddComponent(Component*);
-    void Update(std::shared_ptr<void>);
+    void Update();
 
     glm::vec3 position();
 };

@@ -32,10 +32,6 @@ App3D::~App3D() {
         delete camera_;
         camera_ = nullptr;
     }
-    if (timer_ != nullptr) {
-        delete timer_;
-        timer_ = nullptr;
-    }
 }
 
 bool App3D::Initialize(Renderer* renderer,
@@ -44,15 +40,14 @@ bool App3D::Initialize(Renderer* renderer,
     input_device_ = input_device;
 
     camera_ = new GlCamera();
-    camera_->Initialize();
+    camera_->Initialize(input_device);
 
     renderer_->set_camera(camera_);
 
     model_store_ = new GlModelStore();
     model_store_->LoadAssets();
 
-    timer_ = new Timer();
-    timer_->Start();
+    timer_ = Timer::GetInstance();
 
     uint32 screen_width = 800;
     uint32 screen_height = 600;
@@ -121,19 +116,21 @@ bool App3D::LoadLevel(std::string file) {
 }
 
 void App3D::Run() {
-    Update(timer_->DeltaTime());
     timer_->Update();
+
+    Update();
 
     renderer_->PreDraw();
     renderer_->Draw();
     renderer_->PostDraw();
 }
 
-void App3D::Update(float32 delta_time) {
-    std::cout << "App3D::Update -> FPS = " << 1/delta_time << "\r";
+void App3D::Update() {
+    camera_->Update();
+    std::cout << "App3D::Update -> FPS = " << 1 / timer_->delta_time() << "\r";
 
-    Dispatcher::GetInstance()->DispatchEvent("EVENT_COMPONENT_UPDATE", std::make_shared<float32>(delta_time));
-    // Dispatcher::GetInstance()->DispatchEvent("EVENT_PHYSICS_UPDATE", std::make_shared<float32>(delta_time));
+    Dispatcher::GetInstance()->DispatchEvent("EVENT_COMPONENT_UPDATE");
+    // Dispatcher::GetInstance()->DispatchEvent("EVENT_PHYSICS_UPDATE");
 
     Dispatcher::GetInstance()->Pump();
     Dispatcher::GetInstance()->NonSerialProcess();

@@ -34,5 +34,5 @@ public:
     void Reset();
     bool LoadLevel(std::string);
     void Run();
-    void Update(float32);
+    void Update();
 };

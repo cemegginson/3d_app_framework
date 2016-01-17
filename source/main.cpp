@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);
     SDL_Init(0);
 
-    Dispatcher* dispatch = Dispatcher::GetInstance();
+    Dispatcher* dispatcher = Dispatcher::GetInstance();
 
     //========================================
     // Initialize the random number generator
@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
             }
             // Update the Input Device with the Event
             if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {
-              dispatch->DispatchEvent("EVENT_INPUT_NEW", std::make_shared<SDL_Event>(event));
+                input_device->Update(&event);
             }
         }
         app->Run();
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
     //========================================
     // Clean-up
     //========================================
-    Dispatcher::GetInstance()->Terminate();
+    dispatcher->Terminate();
 
     if (app != nullptr) {
         delete app;

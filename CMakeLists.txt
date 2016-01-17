@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project(game_engine)
 set(TARGET_NAME game_engine)
-set(APP_PACK_DIR "${CMAKE_SOURCE_DIR}/packs")
-set(APP_SOURCE_DIR "${CMAKE_SOURCE_DIR}/source")
 
 set(CMAKE_USE_RELATIVE_PATHS TRUE)
 
@@ -51,14 +49,9 @@ message(STATUS "OPENGL_LIBRARY.... ${OPENGL_gl_LIBRARY}")
 message(STATUS "GLEW_LIBRARIES.... ${OPENGL_glu_LIBRARY}")
 
 # Include directories with relevant items
-add_subdirectory("${APP_SOURCE_DIR}")
-add_subdirectory("${APP_PACK_DIR}")
+add_subdirectory(source)
 
-# The below must be done AFTER the above line so it can't really go into source/CMakeLists.txt
-# Espically since engine code must come BEFORE pack code in the compile order to satisfy dependencies
-# (Does cmake generate the compilation dependency tree and do this part for us? if yes then this can be simpler)
-message(STATUS "SOURCE ........... ${SRC_FILES}")
-add_executable(${TARGET_NAME} ${SRC_FILES} ${PACK_SOURCE})
+add_executable(${TARGET_NAME} ${SRC_FILES})
 
 target_include_directories(${TARGET_NAME} PRIVATE
     ${GLEW_INCLUDE_DIRS}
@@ -66,7 +59,6 @@ target_include_directories(${TARGET_NAME} PRIVATE
     "${OPENGL_INCLUDE_DIR}"
     "${SDL2_INCLUDE_DIR}"
     "${CMAKE_SOURCE_DIR}/include"
-    ${APP_PACK_INCLUDES}
 )
 
 target_link_libraries(${TARGET_NAME}
@@ -74,5 +66,4 @@ target_link_libraries(${TARGET_NAME}
                       "${OPENGL_gl_LIBRARY}"
                       ${GLEW_LIBRARIES}
                       ${GLEW_MX_LIBRARIES}
-                      ${APP_PACK_LIBS}
 )

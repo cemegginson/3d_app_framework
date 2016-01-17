@@ -28,6 +28,6 @@ public:
     ~GlDrawable();
 
     void Initialize(OpenGLRenderer*, GlModel*);
-    void Update(std::shared_ptr<void> delta_time);
+    void Update();
     void Draw(glm::mat4);
 };

@@ -8,7 +8,7 @@ Actor::Actor() {
     position_ = glm::vec3(0.0, 0.0, 0.0);
 
     Subscriber* update_subscriber = new Subscriber(this);
-    update_subscriber->method = std::bind(&Actor::Update, this, std::placeholders::_1);
+    update_subscriber->method = std::bind(&Actor::Update, this);
     Dispatcher::GetInstance()->AddEventSubscriber(update_subscriber, "EVENT_ACTOR_UPDATE");
 
 }
@@ -25,7 +25,7 @@ void Actor::AddComponent(Component* new_component) {
     components_.push_back(new_component);
 }
 
-void Actor::Update(std::shared_ptr<void> delta_time) {
+void Actor::Update() {
 
 }
 
