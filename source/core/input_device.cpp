@@ -25,23 +25,14 @@ bool InputDevice::Initialize() {
     keystates_[kGameD] = false;
     keystates_[kGameSpace] = false;
 
-    Subscriber* new_input_subscriber = new Subscriber(this);
-    new_input_subscriber->method = std::bind(&InputDevice::NewInput, this, std::placeholders::_1);
-    Dispatcher::GetInstance()->AddEventSubscriber(new_input_subscriber, "EVENT_INPUT_NEW");
-
     return true;
 }
 
-void InputDevice::NewInput(std::shared_ptr<void> event) {
-    SDL_Event* sdl_event = (SDL_Event*)event.get();
-
-    if (sdl_event->type == SDL_KEYDOWN && keystates_[translations_[sdl_event->key.keysym.sym]] == false) {
-        Dispatcher::GetInstance()->DispatchImmediate("EVENT_INPUT", std::make_shared<std::pair<GameEvent, bool>>(std::pair<GameEvent, bool>(translations_[sdl_event->key.keysym.sym], true)));
-        keystates_[translations_[sdl_event->key.keysym.sym]] = true;
-    }
-    else if (sdl_event->type == SDL_KEYUP && keystates_[translations_[sdl_event->key.keysym.sym]] == true) {
-        Dispatcher::GetInstance()->DispatchImmediate("EVENT_INPUT", std::make_shared<std::pair<GameEvent, bool>>(std::pair<GameEvent, bool>(translations_[sdl_event->key.keysym.sym], false)));
-        keystates_[translations_[sdl_event->key.keysym.sym]] = false;
+void InputDevice::Update(SDL_Event* event) {
+    if (event->type == SDL_KEYDOWN) {
+        keystates_[translations_[event->key.keysym.sym]] = true;
+    } else if (event->type == SDL_KEYUP) {
+        keystates_[translations_[event->key.keysym.sym]] = false;
     }
 }
 
