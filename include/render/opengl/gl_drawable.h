@@ -10,13 +10,13 @@
 
 #include "render/opengl/opengl_renderer.h"
 #include "render/opengl/gl_model.h"
-#include "render/opengl/actor_3d.h"
+#include "render/actor.h"
 
 class OpenGLRenderer;
 
 class GlDrawable : public Component {
 protected:
-    Actor3D* owner_;
+    Actor* owner_;
     std::vector<Subscriber*> subscribers_;
 
     glm::mat4 model_matrix_;
@@ -24,10 +24,10 @@ protected:
     GlModel* model_;
 
 public:
-    GlDrawable(Actor3D*);
+    GlDrawable(Actor*);
     ~GlDrawable();
 
     void Initialize(OpenGLRenderer*, GlModel*);
-    void Update(std::shared_ptr<void> delta_time);
+    void Update();
     void Draw(glm::mat4);
 };

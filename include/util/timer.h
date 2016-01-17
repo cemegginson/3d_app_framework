@@ -1,30 +1,33 @@
 #pragma once
 
-#include "SDL.h"
+#include <memory>
+
 #include "util/definitions.h"
 
 class Timer {
 private:
+    static Timer* instance_;
+
     // The clock time when the timer started
     std::chrono::high_resolution_clock::time_point start_ticks_;
 
-    // Time Delta!
     float32 delta_time_;
 
-public:
-    // Initializes variables
     Timer();
-
-    // The various clock actions
+    ~Timer();
     void Start();
+
+
+public:
+    static Timer* GetInstance();
     void Reset();
-
-    // Checks the status of the timer
-    bool IsRunning();
-
-    // Update DeltaTime
     void Update();
 
-    // Returns the time in ms from the last call
-    float32 DeltaTime();
+    Timer(Timer const&) = delete;
+    void operator=(Timer const&) = delete;
+
+    float32 delta_time();
 };
+
+typedef std::shared_ptr<Timer> TimerPtr;
+typedef std::weak_ptr<Timer> TimerWeakPtr;

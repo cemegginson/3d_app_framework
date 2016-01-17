@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project(game_engine)
+set(TARGET_NAME game_engine)
 
 set(CMAKE_USE_RELATIVE_PATHS TRUE)
 
@@ -45,7 +46,24 @@ find_package(GLM REQUIRED)
 message(STATUS "SDL2_LIBRARY...... ${SDL2_LIBRARY}")
 message(STATUS "SDL2_INCLUDE_DIR.. ${SDL2_INCLUDE_DIR}")
 message(STATUS "OPENGL_LIBRARY.... ${OPENGL_gl_LIBRARY}")
-message(STATUS "GLEW_LIBRARIES ${OPENGL_glu_LIBRARY}")
+message(STATUS "GLEW_LIBRARIES.... ${OPENGL_glu_LIBRARY}")
 
 # Include directories with relevant items
-add_subdirectory("${CMAKE_SOURCE_DIR}/source")
+add_subdirectory(source)
+
+add_executable(${TARGET_NAME} ${SRC_FILES})
+
+target_include_directories(${TARGET_NAME} PRIVATE
+    ${GLEW_INCLUDE_DIRS}
+    ${GLM_INCLUDE_DIRS}
+    "${OPENGL_INCLUDE_DIR}"
+    "${SDL2_INCLUDE_DIR}"
+    "${CMAKE_SOURCE_DIR}/include"
+)
+
+target_link_libraries(${TARGET_NAME}
+                      "${SDL2_LIBRARY}"
+                      "${OPENGL_gl_LIBRARY}"
+                      ${GLEW_LIBRARIES}
+                      ${GLEW_MX_LIBRARIES}
+)
