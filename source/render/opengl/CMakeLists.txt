@@ -1,7 +1,7 @@
 set(TARGET_NAME opengl_lib)
 
 set(SRC_FILES
-    actor_3d.cpp
+    actor.cpp
     gl_camera.cpp
     gl_drawable.cpp
     gl_model_store.cpp
