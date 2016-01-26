@@ -1,16 +1,7 @@
 #include "render/actor.h"
 
-#include "event_system/Dispatcher.h"
-#include "event_system/Subscriber.h"
-
-
 Actor::Actor() {
     position_ = glm::vec3(0.0, 0.0, 0.0);
-
-    Subscriber* update_subscriber = new Subscriber(this);
-    update_subscriber->method = std::bind(&Actor::Update, this);
-    Dispatcher::GetInstance()->AddEventSubscriber(update_subscriber, "EVENT_ACTOR_UPDATE");
-
 }
 
 Actor::~Actor() {
@@ -26,7 +17,9 @@ void Actor::AddComponent(Component* new_component) {
 }
 
 void Actor::Update() {
-
+    for (auto iter = components_.begin(); iter != components_.end(); ++iter) {
+        (*iter)->Update();
+    }
 }
 
 glm::vec3 Actor::position() {

@@ -1,6 +1,5 @@
 add_subdirectory(components)
 add_subdirectory(core)
-add_subdirectory(event_system)
 # add_subdirectory(input)
 add_subdirectory(render)
 add_subdirectory(util)
@@ -25,7 +24,6 @@ target_link_libraries(${TARGET_NAME}
                       "${SDL2_LIBRARY}"
                       components_lib
                       core_lib
-                      event_system_lib
                     #   input_management_lib
                       opengl_lib
                       util_lib

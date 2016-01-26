@@ -1,5 +1,7 @@
 #pragma once
 
+#include <list>
+
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
@@ -14,8 +16,7 @@ protected:
     glm::vec3 position_;
     // glm::mat4 model_matrix_;
 
-    std::vector<Component*> components_;
-    std::vector<Subscriber*> subscribers_;
+    std::list<Component*> components_;
 
 public:
     Actor();

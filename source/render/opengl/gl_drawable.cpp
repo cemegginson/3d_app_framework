@@ -2,11 +2,6 @@
 
 GlDrawable::GlDrawable(Actor* owner) {
     owner_ = owner;
-
-    Subscriber* s = new Subscriber(this);
-    s->method = std::bind(&GlDrawable::Update, this);
-    Dispatcher::GetInstance()->AddEventSubscriber(s, "EVENT_COMPONENT_UPDATE");
-    subscribers.push_back(s);
 }
 
 GlDrawable::~GlDrawable() {

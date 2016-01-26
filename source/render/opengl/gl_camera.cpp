@@ -9,9 +9,6 @@
 #include <iostream>
 #include <utility>
 
-#include "event_system/Dispatcher.h"
-#include "event_system/Subscriber.h"
-
 #include "util/definitions.h"
 
 GlCamera::GlCamera() {

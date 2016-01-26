@@ -129,22 +129,8 @@ void App3D::Update() {
     camera_->Update();
     std::cout << "App3D::Update -> FPS = " << 1 / timer_->delta_time() << "\r";
 
-    Dispatcher::GetInstance()->DispatchEvent("EVENT_COMPONENT_UPDATE");
-    // Dispatcher::GetInstance()->DispatchEvent("EVENT_PHYSICS_UPDATE");
-
-    Dispatcher::GetInstance()->Pump();
-    Dispatcher::GetInstance()->NonSerialProcess();
-
-    // We have to wait for all threads to finish before terminating this function
-    // otherwise updating and rendering might access the same variables simultaniously
-    // this is a work around while a better solution is put into Dispatcher
-    while (Dispatcher::GetInstance()->QueueSize() > 0) {
-        // std::cout << "Thread queue is too full...  waiting a bit" << std::endl;
-        sleep(1);
-    }
-
     // Cycle through every objects' Update method
-    // for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
-    //    (*iter)->Update(delta_time);
-    // }
+    for (auto iter = actors_.begin(); iter != actors_.end(); ++iter) {
+       (*iter)->Update();
+    }
 }

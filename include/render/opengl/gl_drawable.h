@@ -17,7 +17,6 @@ class OpenGLRenderer;
 class GlDrawable : public Component {
 protected:
     Actor* owner_;
-    std::vector<Subscriber*> subscribers_;
 
     glm::mat4 model_matrix_;
 

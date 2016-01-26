@@ -9,8 +9,6 @@
 
 // Physics
 
-// Threaded Events
-#include "event_system/Dispatcher.h"
 
 // Project Libraries
 #include "util/definitions.h"
@@ -24,8 +22,6 @@
 int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);
     SDL_Init(0);
-
-    Dispatcher* dispatcher = Dispatcher::GetInstance();
 
     //========================================
     // Initialize the random number generator
@@ -99,8 +95,6 @@ int main(int argc, char* argv[]) {
     //========================================
     // Clean-up
     //========================================
-    dispatcher->Terminate();
-
     if (app != nullptr) {
         delete app;
         app = nullptr;
