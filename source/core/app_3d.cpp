@@ -52,12 +52,6 @@ bool App3D::Initialize(Renderer* renderer,
     uint32 screen_width = 800;
     uint32 screen_height = 600;
 
-    // #ifndef NDEBUG
-    //     debug_subscriber_ = new Subscriber(this);
-    //     debug_subscriber_->method = std::bind(&App3D::printFrameRate, this, std::placeholders::_1);
-    //     Dispatcher::GetInstance()->AddEventSubscriber(debug_subscriber_, "EVENT_COMPONENT_UPDATE");
-    // #endif
-
     // Create Factories
     // component_factories_ = new ComponentLibrary();
 
