@@ -22,6 +22,6 @@ void Actor::Update() {
     }
 }
 
-glm::vec3 Actor::position() {
+glm::vec3 Actor::position() const {
     return position_;
 }

@@ -15,7 +15,7 @@ public:
     ~Keyboard();
 
     void SetKey(KeyboardKey key, bool is_pressed);
-    bool CheckKey(KeyboardKey key);
+    bool CheckKey(KeyboardKey key) const;
 };
 
 typedef std::shared_ptr<Keyboard> KeyboardPtr;

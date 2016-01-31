@@ -19,13 +19,13 @@ public:
     ~Controller();
 
     void SetButton(ControllerButton button, bool is_pressed);
-    bool CheckButton(ControllerButton button);
+    bool CheckButton(ControllerButton button) const;
 
     void set_left_joystick(glm::vec2 position);
-    glm::vec2 left_joystick();
+    glm::vec2 left_joystick() const;
 
     void set_right_joystick(glm::vec2 position);
-    glm::vec2 right_joystick();
+    glm::vec2 right_joystick() const;
 };
 
 typedef std::shared_ptr<Controller> ControllerPtr;

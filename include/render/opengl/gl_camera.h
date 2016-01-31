@@ -31,5 +31,5 @@ public:
     bool Initialize(InputDevice*);
     void Update();
     // void set_position();
-    glm::mat4 vp_matrix();
+    glm::mat4 vp_matrix() const;
 };

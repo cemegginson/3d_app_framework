@@ -4,12 +4,6 @@
 #include <string>
 #include <stack>
 
-// #include <SDL.h>
-// #include <GL/glew.h>
-// #include <SDL_opengl.h>
-// #include <GL/gl.h>
-// #include <GL/glu.h>
-
 #include "render/opengl/gl_model.h"
 
 class GlModelStore {
@@ -21,5 +15,5 @@ public:
     ~GlModelStore();
 
     bool LoadAssets();
-    GlModel* Search(std::string);
+    GlModel* Search(std::string) const;
 };

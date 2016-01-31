@@ -24,7 +24,7 @@ void Timer::Update() {
     start_ticks_ = std::chrono::high_resolution_clock::now();
 }
 
-float32 Timer::delta_time() {
+const float32 Timer::delta_time() const {
     return delta_time_;
 }
 

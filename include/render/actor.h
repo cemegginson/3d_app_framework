@@ -25,5 +25,5 @@ public:
     void AddComponent(Component*);
     void Update();
 
-    glm::vec3 position();
+    glm::vec3 position() const;
 };

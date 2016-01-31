@@ -18,6 +18,6 @@ bool GlModelStore::LoadAssets() {
     return true;
 }
 
-GlModel* GlModelStore::Search(std::string model_name) {
+GlModel* GlModelStore::Search(std::string model_name) const {
     return model_store_.at(model_name);
 }

@@ -19,13 +19,13 @@ public:
     ~Mouse();
 
     void SetButton(MouseButton button, bool is_pressed);
-    bool CheckButton(MouseButton button);
+    bool CheckButton(MouseButton button) const;
 
     void set_position(glm::vec2 new_position);
-    glm::vec2 position();
+    glm::vec2 position() const;
 
     void set_movement(glm::vec2 movement);
-    glm::vec2 movement();
+    glm::vec2 movement() const;
 };
 
 typedef std::shared_ptr<Mouse> MousePtr;
