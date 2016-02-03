@@ -61,6 +61,6 @@ void GlCamera::Update() {
     vp_matrix_ = projection_ * view_;
 }
 
-glm::mat4 GlCamera::vp_matrix() {
+glm::mat4 GlCamera::vp_matrix() const {
     return vp_matrix_;
 }

@@ -14,7 +14,7 @@ void Mouse::SetButton(MouseButton button, bool is_pressed) {
     buttonstates_[button] = is_pressed;
 }
 
-bool Mouse::CheckButton(MouseButton button) {
+bool Mouse::CheckButton(MouseButton button) const {
     return buttonstates_.at(button);
 }
 
@@ -22,7 +22,7 @@ void Mouse::set_position(glm::vec2 new_position) {
     position_ = new_position;
 }
 
-glm::vec2 Mouse::position() {
+glm::vec2 Mouse::position() const {
     return position_;
 }
 
@@ -30,6 +30,6 @@ void Mouse::set_movement(glm::vec2 movement) {
     movement_ = movement;
 }
 
-glm::vec2 Mouse::movement() {
+glm::vec2 Mouse::movement() const {
     return movement_;
 }
