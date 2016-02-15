@@ -15,3 +15,6 @@ public:
     // virtual ~Component() = 0;
     virtual void Update() = 0;
 };
+
+typedef std::shared_ptr<Component> ComponentPtr;
+typedef std::weak_ptr<Component> ComponentWeakPtr;
