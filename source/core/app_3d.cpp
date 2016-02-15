@@ -36,9 +36,13 @@ App3D::~App3D() {
         delete renderer_;
         renderer_ = nullptr;
     }
+    if (input_device_ != nullptr) {
+        delete input_device_;
+        input_device_ = nullptr;
+    }
 }
 
-bool App3D::Initialize(InputDevice* input_device) {
+bool App3D::Initialize() {
     uint32 screen_width = 800;
     uint32 screen_height = 600;
 
@@ -49,10 +53,15 @@ bool App3D::Initialize(InputDevice* input_device) {
         return false;
     }
 
-    input_device_ = input_device;
+    input_device_ = new InputDevice();
+
+    if (!input_device_->Initialize()) {
+        printf("Input Device could not initialize!");
+        exit(1);
+    }
 
     camera_ = new GlCamera();
-    camera_->Initialize(input_device);
+    camera_->Initialize(input_device_);
 
     renderer_->set_camera(camera_);
 
@@ -61,11 +70,16 @@ bool App3D::Initialize(InputDevice* input_device) {
 
     timer_ = Timer::GetInstance();
 
-
     // Create Factories
     // component_factories_ = new ComponentLibrary();
 
     // component_factories_->AddFactory("GlDrawable", reinterpret_cast<ComponentFactory*>(new GlDrawableFactory()));
+
+    std::string level_config_file = "foobar.xml";
+    if (!LoadLevel(level_config_file)) {
+        printf("Game could not load level %s: ", level_config_file.c_str());
+        return false;
+    }
 
     return true;
 }
@@ -120,13 +134,27 @@ bool App3D::LoadLevel(std::string file) {
 }
 
 void App3D::Run() {
-    timer_->Update();
+    SDL_InitSubSystem(SDL_INIT_EVENTS);
+    bool quit = false;
+    while (!quit) {
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                quit = true;
+            }
+            // Update the Input Device with the Event
+            if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {
+                input_device_->Update(&event);
+            }
+        }
+        timer_->Update();
 
-    Update();
+        Update();
 
-    renderer_->PreDraw();
-    renderer_->Draw();
-    renderer_->PostDraw();
+        renderer_->PreDraw();
+        renderer_->Draw();
+        renderer_->PostDraw();
+    }
 }
 
 void App3D::Update() {

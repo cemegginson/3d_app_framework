@@ -29,7 +29,7 @@ protected:
 public:
     App3D();
     ~App3D();
-    bool Initialize(InputDevice*);
+    bool Initialize();
     void Reset();
     bool LoadLevel(std::string);
     void Run();
