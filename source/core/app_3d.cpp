@@ -32,11 +32,23 @@ App3D::~App3D() {
         delete camera_;
         camera_ = nullptr;
     }
+    if (renderer_ != nullptr) {
+        delete renderer_;
+        renderer_ = nullptr;
+    }
 }
 
-bool App3D::Initialize(Renderer* renderer,
-                       InputDevice* input_device) {
-    renderer_ = static_cast<OpenGLRenderer*>(renderer);
+bool App3D::Initialize(InputDevice* input_device) {
+    uint32 screen_width = 800;
+    uint32 screen_height = 600;
+
+    renderer_ = new OpenGLRenderer(screen_width, screen_height);
+
+    if (!renderer_->Initialize()) {
+        printf("Graphics Device could not initialize!");
+        return false;
+    }
+
     input_device_ = input_device;
 
     camera_ = new GlCamera();
@@ -49,8 +61,6 @@ bool App3D::Initialize(Renderer* renderer,
 
     timer_ = Timer::GetInstance();
 
-    uint32 screen_width = 800;
-    uint32 screen_height = 600;
 
     // Create Factories
     // component_factories_ = new ComponentLibrary();
