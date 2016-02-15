@@ -31,6 +31,7 @@ target_link_libraries(
         core_lib
         # input_management_lib
         opengl_lib
+        render_lib
         util_lib
 )
 
