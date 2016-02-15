@@ -1,15 +1,10 @@
-// Copyright 2015 Casey Megginson and Blaise Koch
-
 #include <ctime>
 #include <iostream>
-#include <string>
 
 #include "SDL.h"
 
-// Project Libraries
 #include "util/definitions.h"
 #include "core/app_3d.h"
-#include "core/input_device.h"
 
 int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);
