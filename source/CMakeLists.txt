@@ -4,6 +4,8 @@ add_subdirectory(core)
 add_subdirectory(render)
 add_subdirectory(util)
 
+add_subdirectory(shaders)
+
 set(TARGET_NAME game_engine)
 
 set(SRC_FILES main.cpp)
@@ -31,3 +33,5 @@ target_link_libraries(
         opengl_lib
         util_lib
 )
+
+install(TARGETS ${TARGET_NAME} DESTINATION bin)

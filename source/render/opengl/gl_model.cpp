@@ -12,8 +12,8 @@ GlModel::~GlModel() {
 }
 
 void GlModel::Initialize() {
-    std::string vertex_shader = "Assets/Shaders/SimpleVertexShader.vert";
-    std::string fragment_shader = "Assets/Shaders/SimpleFragmentShader.frag";
+    std::string vertex_shader = "shaders/SimpleVertexShader.vert";
+    std::string fragment_shader = "shaders/SimpleFragmentShader.frag";
 
     shader_program_ = LoadShaders(vertex_shader, fragment_shader);
 
