@@ -8,9 +8,6 @@
 
 int main(int argc, char* argv[]) {
     UNUSED(argc); UNUSED(argv);
-    SDL_Init(0);
-
-    srand((unsigned int)time(NULL));
 
     App3D* app = new App3D();
     if (!app->Initialize()) {
@@ -24,8 +21,6 @@ int main(int argc, char* argv[]) {
         delete app;
         app = nullptr;
     }
-
-    SDL_Quit();
 
     return 0;
 }

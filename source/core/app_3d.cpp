@@ -40,9 +40,15 @@ App3D::~App3D() {
         delete input_device_;
         input_device_ = nullptr;
     }
+
+    SDL_Quit();
 }
 
 bool App3D::Initialize() {
+    SDL_Init(0);
+
+    srand((unsigned int)time(NULL));
+
     uint32 screen_width = 800;
     uint32 screen_height = 600;
 
