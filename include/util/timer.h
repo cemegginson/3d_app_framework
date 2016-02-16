@@ -9,7 +9,6 @@ class Timer {
 private:
     static Timer* instance_;
 
-    // The clock time when the timer started
     std::chrono::high_resolution_clock::time_point previous_time_;
     std::chrono::high_resolution_clock::time_point current_time_;
 
