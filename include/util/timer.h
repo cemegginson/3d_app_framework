@@ -27,7 +27,7 @@ public:
     Timer(Timer const&) = delete;
     void operator=(Timer const&) = delete;
 
-    const float32 delta_time() const;
+    float32 delta_time() const;
 };
 
 typedef std::shared_ptr<Timer> TimerPtr;
