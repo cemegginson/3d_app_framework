@@ -6,11 +6,10 @@
 
 class Camera {
 protected:
-    
+
 
 public:
-    // virtual Camera() = 0;
-    // virtual ~Camera() = 0;
+    virtual ~Camera() {}
     virtual bool Initialize(InputDevice*) = 0;
     virtual void Update() = 0;
 };
