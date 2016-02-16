@@ -10,9 +10,10 @@ private:
     static Timer* instance_;
 
     // The clock time when the timer started
-    std::chrono::high_resolution_clock::time_point start_ticks_;
+    std::chrono::high_resolution_clock::time_point previous_time_;
+    std::chrono::high_resolution_clock::time_point current_time_;
 
-    float32 delta_time_;
+    float64 delta_time_;
 
     Timer();
     ~Timer();
@@ -27,7 +28,7 @@ public:
     Timer(Timer const&) = delete;
     void operator=(Timer const&) = delete;
 
-    float32 delta_time() const;
+    float64 delta_time() const;
 };
 
 typedef std::shared_ptr<Timer> TimerPtr;
