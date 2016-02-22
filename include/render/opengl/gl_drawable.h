@@ -27,6 +27,6 @@ public:
     ~GlDrawable();
 
     void Initialize(OpenGLRenderer*, GlModel*);
-    void Update();
+    void Update() override;
     void Draw(glm::mat4);
 };
