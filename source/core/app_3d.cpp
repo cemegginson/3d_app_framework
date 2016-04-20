@@ -99,34 +99,6 @@ void App3D::Reset() {
 }
 
 bool App3D::LoadLevel(std::string file) {
-    // pugi::xml_document doc;
-    // pugi::xml_parse_result result = doc.load_file(file.c_str());
-    // if (result) {
-    //     pugi::xml_node Level = doc.child("Level");
-    //
-    //     // Loop through Actor XML nodes
-    //     for (pugi::xml_node actor_node : Level.children("Actor")) {
-    //         std::string name = actor_node.attribute("name").value();
-    //         bool controllable = std::stoi(actor_node.attribute("controllable").value());
-    //
-    //         Vector2 position;
-    //         position.x = std::stof(actor_node.attribute("x").value());
-    //         position.y = std::stof(actor_node.attribute("y").value());
-    //         float32 angle = std::stof(actor_node.attribute("angle").value());
-    //
-    //         Actor* new_actor = new Actor();
-    //         new_actor->Initialize(name, position, angle, controllable);
-    //
-    //         // Loop through Component XML nodes
-    //         for (pugi::xml_node component_node : actor_node.children("Component")) {
-    //             std::string type = component_node.attribute("type").value();
-    //             Component* new_component = reinterpret_cast<Component*>(component_factories_->Search(type)->Create(new_actor, component_node));
-    //             new_actor->AddComponent(new_component);
-    //         }
-    //         actors_.push_back(new_actor);
-    //     }
-    // }
-
     Actor* new_actor = new Actor();
     // new_actor->Initialize("cube")
     std::string model = "cube";
