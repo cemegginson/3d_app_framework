@@ -9,3 +9,4 @@ bin/
 *.pdb
 *~
 *.trace
+compile_commands.json
